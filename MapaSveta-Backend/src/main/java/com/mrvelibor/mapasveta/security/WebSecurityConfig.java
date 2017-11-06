@@ -40,11 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
             .ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/app/**")
                 .antMatchers("/*.{js}")
                 .antMatchers("/*.{map}")
                 .antMatchers("/assets/**")
-                .antMatchers("*.{ico}")
-                .antMatchers("/index.{html}");
+                .antMatchers("*.{ico}");
     }
 
     @Override
