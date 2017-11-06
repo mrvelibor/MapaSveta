@@ -31,22 +31,22 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
 
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) req;
-        final HttpServletResponse response = (HttpServletResponse) res;
 
-        if ("OPTIONS".equals(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            final String authHeader = request.getHeader(tokenHeader);
-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                final String authToken = authHeader.substring(7);
-                String username = this.tokenUtils.getUsernameFromToken(authToken);
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = this.userService.loadUserByUsername(username);
-                    if (this.tokenUtils.validateToken(authToken, userDetails)) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
+//        if ("OPTIONS".equals(request.getMethod())) {
+//            final HttpServletResponse response = (HttpServletResponse) res;
+//            response.setStatus(HttpServletResponse.SC_OK);
+//        }
+
+        final String authHeader = request.getHeader(tokenHeader);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            final String authToken = authHeader.substring(7);
+            String username = this.tokenUtils.getUsernameFromToken(authToken);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.userService.loadUserByUsername(username);
+                if (this.tokenUtils.validateToken(authToken, userDetails)) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }

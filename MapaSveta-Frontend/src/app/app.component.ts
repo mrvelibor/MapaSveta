@@ -1,26 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import {environment} from "../environments/environment";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+import {User} from './model/user';
+import {AuthenticationService} from './services/rest/authentication.service';
+import {Router} from '@angular/router';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'app';
-  url;
-  map;
+export class AppComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
+  currentUser: User;
 
-  constructor() {
-    this.url = environment.apiUrl;
+  url = environment.apiUrl;
+
+  constructor(private authService: AuthenticationService,
+              private router: Router) {
   }
 
   ngOnInit() {
-    var props = {
-      center: new google.maps.LatLng(51.508742, -0.120850),
-      zoom: 5,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    this.map = new google.maps.Map(document.getElementById('map'), props);
+    this.subscription = this.authService.user$.subscribe(user => this.currentUser = user);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  auth() {
+    this.authService.auth()
+      .subscribe(
+        data => {
+          console.log(JSON.stringify(data));
+        });
   }
 }
