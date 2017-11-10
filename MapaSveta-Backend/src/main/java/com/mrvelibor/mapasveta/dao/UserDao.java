@@ -1,6 +1,6 @@
 package com.mrvelibor.mapasveta.dao;
 
-import com.mrvelibor.mapasveta.model.User;
+import com.mrvelibor.mapasveta.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

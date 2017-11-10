@@ -1,4 +1,4 @@
-package com.mrvelibor.mapasveta.model;
+package com.mrvelibor.mapasveta.model.user;
 
 import java.util.Collection;
 import java.util.Date;

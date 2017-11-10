@@ -1,6 +1,6 @@
 package com.mrvelibor.mapasveta.security;
 
-import com.mrvelibor.mapasveta.model.User;
+import com.mrvelibor.mapasveta.model.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

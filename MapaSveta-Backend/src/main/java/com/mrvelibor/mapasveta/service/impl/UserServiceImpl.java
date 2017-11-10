@@ -1,7 +1,7 @@
 package com.mrvelibor.mapasveta.service.impl;
 
 import com.mrvelibor.mapasveta.dao.UserDao;
-import com.mrvelibor.mapasveta.model.User;
+import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

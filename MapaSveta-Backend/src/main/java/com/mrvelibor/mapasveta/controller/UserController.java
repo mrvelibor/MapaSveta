@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 
 import com.mrvelibor.mapasveta.security.TokenUtils;
-import com.mrvelibor.mapasveta.model.User;
+import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.model.json.AuthenticationRequest;
 import com.mrvelibor.mapasveta.model.json.AuthenticationResponse;
 import com.mrvelibor.mapasveta.service.UserService;
