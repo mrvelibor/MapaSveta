@@ -1,4 +1,4 @@
-package com.mrvelibor.mapasveta.controller;
+package com.mrvelibor.mapasveta.controller.rest;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
-public class UserController {
+public class AuthenticationController {
 
     @Value("Authorization")
     private String tokenHeader;
@@ -65,7 +65,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> authenticationRequest(@RequestBody AuthenticationRequest authenticationRequest) throws AuthenticationException {
         Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
