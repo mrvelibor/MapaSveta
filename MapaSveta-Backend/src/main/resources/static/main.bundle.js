@@ -117,14 +117,14 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_rest_authentication_service__ = __webpack_require__("../../../../../src/app/services/rest/authentication.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_alert_service__ = __webpack_require__("../../../../../src/app/services/alert.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_overlay_service__ = __webpack_require__("../../../../../src/app/services/overlay.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__component_home_component_home_component__ = __webpack_require__("../../../../../src/app/component/home-component/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__component_login_component_login_component__ = __webpack_require__("../../../../../src/app/component/login-component/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_home_component_home_component__ = __webpack_require__("../../../../../src/app/components/home-component/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_login_component_login_component__ = __webpack_require__("../../../../../src/app/components/login-component/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_routing__ = __webpack_require__("../../../../../src/app/app.routing.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__directives_alert_component__ = __webpack_require__("../../../../../src/app/directives/alert.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__directives_overlay_component__ = __webpack_require__("../../../../../src/app/directives/overlay.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__component_register_component_register_component__ = __webpack_require__("../../../../../src/app/component/register-component/register.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_register_component_register_component__ = __webpack_require__("../../../../../src/app/components/register-component/register.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -157,9 +157,9 @@ AppModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__component_home_component_home_component__["a" /* HomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__component_login_component_login_component__["a" /* LoginComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__component_register_component_register_component__["a" /* RegisterComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__components_home_component_home_component__["a" /* HomeComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__components_login_component_login_component__["a" /* LoginComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__components_register_component_register_component__["a" /* RegisterComponent */],
             __WEBPACK_IMPORTED_MODULE_14__directives_alert_component__["a" /* AlertComponent */],
             __WEBPACK_IMPORTED_MODULE_15__directives_overlay_component__["a" /* OverlayComponent */]
         ],
@@ -192,17 +192,17 @@ AppModule = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routing; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__component_home_component_home_component__ = __webpack_require__("../../../../../src/app/component/home-component/home.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component_login_component_login_component__ = __webpack_require__("../../../../../src/app/component/login-component/login.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__component_register_component_register_component__ = __webpack_require__("../../../../../src/app/component/register-component/register.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_home_component_home_component__ = __webpack_require__("../../../../../src/app/components/home-component/home.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_login_component_login_component__ = __webpack_require__("../../../../../src/app/components/login-component/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_register_component_register_component__ = __webpack_require__("../../../../../src/app/components/register-component/register.component.ts");
 
 
 
 
 var appRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__component_home_component_home_component__["a" /* HomeComponent */] },
-    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__component_login_component_login_component__["a" /* LoginComponent */] },
-    { path: 'register', component: __WEBPACK_IMPORTED_MODULE_3__component_register_component_register_component__["a" /* RegisterComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_1__components_home_component_home_component__["a" /* HomeComponent */] },
+    { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__components_login_component_login_component__["a" /* LoginComponent */] },
+    { path: 'register', component: __WEBPACK_IMPORTED_MODULE_3__components_register_component_register_component__["a" /* RegisterComponent */] },
     { path: '**', redirectTo: '' }
 ];
 var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(appRoutes);
@@ -210,14 +210,14 @@ var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule 
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/home-component/home.component.html":
+/***/ "../../../../../src/app/components/home-component/home.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "<div id=\"map\"></div>\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/home-component/home.component.scss":
+/***/ "../../../../../src/app/components/home-component/home.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -235,7 +235,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/home-component/home.component.ts":
+/***/ "../../../../../src/app/components/home-component/home.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -276,8 +276,8 @@ var HomeComponent = (function () {
 }());
 HomeComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-        template: __webpack_require__("../../../../../src/app/component/home-component/home.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/component/home-component/home.component.scss")]
+        template: __webpack_require__("../../../../../src/app/components/home-component/home.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/home-component/home.component.scss")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_rest_authentication_service__["a" /* AuthenticationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_rest_authentication_service__["a" /* AuthenticationService */]) === "function" && _a || Object])
 ], HomeComponent);
@@ -287,14 +287,14 @@ var _a;
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/login-component/login.component.html":
+/***/ "../../../../../src/app/components/login-component/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"form\">\n  <form class=\"login-form\" name=\"form\" (ngSubmit)=\"f.form.valid && login()\" #f=\"ngForm\" novalidate>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !username.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"username\" id=\"username-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"models.username\" #username=\"ngModel\" placeholder=\"Korisničko ime\" required/>\n      <p *ngIf=\"!loading class=\"message\">Korisničko ime je obavezno.</p>\n      <p *ngIf=\"!loading class=\"message\">Korisničko ime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !password.valid }\">\n      <input type=\"password\" class=\"form-control\" name=\"password\" id=\"password-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"models.password\" #password=\"ngModel\" placeholder=\"Šifra\" validateNospace/>\n      <p *ngIf=\"!loading class=\"message\">Šifra sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\">\n      <button [disabled]=\"loading\" class=\"btn btn-primary\" id=\"login-button\">Uloguj se</button>\n      <img *ngIf=\"loading\" src=\"/assets/spinner32.svg\"/>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<div class=\"form\">\n  <form class=\"login-form\" name=\"form\" (ngSubmit)=\"f.form.valid && login()\" #f=\"ngForm\" novalidate>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !username.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"username\" id=\"username-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"model.username\" #username=\"ngModel\" placeholder=\"Korisničko ime\" required/>\n      <p *ngIf=\"!loading && f.submitted && !model.username\" class=\"message\">Korisničko ime je obavezno.</p>\n      <p *ngIf=\"!loading && model.username && !username.valid\" class=\"message\">Korisničko ime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !password.valid }\">\n      <input type=\"password\" class=\"form-control\" name=\"password\" id=\"password-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"model.password\" #password=\"ngModel\" placeholder=\"Šifra\" validateNospace/>\n      <p *ngIf=\"!loading && model.password && !password.valid\" class=\"message\">Šifra sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\">\n      <button [disabled]=\"loading\" class=\"btn btn-primary\" id=\"login-button\">Uloguj se</button>\n      <img *ngIf=\"loading\" src=\"/assets/spinner32.svg\"/>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/login-component/login.component.scss":
+/***/ "../../../../../src/app/components/login-component/login.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -312,7 +312,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/login-component/login.component.ts":
+/***/ "../../../../../src/app/components/login-component/login.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -360,8 +360,8 @@ var LoginComponent = (function () {
 LoginComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-login',
-        template: __webpack_require__("../../../../../src/app/component/login-component/login.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/component/login-component/login.component.scss")]
+        template: __webpack_require__("../../../../../src/app/components/login-component/login.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/login-component/login.component.scss")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_rest_authentication_service__["a" /* AuthenticationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_rest_authentication_service__["a" /* AuthenticationService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_alert_service__["a" /* AlertService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_alert_service__["a" /* AlertService */]) === "function" && _c || Object])
 ], LoginComponent);
@@ -371,14 +371,14 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/register-component/register.component.html":
+/***/ "../../../../../src/app/components/register-component/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"form\">\n  <form class=\"login-form\" name=\"form\" (ngSubmit)=\"f.form.valid && register()\" #f=\"ngForm\" novalidate>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !firstName.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"firstName\" id=\"firstName-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"models.firstName\" #firstName=\"ngModel\" placeholder=\"Ime\" required/>\n      <p *ngIf=\"!loading class=\"message\">Ime je obavezno.</p>\n      <p *ngIf=\"!loading class=\"message\">Ime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !lastName.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"lastName\" id=\"lastName-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"models.lastName\" #lastName=\"ngModel\" placeholder=\"Prezime\" required/>\n      <p *ngIf=\"!loading class=\"message\">Prezime je obavezno.</p>\n      <p *ngIf=\"!loading class=\"message\">Prezime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !username.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"username\" id=\"username-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"models.username\" #username=\"ngModel\" placeholder=\"Korisničko ime\" required/>\n      <p *ngIf=\"!loading class=\"message\">Korisničko ime je obavezno.</p>\n      <p *ngIf=\"!loading class=\"message\">Korisničko ime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !password.valid }\">\n      <input type=\"password\" class=\"form-control\" name=\"password\" id=\"password-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"models.password\" #password=\"ngModel\" placeholder=\"Šifra\" validateNospace/>\n      <p *ngIf=\"!loading class=\"message\">Šifra sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\">\n      <button [disabled]=\"loading\" class=\"btn btn-primary\" id=\"login-button\">Uloguj se</button>\n      <img *ngIf=\"loading\" src=\"/assets/spinner32.svg\"/>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<div class=\"form\">\n  <form class=\"login-form\" name=\"form\" (ngSubmit)=\"f.form.valid && register()\" #f=\"ngForm\" novalidate>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !firstName.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"firstName\" id=\"firstName-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"model.firstName\" #firstName=\"ngModel\" placeholder=\"Ime\" required/>\n      <p *ngIf=\"!loading && f.submitted && !model.firstName\" class=\"message\">Ime je obavezno.</p>\n      <p *ngIf=\"!loading && model.firstName && !firstName.valid\" class=\"message\">Ime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !lastName.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"lastName\" id=\"lastName-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"model.lastName\" #lastName=\"ngModel\" placeholder=\"Prezime\" required/>\n      <p *ngIf=\"!loading && f.submitted && !model.lastName\" class=\"message\">Prezime je obavezno.</p>\n      <p *ngIf=\"!loading && model.lastName && !lastName.valid\" class=\"message\">Prezime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !username.valid }\">\n      <input type=\"text\" class=\"form-control\" name=\"username\" id=\"username-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"model.username\" #username=\"ngModel\" placeholder=\"Korisničko ime\" required/>\n      <p *ngIf=\"!loading && f.submitted && !model.username\" class=\"message\">Korisničko ime je obavezno.</p>\n      <p *ngIf=\"!loading && model.username && !username.valid\" class=\"message\">Korisničko ime sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\" [ngClass]=\"{ 'has-error': !loading && f.submitted && !password.valid }\">\n      <input type=\"password\" class=\"form-control\" name=\"password\" id=\"password-field\" [disabled]=\"loading\"\n             [(ngModel)]=\"model.password\" #password=\"ngModel\" placeholder=\"Šifra\" validateNospace/>\n      <p *ngIf=\"!loading && model.password && !password.valid\" class=\"message\">Šifra sadrži nedozvoljene znakove.</p>\n    </div>\n    <div class=\"form-group\">\n      <button [disabled]=\"loading\" class=\"btn btn-primary\" id=\"login-button\">Uloguj se</button>\n      <img *ngIf=\"loading\" src=\"/assets/spinner32.svg\"/>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/register-component/register.component.scss":
+/***/ "../../../../../src/app/components/register-component/register.component.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -396,7 +396,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/component/register-component/register.component.ts":
+/***/ "../../../../../src/app/components/register-component/register.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -444,8 +444,8 @@ var RegisterComponent = (function () {
 RegisterComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-register',
-        template: __webpack_require__("../../../../../src/app/component/register-component/register.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/component/register-component/register.component.scss")]
+        template: __webpack_require__("../../../../../src/app/components/register-component/register.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/register-component/register.component.scss")]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_rest_authentication_service__["a" /* AuthenticationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_rest_authentication_service__["a" /* AuthenticationService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_alert_service__["a" /* AlertService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_alert_service__["a" /* AlertService */]) === "function" && _c || Object])
 ], RegisterComponent);
