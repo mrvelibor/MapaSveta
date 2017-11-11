@@ -10,12 +10,13 @@ import {AlertService} from './services/alert.service';
 import {OverlayService} from './services/overlay.service';
 import {HomeComponent} from './components/home-component/home.component';
 import {LoginComponent} from './components/login-component/login.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {routing} from './app.routing';
 import {AlertComponent} from './directives/alert.component';
 import {OverlayComponent} from './directives/overlay.component';
 import {RegisterComponent} from './components/register-component/register.component';
+import {MapaSvetaMaterialModule} from './mapa-sveta-material.module';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,11 @@ import {RegisterComponent} from './components/register-component/register.compon
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     JsonpModule,
-    routing
+    routing,
+    MapaSvetaMaterialModule
   ],
   providers: [
     AdminGuard,
