@@ -1,5 +1,5 @@
 ﻿import {Component, OnInit} from '@angular/core';
-import {OverlayService} from '../services/overlay.service';
+import {OverlayService} from './overlay.service';
 
 @Component({
   selector: 'app-overlay',
