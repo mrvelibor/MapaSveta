@@ -28,7 +28,7 @@
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
-           [(ngModel)]="model.password" >
+           [(ngModel)]="model.password" type="password">
     <mat-hint>Sifra koju cete koristiti za pristup.</mat-hint>
     <mat-error *ngIf="passwordFormControl.hasError('minlength')">
       Sifra mora da sadrzi najmanje 8 karaktera.
