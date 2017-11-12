@@ -6,7 +6,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "compile": "ng build --env=prod --output-path=../MapaSveta-Backend/src/main/resources/static",
+    "build dev": "ng build --output-path=../MapaSveta-Backend/src/main/resources/static",
+    "build prod": "ng build --env=prod --output-path=../MapaSveta-Backend/src/main/resources/static",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
