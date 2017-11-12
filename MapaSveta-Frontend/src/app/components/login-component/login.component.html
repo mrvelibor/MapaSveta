@@ -1,26 +1,22 @@
 ﻿<form class="example-form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-           [(ngModel)]="model.username" >
-    <mat-hint>Your email address will be used for login.</mat-hint>
+           [(ngModel)]="model.email" >
+    <mat-hint>Imejl adresa koju cete koristiti za pristup.</mat-hint>
     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-      Please enter a valid email address
+      Molimo unestie validnu imejl adresu.
     </mat-error>
     <mat-error *ngIf="emailFormControl.hasError('required')">
-      Email is <strong>required</strong>
+      Imejl adresa je <strong>obavezna</strong>.
     </mat-error>
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
            [(ngModel)]="model.password" >
-    <mat-hint>Please enter a secure password.</mat-hint>
-    <mat-error *ngIf="passwordFormControl.hasError('min(8)') && !passwordFormControl.hasError('required')">
-      Password must be at least 8 characters long
-    </mat-error>
-    <mat-error *ngIf="passwordFormControl.hasError('required')">
-      Password is <strong>required</strong>
+    <mat-hint>Sifra koju cete koristiti za pristup.</mat-hint>
+    <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+      Sifra mora da sadrzi najmanje 8 karaktera.
     </mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="loading">Uloguj se</button>
-  <mat-spinner *ngIf="loading"></mat-spinner>
+  <button mat-raised-button color="primary" [disabled]="loading">Registruj se</button>
 </form>

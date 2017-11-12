@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {AlertService} from '../../services/alert/alert.service';
 import {FormInputMatcher} from '../../directives/form-input.matcher';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {LoaderService} from '../../services/loader/loader.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent {
 
   passwordFormControl = new FormControl('', [
     Validators.required,
-    Validators.min(8),
+    Validators.minLength(8),
   ]);
 
   matcher = new FormInputMatcher();
@@ -30,7 +30,7 @@ export class LoginComponent {
   loading: boolean;
 
   constructor(private router: Router,
-              private loginService: AuthenticationService,
+              private authenticationService: AuthenticationService,
               private alertService: AlertService,
               private loaderService: LoaderService) {
   }
@@ -39,7 +39,7 @@ export class LoginComponent {
     this.loading = true;
     this.loaderService.showIndeterminate();
     this.alertService.clearMessage();
-    this.loginService.login(this.model)
+    this.authenticationService.login(this.model)
       .subscribe(
         data => {
           console.log(data);
