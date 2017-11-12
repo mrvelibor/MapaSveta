@@ -67,12 +67,12 @@ public class AuthenticationController {
     public ResponseEntity<?> authenticationRequest(@RequestBody AuthenticationRequest authenticationRequest) throws AuthenticationException {
         Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.username,
+                        authenticationRequest.email,
                         authenticationRequest.password
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        AuthenticationResponse response = getAuthenticationResponse(authenticationRequest.username);
+        AuthenticationResponse response = getAuthenticationResponse(authenticationRequest.email);
         return ResponseEntity.ok(response);
     }
 
@@ -82,7 +82,7 @@ public class AuthenticationController {
         String password = user.getPassword();
 
         if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
-            throw new ServletException("Please fill in username and password");
+            throw new ServletException("Please fill in email and password");
         }
 
         AuthenticationRequest authenticationRequest = new AuthenticationRequest(user.getUsername(), user.getPassword());

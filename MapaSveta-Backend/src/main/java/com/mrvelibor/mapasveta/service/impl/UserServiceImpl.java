@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loadUserByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userDao.findByEmail(username);
     }
 
 }

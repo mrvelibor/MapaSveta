@@ -20,7 +20,7 @@
   <a [routerLink]="['/register']">Register</a>
 </p>
 <p *ngIf="currentUser">
-  <a>{{currentUser.username}}</a>
+  <a>{{currentUser.email}}</a>
   <a (click)="logout()">Logout</a>
 </p>
 

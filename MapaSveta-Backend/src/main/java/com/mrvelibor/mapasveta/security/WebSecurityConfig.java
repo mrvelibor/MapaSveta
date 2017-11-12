@@ -71,8 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .jdbcAuthentication()
-                .usersByUsernameQuery("select username, password, 1 from user where username=?")
-                .authoritiesByUsernameQuery("select username, 'ROLE_USER' from user where username=?")
+                .usersByUsernameQuery("select email, password, 1 from user where email=?")
+                .authoritiesByUsernameQuery("select email, 'ROLE_USER' from user where email=?")
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }

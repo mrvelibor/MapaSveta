@@ -19,7 +19,7 @@ public class User implements UserDetails {
 
     private String lastName;
 
-    private String username;
+    private String email;
 
     private String password;
 
@@ -55,11 +55,15 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
