@@ -1,15 +1,15 @@
 package com.mrvelibor.mapasveta.model.user;
 
-import java.util.Collection;
-import java.util.Date;
-import javax.persistence.*;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Date;
 
 @Entity
 public class User implements UserDetails {
