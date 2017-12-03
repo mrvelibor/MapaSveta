@@ -8,31 +8,31 @@ import java.math.BigDecimal;
 @Embeddable
 @Access(AccessType.FIELD)
 public class LatLng {
-    private BigDecimal latitude;
+    private BigDecimal lat;
 
-    private BigDecimal longitude;
+    private BigDecimal lng;
 
     public LatLng() {
     }
 
-    public LatLng(BigDecimal latitude, BigDecimal longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public LatLng(BigDecimal lat, BigDecimal lng) {
+        this.lat = lat;
+        this.lng = lng;
     }
 
-    public BigDecimal getLatitude() {
-        return latitude;
+    public BigDecimal getLat() {
+        return lat;
     }
 
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
+    public void setLat(BigDecimal lat) {
+        this.lat = lat;
     }
 
-    public BigDecimal getLongitude() {
-        return longitude;
+    public BigDecimal getLng() {
+        return lng;
     }
 
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
+    public void setLng(BigDecimal lng) {
+        this.lng = lng;
     }
 }

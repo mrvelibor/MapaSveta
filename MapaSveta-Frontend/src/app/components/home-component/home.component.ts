@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {User} from '../../models/user';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
+import {MapService} from '../../services/rest/map.service';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   map;
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService,
+              private mapService: MapService) {
   }
 
   ngOnInit() {
@@ -33,5 +35,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  loadCities() {
+    this.mapService.getCities().subscribe(
+      cities => {
+        console.log(cities);
+        if (cities) {
+          cities.forEach(city => {
+            let marker = new google.maps.Marker({
+              position: city.location,
+              map: this.map,
+              title: city.name
+            });
+          });
+        }
+      }
+    );
   }
 }

@@ -34,10 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   auth() {
-    this.authService.auth()
-      .subscribe(
-        data => {
-          console.log(JSON.stringify(data));
-        });
+    this.authService.auth().subscribe(
+      data => {
+        console.log(JSON.stringify(data));
+      }
+    );
   }
 }

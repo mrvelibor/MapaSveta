@@ -19,6 +19,7 @@ import {RegisterComponent} from './components/register-component/register.compon
 import {MapaSvetaMaterialModule} from './mapa-sveta-material.module';
 import {LoaderComponent} from './services/loader/loader.component';
 import {LoaderService} from './services/loader/loader.service';
+import {MapService} from './services/rest/map.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {LoaderService} from './services/loader/loader.service';
     AuthGuard,
     RestService,
     AuthenticationService,
+    MapService,
     AlertService,
     OverlayService,
     LoaderService

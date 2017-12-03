@@ -35,7 +35,7 @@ public class MapasvetaInit {
         City cityBelgrade = new City();
         cityBelgrade.setName("Belgrade");
         cityBelgrade.setCountry(countrySerbia);
-        cityBelgrade.setLocation(new LatLng(new BigDecimal("10.1"), new BigDecimal("11.2")));
+        cityBelgrade.setLocation(new LatLng(new BigDecimal("44.816667"), new BigDecimal("20.466667")));
         cityBelgrade = cityDao.save(cityBelgrade);
         LOG.info("Saved: " + cityBelgrade);
     }
