@@ -1,10 +1,10 @@
 ﻿import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
-import {AlertService} from '../../services/alert/alert.service';
+import {AlertService} from '../../services/ui/alert/alert.service';
 import {FormInputMatcher} from '../../directives/form-input.matcher';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {LoaderService} from '../../services/loader/loader.service';
+import {LoaderService} from '../../services/ui/loader/loader.service';
 
 @Component({
   selector: 'app-login',
