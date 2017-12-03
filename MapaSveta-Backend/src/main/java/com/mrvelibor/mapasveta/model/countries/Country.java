@@ -1,5 +1,6 @@
 package com.mrvelibor.mapasveta.model.countries;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +13,7 @@ public class Country {
     @Column(unique = true)
     private String countryCode;
 
-    private String countryName;
+    private String name;
 
     private String diallingCode;
 
@@ -34,12 +35,12 @@ public class Country {
         this.countryCode = countryCode;
     }
 
-    public String getCountryName() {
-        return countryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDiallingCode() {
