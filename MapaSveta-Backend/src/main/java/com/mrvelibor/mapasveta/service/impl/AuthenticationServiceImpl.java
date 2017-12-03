@@ -43,8 +43,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return claims;
     }
 
-    private AuthenticationResponse createAuthenticationResponse(String username) {
+    private AuthenticationResponse createAuthenticationResponse(String username) throws AuthenticationException {
         UserDetails userDetails = userService.loadUserByUsername(username);
+        if (userDetails == null) {
+            throw new AuthenticationCredentialsNotFoundException("Not logged in.");
+        }
         Map<String, Object> claims = createClaims(userDetails.getUsername());
         String token = tokenUtils.generateToken(claims);
         return new AuthenticationResponse(token, userDetails);
@@ -53,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public AuthenticationResponse auth() throws AuthenticationException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             throw new AuthenticationCredentialsNotFoundException("Not logged in.");
         }
         return createAuthenticationResponse(authentication.getName());
