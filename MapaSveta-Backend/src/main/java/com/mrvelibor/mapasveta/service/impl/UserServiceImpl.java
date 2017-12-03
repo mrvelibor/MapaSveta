@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserDao userDao;
 
@@ -21,5 +20,4 @@ public class UserServiceImpl implements UserService {
     public User loadUserByUsername(String username) {
         return userDao.findByEmail(username);
     }
-
 }

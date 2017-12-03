@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/cities")
 public class CityRestController {
-
     @Autowired
     private CityService cityService;
 

@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
-
     @Value("Authorization")
     private String tokenHeader;
 
@@ -99,5 +98,4 @@ public class AuthenticationController {
         claims.put("created", new Date());
         return claims;
     }
-
 }
