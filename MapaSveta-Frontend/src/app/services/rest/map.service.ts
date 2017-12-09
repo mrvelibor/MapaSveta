@@ -2,6 +2,7 @@ import {RestService} from './rest.service';
 import {environment} from '../../../environments/environment';
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
+import {Country} from '../../models/countries/country';
 
 @Injectable()
 export class MapService extends RestService {
@@ -15,6 +16,22 @@ export class MapService extends RestService {
     let options = RestService.options();
     return this.http.get(
       `${MapService.HOST}/countries`,
+      options
+    ).map(res => res.json());
+  }
+
+  getGeoJson(country: Country) {
+    let options = RestService.options();
+    return this.http.get(
+      `${MapService.HOST}/res/country-maps/${country.countryCode3.toLowerCase()}.geo.json`,
+      options
+    ).map(res => res.json());
+  }
+
+  getFlag(country: Country) {
+    let options = RestService.options();
+    return this.http.get(
+      `${MapService.HOST}/res/country-flags/${country.countryCode3.toLowerCase()}.svg`,
       options
     ).map(res => res.json());
   }

@@ -3,6 +3,8 @@ import {User} from '../../models/user/user';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {MapService} from '../../services/rest/map.service';
+import {Country} from '../../models/countries/country';
+import {environment} from '../../../environments/environment';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -49,6 +51,31 @@ export class HomeComponent implements OnInit, OnDestroy {
               title: city.name
             });
           });
+        }
+      }
+    );
+    this.loadCountries();
+  }
+
+  loadCountries() {
+    this.mapService.getCountries().subscribe(
+      countries => {
+        console.log(countries);
+        if (countries) {
+          countries.forEach(country => {
+            this.loadCountryMap(country);
+          });
+        }
+      }
+    );
+  }
+
+  loadCountryMap(country: Country) {
+    this.mapService.getGeoJson(country).subscribe(
+      geoJson => {
+        console.log(geoJson);
+        if (geoJson) {
+          this.map.data.addGeoJson(geoJson);
         }
       }
     );
