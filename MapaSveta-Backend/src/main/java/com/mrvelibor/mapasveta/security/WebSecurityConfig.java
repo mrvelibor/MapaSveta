@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*.{js}")
                 .antMatchers("/*.{map}")
                 .antMatchers("/assets/**")
+                .antMatchers("/res/**")
                 .antMatchers("*.{ico}");
     }
 

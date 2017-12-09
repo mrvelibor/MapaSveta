@@ -44,8 +44,9 @@ public class MapasvetaInit {
         LOG.info("Saved: " + user);
 
         Country countrySerbia = new Country();
-        countrySerbia.setCountryCode("RS");
-        countrySerbia.setName("Serbia");
+        countrySerbia.setCountryCode2("RS");
+        countrySerbia.setCountryCode3("SRB");
+        countrySerbia.setCommonName("Serbia");
         countrySerbia.setDiallingCode("+381");
         countrySerbia = countryDao.save(countrySerbia);
         LOG.info("Saved: " + countrySerbia);
