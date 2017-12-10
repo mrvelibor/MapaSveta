@@ -4,7 +4,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {MapService} from '../../services/rest/map.service';
 import {Country} from '../../models/countries/country';
-import {environment} from '../../../environments/environment';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -14,7 +13,10 @@ import {environment} from '../../../environments/environment';
 export class HomeComponent implements OnInit, OnDestroy {
   currentUser: User;
   subscription: Subscription;
+
   map;
+
+  countries: Country[];
 
   constructor(private authService: AuthenticationService,
               private mapService: MapService) {
@@ -33,6 +35,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(document.getElementById('map'), props);
+
+    this.loadCountries();
+    this.loadCities();
   }
 
   ngOnDestroy() {
@@ -54,24 +59,28 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     );
-    this.loadCountries();
   }
 
   loadCountries() {
     this.mapService.getCountries().subscribe(
       countries => {
         console.log(countries);
-        if (countries) {
-          countries.forEach(country => {
-            this.loadCountryMap(country);
-          });
-        }
+        this.countries = countries;
       }
     );
   }
 
-  loadCountryMap(country: Country) {
-    this.mapService.getGeoJson(country).subscribe(
+  loadCountryMaps(size: string) {
+    this.map.data.forEach(feature => {
+      this.map.data.remove(feature);
+    });
+    this.countries.forEach(country => {
+      this.loadCountryMap(country, size);
+    });
+  }
+
+  loadCountryMap(country: Country, size: string) {
+    this.mapService.getGeoJson(country, size).subscribe(
       geoJson => {
         console.log(geoJson);
         if (geoJson) {

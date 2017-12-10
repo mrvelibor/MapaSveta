@@ -51,12 +51,32 @@ public class MapasvetaInit {
         countrySerbia = countryDao.save(countrySerbia);
         LOG.info("Saved: " + countrySerbia);
 
+        Country countryBiH = new Country();
+        countryBiH.setCountryCode2("BH");
+        countryBiH.setCountryCode3("BIH");
+        countryBiH.setCommonName("Bosnia & Herzegovina");
+        countryBiH.setDiallingCode("+385");
+        countryBiH = countryDao.save(countryBiH);
+        LOG.info("Saved: " + countryBiH);
+
+        Country countryCroatia = new Country();
+        countryCroatia.setCountryCode2("HR");
+        countryCroatia.setCountryCode3("HRV");
+        countryCroatia.setCommonName("Croatia");
+        countryCroatia.setDiallingCode("+382");
+        countryCroatia = countryDao.save(countryCroatia);
+        LOG.info("Saved: " + countryCroatia);
+
         City cityBelgrade = new City();
         cityBelgrade.setName("Belgrade");
         cityBelgrade.setCountry(countrySerbia);
         cityBelgrade.setLocation(new LatLng(new BigDecimal("44.816667"), new BigDecimal("20.466667")));
         cityBelgrade = cityDao.save(cityBelgrade);
         LOG.info("Saved: " + cityBelgrade);
+
+//        countrySerbia.setCapital(cityBelgrade);
+//        countrySerbia = countryDao.save(countrySerbia);
+//        LOG.info("Saved: " + countrySerbia);
 
         Recommendation recommendation = new Recommendation();
         recommendation.setDescription("Banja");

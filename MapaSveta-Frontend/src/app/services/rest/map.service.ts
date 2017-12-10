@@ -20,10 +20,13 @@ export class MapService extends RestService {
     ).map(res => res.json());
   }
 
-  getGeoJson(country: Country) {
+  getGeoJson(country: Country, size: string) {
+    if (!size) {
+      size = 'original';
+    }
     let options = RestService.options();
     return this.http.get(
-      `${MapService.HOST}/res/country-maps/${country.countryCode3.toLowerCase()}.geo.json`,
+      `${MapService.HOST}/res/country-maps/${size}/${country.countryCode3.toLowerCase()}.geo.json`,
       options
     ).map(res => res.json());
   }
