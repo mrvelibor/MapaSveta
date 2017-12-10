@@ -1,7 +1,6 @@
 package com.mrvelibor.mapasveta;
 
 import com.mrvelibor.mapasveta.dao.CityDao;
-import com.mrvelibor.mapasveta.dao.CountryDao;
 import com.mrvelibor.mapasveta.dao.RecommendationDao;
 import com.mrvelibor.mapasveta.model.common.LatLng;
 import com.mrvelibor.mapasveta.model.countries.City;
@@ -9,6 +8,7 @@ import com.mrvelibor.mapasveta.model.countries.Country;
 import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
 import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.AuthenticationService;
+import com.mrvelibor.mapasveta.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class MapasvetaInit {
     private AuthenticationService authenticationService;
 
     @Autowired
-    private CountryDao countryDao;
+    private CountryService countryService;
 
     @Autowired
     private CityDao cityDao;
@@ -48,7 +48,7 @@ public class MapasvetaInit {
         countrySerbia.setCountryCode3("SRB");
         countrySerbia.setCommonName("Serbia");
         countrySerbia.setDiallingCode("+381");
-        countrySerbia = countryDao.save(countrySerbia);
+        countrySerbia = countryService.createCountry(countrySerbia);
         LOG.info("Saved: " + countrySerbia);
 
         Country countryBiH = new Country();
@@ -56,7 +56,7 @@ public class MapasvetaInit {
         countryBiH.setCountryCode3("BIH");
         countryBiH.setCommonName("Bosnia & Herzegovina");
         countryBiH.setDiallingCode("+385");
-        countryBiH = countryDao.save(countryBiH);
+        countryBiH = countryService.createCountry(countryBiH);
         LOG.info("Saved: " + countryBiH);
 
         Country countryCroatia = new Country();
@@ -64,7 +64,7 @@ public class MapasvetaInit {
         countryCroatia.setCountryCode3("HRV");
         countryCroatia.setCommonName("Croatia");
         countryCroatia.setDiallingCode("+382");
-        countryCroatia = countryDao.save(countryCroatia);
+        countryCroatia = countryService.createCountry(countryCroatia);
         LOG.info("Saved: " + countryCroatia);
 
         City cityBelgrade = new City();

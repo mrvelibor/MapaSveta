@@ -26,7 +26,7 @@ export class MapService extends RestService {
     }
     let options = RestService.options();
     return this.http.get(
-      `${MapService.HOST}/res/country-maps/${size}/${country.countryCode3.toLowerCase()}.geo.json`,
+      `${MapService.HOST}/res/country_maps/${size}/${country.countryCode3.toLowerCase()}.geo.json`,
       options
     ).map(res => res.json());
   }
@@ -34,7 +34,7 @@ export class MapService extends RestService {
   getFlag(country: Country) {
     let options = RestService.options();
     return this.http.get(
-      `${MapService.HOST}/res/country-flags/${country.countryCode3.toLowerCase()}.svg`,
+      `${MapService.HOST}/res/country_flags/${country.countryCode3.toLowerCase()}.svg`,
       options
     ).map(res => res.json());
   }

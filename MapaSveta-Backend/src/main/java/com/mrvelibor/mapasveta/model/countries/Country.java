@@ -1,7 +1,11 @@
 package com.mrvelibor.mapasveta.model.countries;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.core.io.Resource;
+
 import javax.persistence.*;
+import java.io.File;
 import java.util.List;
 
 @Entity
