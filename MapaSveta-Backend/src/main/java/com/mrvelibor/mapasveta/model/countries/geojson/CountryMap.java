@@ -3,13 +3,15 @@ package com.mrvelibor.mapasveta.model.countries.geojson;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
+import java.util.Map;
+
 public class CountryMap {
     @Id
     @JsonIgnore
     private String id;
     private String countryCode3;
     private CountryMapSize size;
-    private String geoJson;
+    private Map<String, Object> geoJson;
 
     public String getId() {
         return id;
@@ -35,11 +37,11 @@ public class CountryMap {
         this.size = size;
     }
 
-    public String getGeoJson() {
+    public Map<String, Object> getGeoJson() {
         return geoJson;
     }
 
-    public void setGeoJson(String geoJson) {
+    public void setGeoJson(Map<String, Object> geoJson) {
         this.geoJson = geoJson;
     }
 }

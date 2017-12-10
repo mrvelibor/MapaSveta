@@ -72,7 +72,7 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
             Resource fileResource = resourceLoader.getResource("classpath:public/res/country_maps/" + countryMap.getSize() + "/" + countryMap.getCountryCode3() + ".geo.json");
             try(Scanner scanner = new Scanner(fileResource.getInputStream())) {
                 if (scanner.useDelimiter("\\A").hasNext()) {
-                    countryMap.setGeoJson(scanner.next());
+                    countryMap.setGeoJson(new JSONObject(scanner.next()).toMap());
                 }
             } catch (IOException ex) {
                 // Ignore

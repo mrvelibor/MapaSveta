@@ -80,15 +80,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (maps) {
           maps.forEach(
             map => {
-              let geoJson = JSON.parse(map.geoJson);
               let country = this.countries.find(c => c.countryCode3 === map.countryCode3);
               if (country) {
                 if (!country.maps) {
                   country.maps = [];
                 }
-                country.maps[size] = geoJson;
+                country.maps[size] = map.geoJson;
               }
-              this.map.data.addGeoJson(geoJson);
+              this.map.data.addGeoJson(map.geoJson);
             }
           );
         }
