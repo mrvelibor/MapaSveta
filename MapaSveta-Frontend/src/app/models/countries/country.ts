@@ -10,4 +10,5 @@ export class Country {
   domain: string;
   capital: City;
   wikipediaUrl: string;
+  maps: object[];
 }

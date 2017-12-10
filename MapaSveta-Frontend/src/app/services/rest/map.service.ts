@@ -20,6 +20,17 @@ export class MapService extends RestService {
     ).map(res => res.json());
   }
 
+  getMaps(size: string) {
+    if (!size) {
+      size = 'original';
+    }
+    let options = RestService.options();
+    return this.http.get(
+      `${MapService.HOST}/maps/${size}`,
+      options
+    ).map(res => res.json());
+  }
+
   getGeoJson(country: Country, size: string) {
     if (!size) {
       size = 'original';

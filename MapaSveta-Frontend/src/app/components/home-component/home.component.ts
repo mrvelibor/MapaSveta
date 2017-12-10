@@ -70,13 +70,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  loadCountryMaps(size: string) {
+  loadMaps(size: string) {
     this.map.data.forEach(feature => {
       this.map.data.remove(feature);
     });
-    this.countries.forEach(country => {
-      this.loadCountryMap(country, size);
-    });
+    this.mapService.getMaps(size).subscribe(
+      maps => {
+        console.log(maps);
+        if (maps) {
+          maps.forEach(
+            map => {
+              let geoJson = JSON.parse(map.geoJson);
+              let country = this.countries.find(c => c.countryCode3 === map.countryCode3);
+              if (country) {
+                if (!country.maps) {
+                  country.maps = [];
+                }
+                country.maps[size] = geoJson;
+              }
+              this.map.data.addGeoJson(geoJson);
+            }
+          );
+        }
+      }
+    );
   }
 
   loadCountryMap(country: Country, size: string) {
