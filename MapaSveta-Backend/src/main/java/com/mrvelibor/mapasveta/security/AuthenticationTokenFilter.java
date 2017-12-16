@@ -31,12 +31,6 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
 
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) req;
-
-//        if ("OPTIONS".equals(request.getMethod())) {
-//            final HttpServletResponse response = (HttpServletResponse) res;
-//            response.setStatus(HttpServletResponse.SC_OK);
-//        }
-
         final String authHeader = request.getHeader(tokenHeader);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             final String authToken = authHeader.substring(7);
@@ -50,7 +44,6 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
                 }
             }
         }
-
         chain.doFilter(req, res);
     }
 
