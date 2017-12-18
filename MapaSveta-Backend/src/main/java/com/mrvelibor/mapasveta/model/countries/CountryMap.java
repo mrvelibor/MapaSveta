@@ -1,6 +1,7 @@
-package com.mrvelibor.mapasveta.model.countries.geojson;
+package com.mrvelibor.mapasveta.model.countries;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
 import org.springframework.data.annotation.Id;
 
 import java.util.Map;

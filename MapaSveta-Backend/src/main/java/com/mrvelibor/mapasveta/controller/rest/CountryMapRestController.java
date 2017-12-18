@@ -1,7 +1,7 @@
 package com.mrvelibor.mapasveta.controller.rest;
 
-import com.mrvelibor.mapasveta.model.countries.geojson.CountryMap;
-import com.mrvelibor.mapasveta.model.countries.geojson.CountryMapSize;
+import com.mrvelibor.mapasveta.model.countries.CountryMap;
+import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
 import com.mrvelibor.mapasveta.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

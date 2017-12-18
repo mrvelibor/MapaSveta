@@ -1,7 +1,7 @@
 package com.mrvelibor.mapasveta.dao;
 
-import com.mrvelibor.mapasveta.model.countries.geojson.CountryMap;
-import com.mrvelibor.mapasveta.model.countries.geojson.CountryMapSize;
+import com.mrvelibor.mapasveta.model.countries.CountryMap;
+import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

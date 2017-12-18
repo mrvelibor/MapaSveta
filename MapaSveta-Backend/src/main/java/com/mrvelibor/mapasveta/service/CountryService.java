@@ -2,8 +2,8 @@ package com.mrvelibor.mapasveta.service;
 
 import com.mrvelibor.mapasveta.model.countries.Country;
 import com.mrvelibor.mapasveta.model.countries.VisaRequirement;
-import com.mrvelibor.mapasveta.model.countries.geojson.CountryMap;
-import com.mrvelibor.mapasveta.model.countries.geojson.CountryMapSize;
+import com.mrvelibor.mapasveta.model.countries.CountryMap;
+import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
 
 import java.util.List;
 
