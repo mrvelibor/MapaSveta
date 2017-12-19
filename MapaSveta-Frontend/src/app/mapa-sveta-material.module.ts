@@ -5,7 +5,7 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatStepperModule, MatTabsModule, MatToolbarModule,
   MatIconModule, MatFormFieldModule, MatSlideToggleModule, MatSidenavModule, MatTableModule, MatSnackBarModule,
-  MatTooltipModule, MatDialogModule
+  MatTooltipModule, MatDialogModule, MatNativeDateModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
@@ -42,6 +43,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,

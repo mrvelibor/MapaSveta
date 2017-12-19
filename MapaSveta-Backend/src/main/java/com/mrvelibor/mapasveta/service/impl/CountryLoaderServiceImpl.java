@@ -13,9 +13,12 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -36,6 +39,9 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
     @Autowired
     private ResourceLoader resourceLoader;
 
+    @Autowired
+    private ResourcePatternResolver resourcePatternResolver;
+
     @Override
     public void loadCountries() {
         Resource fileResource = resourceLoader.getResource("classpath:public/res/countries.json");
@@ -46,6 +52,25 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
             }
         } catch (IOException | JSONException ex) {
             // Ignore
+        }
+        try {
+            Resource[] resources = resourcePatternResolver.getResources("classpath:public/res/country_visas/*.json");
+            List<JSONObject> visaCountries = new ArrayList<>();
+            for (Resource visaRes : resources) {
+                try(Scanner scanner = new Scanner(visaRes.getInputStream())) {
+                    if (scanner.useDelimiter("\\A").hasNext()) {
+                        String json = scanner.next();
+                        visaCountries.add(new JSONObject(json));
+                    }
+                } catch (IOException | JSONException ex) {
+                    // Ignore
+                }
+            }
+            for (JSONObject visaCountry : visaCountries) {
+                loadJsonVisa(visaCountry);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -59,6 +84,17 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
             country.setOfficialName(object.getJSONObject("name").getString("official"));
             country = createCountry(country);
             LOG.info("Created: " + country);
+        }
+    }
+
+    private void loadJsonVisa(JSONObject object) {
+        String cca2 = object.getString("cca2");
+        if (cca2 != null && !cca2.isEmpty()) {
+            Country country = countryDao.findByCountryCode2(cca2);
+            if (country != null) {
+                country.setVisaCode(object.getString("csvc"));
+                countryDao.save(country);
+            }
         }
     }
 

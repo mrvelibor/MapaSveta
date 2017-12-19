@@ -19,6 +19,9 @@ public class Country {
     @Column(unique = true)
     private String countryCode3;
 
+    @Column(unique = true)
+    private String visaCode;
+
     private String diallingCode;
 
     private String domain;
@@ -68,6 +71,14 @@ public class Country {
 
     public void setCountryCode3(String countryCode3) {
         this.countryCode3 = countryCode3;
+    }
+
+    public String getVisaCode() {
+        return visaCode;
+    }
+
+    public void setVisaCode(String visaCode) {
+        this.visaCode = visaCode;
     }
 
     public String getDiallingCode() {

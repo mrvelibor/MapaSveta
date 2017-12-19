@@ -6,6 +6,7 @@ export class Country {
   officialName: string;
   countryCode2: string;
   countryCode3: string;
+  visaCode: string;
   diallingCode: string;
   domain: string;
   capital: City;

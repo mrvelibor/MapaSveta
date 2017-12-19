@@ -366,4 +366,70 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  // this.map.data.forEach(feature => {
+  //   this.map.data.remove(feature);
+  // });
+  // this.map.data.addListener('addfeature', (event) => {
+  //   if (event.feature.f.cca3 === 'SRB') {
+  //     this.map.data.overrideStyle(event.feature, {fillColor: 'blue'});
+  //   } else if (event.feature.f.cca2 === 'gr' ||
+  //     event.feature.f.cca2 === 'ru' ||
+  //     event.feature.f.cca2 === 'ba' ||
+  //     event.feature.f.cca2 === 'me' ||
+  //     event.feature.f.cca2 === 'tr' ||
+  //     event.feature.f.cca2 === 'it' ||
+  //     event.feature.f.cca2 === 'fr' ||
+  //     event.feature.f.cca2 === 'us' ||
+  //     event.feature.f.cca2 === 'eg' ||
+  //     event.feature.f.cca2 === 'at' ||
+  //     event.feature.f.cca2 === 'hu' ||
+  //     event.feature.f.cca2 === 'mk' ||
+  //     event.feature.f.cca2 === 'cz' ||
+  //     event.feature.f.cca2 === 'ee' ||
+  //     event.feature.f.cca2 === 'nl' ||
+  //     event.feature.f.cca2 === 'pl' ||
+  //     event.feature.f.cca2 === 'es'
+  //   ) {
+  //     this.map.data.overrideStyle(event.feature, {fillColor: 'green'});
+  //   } else if (event.feature.f.cca2 === 'de' ||
+  //     event.feature.f.cca2 === 'gb' ||
+  //     event.feature.f.cca2 === 'il' ||
+  //     event.feature.f.cca2 === 'sa' ||
+  //     event.feature.f.cca2 === 'bg' ||
+  //     event.feature.f.cca2 === 'al' ||
+  //     event.feature.f.cca2 === 'se'
+  //   ) {
+  //     this.map.data.overrideStyle(event.feature, {fillColor: 'yellow'});
+  //   }
+  // });
+  //   this.map.data.addListener('addfeature', (event) => {
+  //   if (event.feature.f.cca3 === 'SRB') {
+  //   this.map.data.overrideStyle(event.feature, {fillColor: 'blue'});
+  // } else {
+  //   let country = this.visa.requirements[event.feature.f.csvc];
+  //   if (country) {
+  //     switch (country.permission) {
+  //       case 'free':
+  //         this.map.data.overrideStyle(event.feature, {fillColor: 'green'});
+  //         break;
+  //       case 'arrival':
+  //         this.map.data.overrideStyle(event.feature, {fillColor: 'yellow'});
+  //         break;
+  //       case 'required':
+  //         this.map.data.overrideStyle(event.feature, {fillColor: 'red'});
+  //         break;
+  //     }
+  //   }
+  // }
+  // });
+  // this.map.data.addListener('click', (event) => {
+  //   if (event.feature.f.a) {
+  //     this.map.data.overrideStyle(event.feature, {fillColor: 'yellow'});
+  //     event.feature.f.a = false;
+  //   } else {
+  //     this.map.data.overrideStyle(event.feature, {fillColor: 'green'});
+  //     event.feature.f.a = true;
+  //   }
+  // });
 }
