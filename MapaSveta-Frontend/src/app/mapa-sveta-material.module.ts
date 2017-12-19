@@ -1,8 +1,11 @@
 import {
   MatAutocompleteModule,
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule, MatInputModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule, MatInputModule,
+  MatMenuModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatStepperModule, MatTabsModule, MatToolbarModule, MatIconModule
+  MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatStepperModule, MatTabsModule, MatToolbarModule,
+  MatIconModule, MatFormFieldModule, MatSlideToggleModule, MatSidenavModule, MatTableModule, MatSnackBarModule,
+  MatTooltipModule, MatDialogModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -10,41 +13,55 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    MatInputModule,
     MatAutocompleteModule,
-    MatButtonModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatRadioModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatMenuModule,
-    MatDatepickerModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatStepperModule,
-    MatToolbarModule,
-    MatIconModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatTableModule
   ],
   exports: [
     BrowserAnimationsModule,
-    MatInputModule,
     MatAutocompleteModule,
-    MatButtonModule,
     MatCheckboxModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatRadioModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatMenuModule,
-    MatDatepickerModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatCardModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatStepperModule,
-    MatToolbarModule,
-    MatIconModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatTableModule
   ],
 })
 export class MapaSvetaMaterialModule { }
