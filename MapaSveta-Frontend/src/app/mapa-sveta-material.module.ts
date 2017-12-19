@@ -2,7 +2,7 @@ import {
   MatAutocompleteModule,
   MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatExpansionModule, MatInputModule, MatMenuModule,
   MatProgressBarModule,
-  MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatStepperModule, MatTabsModule
+  MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatStepperModule, MatTabsModule, MatToolbarModule, MatIconModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -23,7 +23,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatCardModule,
     MatExpansionModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -40,7 +42,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatCardModule,
     MatExpansionModule,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule,
+    MatIconModule
   ],
 })
 export class MapaSvetaMaterialModule { }
