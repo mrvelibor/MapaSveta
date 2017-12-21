@@ -121,7 +121,7 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
                     LOG.info("No file: " + fileResource.getDescription());
                 }
             } catch (IOException ex) {
-                LOG.info(ex.getMessage());
+                LOG.info("VELJA" + ex.getMessage());
             }
             countryMapDao.save(countryMap);
         }
