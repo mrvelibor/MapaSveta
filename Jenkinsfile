@@ -8,6 +8,8 @@ pipeline {
             steps {
                 echo 'Node..'
                 dir 'MapaSveta-Frontend'
+                sh 'node -v'
+                sh 'npm prune'
                 sh 'npm install'
                 sh 'npm build dev'
             }
