@@ -7,6 +7,7 @@ pipeline {
         stage('Node') {
             steps {
                 echo 'Node..'
+                sh 'chmod +x ./node.sh'
                 sh './node.sh'
             }
         }
