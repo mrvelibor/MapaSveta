@@ -7,7 +7,7 @@ pipeline {
         stage('Node') {
             steps {
                 echo 'Node..'
-                sh 'node.sh'
+                sh './node.sh'
             }
         }
         stage('Maven') {
