@@ -4,14 +4,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Node') {
             steps {
-                echo 'Building..'
+                echo 'Node..'
+                sh 'cd ./MapaSveta-Frontend'
+                sh 'npm install'
+                sh 'npm build dev'
             }
         }
-        stage('Test') {
+        stage('Maven') {
             steps {
-                echo 'Testing..'
+                echo 'Maven..'
             }
         }
         stage('Deploy') {
