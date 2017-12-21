@@ -7,11 +7,7 @@ pipeline {
         stage('Node') {
             steps {
                 echo 'Node..'
-                dir 'MapaSveta-Frontend'
-                sh 'node -v'
-                sh 'npm prune'
-                sh 'npm install'
-                sh 'npm build dev'
+                sh 'node.sh'
             }
         }
         stage('Maven') {
