@@ -48,7 +48,10 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
         try(Scanner scanner = new Scanner(fileResource.getInputStream())) {
             if (scanner.useDelimiter("\\A").hasNext()) {
                 String json = scanner.next();
+                LOG.info(json);
                 loadJsonArray(new JSONArray(json));
+            } else {
+                LOG.info("No file: " + fileResource.getDescription());
             }
         } catch (IOException | JSONException ex) {
             // Ignore
@@ -60,7 +63,10 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
                 try(Scanner scanner = new Scanner(visaRes.getInputStream())) {
                     if (scanner.useDelimiter("\\A").hasNext()) {
                         String json = scanner.next();
+                        LOG.info(json);
                         visaCountries.add(new JSONObject(json));
+                    } else {
+                        LOG.info("No file: " + fileResource.getDescription());
                     }
                 } catch (IOException | JSONException ex) {
                     LOG.info(ex.getMessage());
@@ -108,7 +114,11 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
             Resource fileResource = resourceLoader.getResource("classpath:public/res/country_maps/" + countryMap.getSize() + "/" + countryMap.getCountryCode3() + ".geo.json");
             try(Scanner scanner = new Scanner(fileResource.getInputStream())) {
                 if (scanner.useDelimiter("\\A").hasNext()) {
-                    countryMap.setGeoJson(new JSONObject(scanner.next()).toMap());
+                    String json = scanner.next();
+                    LOG.info(json);
+                    countryMap.setGeoJson(new JSONObject(json).toMap());
+                } else {
+                    LOG.info("No file: " + fileResource.getDescription());
                 }
             } catch (IOException ex) {
                 LOG.info(ex.getMessage());
