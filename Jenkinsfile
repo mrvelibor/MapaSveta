@@ -38,6 +38,7 @@ pipeline {
           steps {
               echo 'Deploying...'
               sh """
+              cp MapaSveta-Backend/target/mapasveta-0.0.1-SNAPSHOT.jar /home/programi/mapasveta/mapasveta.jar
               ssh root@localhost systemctl start MapaSveta.service
               """
           }
