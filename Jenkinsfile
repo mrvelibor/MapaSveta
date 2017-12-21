@@ -14,6 +14,8 @@ pipeline {
         stage('Maven') {
             steps {
                 echo 'Maven..'
+                sh 'chmod +x ./maven.sh'
+                sh './maven.sh'
             }
         }
         stage('Deploy') {
