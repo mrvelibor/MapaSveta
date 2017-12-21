@@ -2,4 +2,4 @@
 cd MapaSveta-Frontend
 echo $PWD
 npm install
-npm build dev
+npm run "build prod"
