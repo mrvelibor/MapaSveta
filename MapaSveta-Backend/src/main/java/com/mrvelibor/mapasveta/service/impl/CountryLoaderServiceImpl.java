@@ -63,7 +63,7 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
                         visaCountries.add(new JSONObject(json));
                     }
                 } catch (IOException | JSONException ex) {
-                    // Ignore
+                    LOG.info(ex.getMessage());
                 }
             }
             for (JSONObject visaCountry : visaCountries) {
@@ -111,7 +111,7 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
                     countryMap.setGeoJson(new JSONObject(scanner.next()).toMap());
                 }
             } catch (IOException ex) {
-                // Ignore
+                LOG.info(ex.getMessage());
             }
             countryMapDao.save(countryMap);
         }
