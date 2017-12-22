@@ -47,6 +47,7 @@ public class User implements UserDetails {
     private List<Language> languages;
 
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UserType type;
 
     @CreationTimestamp

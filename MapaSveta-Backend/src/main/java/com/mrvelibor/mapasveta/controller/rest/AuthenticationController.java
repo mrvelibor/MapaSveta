@@ -1,5 +1,6 @@
 package com.mrvelibor.mapasveta.controller.rest;
 
+import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.json.AuthenticationRequest;
 import com.mrvelibor.mapasveta.model.json.AuthenticationResponse;
 import com.mrvelibor.mapasveta.model.user.User;
@@ -39,6 +40,7 @@ public class AuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<?> register(@RequestBody User user) throws ServletException {
         AuthenticationRequest authenticationRequest = new AuthenticationRequest(user.getUsername(), user.getPassword());
+        user.setType(UserType.traveller);
         authenticationService.register(user);
         return login(authenticationRequest);
     }

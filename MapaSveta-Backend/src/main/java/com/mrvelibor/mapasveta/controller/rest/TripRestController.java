@@ -36,8 +36,8 @@ public class TripRestController {
         if (oldTrip == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        User user = userService.loadUserByUsername(principal.getName());
-        if (user.getType() != UserType.admin && !user.getId().equals(oldTrip.getUser().getId())) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser.getType() != UserType.admin && !currentUser.getId().equals(oldTrip.getUser().getId())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         trip.setId(oldTrip.getId());
@@ -51,8 +51,8 @@ public class TripRestController {
         if (trip == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        User user = userService.loadUserByUsername(principal.getName());
-        if (user.getType() != UserType.admin && !user.getId().equals(trip.getUser().getId())) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser.getType() != UserType.admin && !currentUser.getId().equals(trip.getUser().getId())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         boolean deleted = tripService.deleteTrip(trip);

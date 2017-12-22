@@ -31,8 +31,8 @@ public class RecommendationRestController {
 
     @PostMapping(value = "")
     public ResponseEntity<Recommendation> createRecommendation(@RequestBody Recommendation recommendation, Principal principal) {
-        User user = userService.loadUserByUsername(principal.getName());
-        recommendation.setCreatedBy(user);
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        recommendation.setCreatedBy(currentUser);
         recommendation = recommendationService.createRecommendation(recommendation);
         return ResponseEntity.ok(recommendation);
     }
@@ -43,8 +43,8 @@ public class RecommendationRestController {
         if (recommendation == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        User user = userService.loadUserByUsername(principal.getName());
-        if (user.getType() != UserType.admin && !user.getId().equals(recommendation.getCreatedBy().getId())) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser.getType() != UserType.admin && !currentUser.getId().equals(recommendation.getCreatedBy().getId())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         boolean deleted = recommendationService.deleteRecommendation(recommendation);
@@ -81,8 +81,8 @@ public class RecommendationRestController {
     @PostMapping(value = "{recommendationId}/ratings")
     public ResponseEntity<RecommendationRating> rateRecommendation(@PathVariable Long recommendationId, @RequestBody RecommendationRatingValue rating, Principal principal) {
         Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
-        User user = userService.loadUserByUsername(principal.getName());
-        RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, user, rating.rating);
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, currentUser, rating.rating);
         return ResponseEntity.ok(recommendationRating);
     }
 }
