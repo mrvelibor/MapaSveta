@@ -46,6 +46,7 @@ public class User implements UserDetails {
     @OneToMany
     private List<Language> languages;
 
+    @Column(nullable = false)
     private UserType type;
 
     @CreationTimestamp

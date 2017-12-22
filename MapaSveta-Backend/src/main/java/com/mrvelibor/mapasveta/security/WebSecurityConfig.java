@@ -1,6 +1,7 @@
 package com.mrvelibor.mapasveta.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,16 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String ddlAuto;
+
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
     @Autowired
     private DataSource dataSource;
 
@@ -71,8 +82,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .jdbcAuthentication()
-                .usersByUsernameQuery("select email, password, 1 from user where email=?")
-                .authoritiesByUsernameQuery("select email, 'ROLE_USER' from user where email=?")
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }

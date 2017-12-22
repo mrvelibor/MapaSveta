@@ -9,17 +9,25 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.Map;
 
 @Component
 public class TokenUtils {
 
-    @Value("imanekatajnaveza")
+    @Value("${mrvelibor.security.token_secret}")
     private String secret;
 
-    @Value("3600000")
+    @Value("${mrvelibor.security.token_expiration_mins}")
     private Long expiration;
+
+    private static final long MILIS_TO_MINS = 60000;
+
+    @PostConstruct
+    private final void updateTimes() {
+        expiration *= MILIS_TO_MINS;
+    }
 
     public String getUsernameFromToken(String token) {
         String username;
@@ -52,28 +60,6 @@ public class TokenUtils {
             expiration = null;
         }
         return expiration;
-    }
-
-    public String getAudienceFromToken(String token) {
-        String audience;
-        try {
-            final Claims claims = this.getClaimsFromToken(token);
-            audience = (String) claims.get("audience");
-        } catch (Exception e) {
-            audience = null;
-        }
-        return audience;
-    }
-
-    public Object getSessionContextFromToken(String token) {
-        Object sessionContext;
-        try {
-            final Claims claims = this.getClaimsFromToken(token);
-            sessionContext = claims.get("session_context");
-        } catch (Exception e) {
-            sessionContext = null;
-        }
-        return sessionContext;
     }
 
     private Claims getClaimsFromToken(String token) {

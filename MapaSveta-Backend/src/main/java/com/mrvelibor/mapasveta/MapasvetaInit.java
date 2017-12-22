@@ -3,6 +3,7 @@ package com.mrvelibor.mapasveta;
 import com.mrvelibor.mapasveta.dao.CityDao;
 import com.mrvelibor.mapasveta.dao.RecommendationDao;
 import com.mrvelibor.mapasveta.model.common.LatLng;
+import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.countries.City;
 import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
 import com.mrvelibor.mapasveta.model.user.User;
@@ -45,6 +46,7 @@ public class MapasvetaInit {
         user.setLastName("Bor");
         user.setEmail("velja@velja.com");
         user.setPassword("passw0rd");
+        user.setType(UserType.traveller);
         user = authenticationService.register(user);
         LOG.info("Saved: " + user);
 
