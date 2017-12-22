@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AdminGuard} from './guards/admin.guard';
 import {AuthGuard} from './guards/auth.guard';
 import {RestService} from './services/rest/rest.service';
@@ -19,7 +19,11 @@ import {RegisterComponent} from './components/register-component/register.compon
 import {MapaSvetaMaterialModule} from './mapa-sveta-material.module';
 import {LoaderComponent} from './services/ui/loader/loader.component';
 import {LoaderService} from './services/ui/loader/loader.service';
-import {MapService} from './services/rest/map.service';
+import {CityService} from "./services/rest/city.service";
+import {CountryService} from "./services/rest/country.service";
+import {RecommendationService} from "./services/rest/recommendation.service";
+import {TripService} from "./services/rest/trip.service";
+import {UserService} from "./services/rest/user.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +49,11 @@ import {MapService} from './services/rest/map.service';
     AuthGuard,
     RestService,
     AuthenticationService,
-    MapService,
+    CityService,
+    CountryService,
+    RecommendationService,
+    TripService,
+    UserService,
     AlertService,
     OverlayService,
     LoaderService

@@ -5,6 +5,7 @@ import {RestService} from './rest.service';
 import {User} from '../../models/user/user';
 import {environment} from '../../../environments/environment';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class AuthenticationService extends RestService {
@@ -22,7 +23,7 @@ export class AuthenticationService extends RestService {
     this.user$.subscribe(u => this._user = u);
   }
 
-  private handleResponse(res: Response) {
+  private handleResponse(res: Response): User {
     console.log(res);
     let userData = res.json();
     if (!userData) {
@@ -36,7 +37,7 @@ export class AuthenticationService extends RestService {
     return user;
   }
 
-  auth() {
+  auth(): Observable<User> {
     let options = RestService.options();
     return this.http.get(
       AuthenticationService.HOST,
@@ -44,10 +45,9 @@ export class AuthenticationService extends RestService {
     ).map(res => res.json());
   }
 
-  login(user: User) {
+  login(user: User): Observable<User> {
     let body = JSON.stringify(user);
     console.log(body);
-
     let options = RestService.options();
     return this.http.post(
       `${AuthenticationService.HOST}/login`,
@@ -58,10 +58,9 @@ export class AuthenticationService extends RestService {
     });
   }
 
-  register(user: User) {
+  register(user: User): Observable<User> {
     let body = JSON.stringify(user);
     console.log(body);
-
     let options = RestService.options();
     return this.http.post(
       `${AuthenticationService.HOST}/register`,

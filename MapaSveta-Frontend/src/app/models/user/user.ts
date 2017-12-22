@@ -1,10 +1,15 @@
-﻿import {UserRole} from './user-role';
+﻿import {Country} from "../countries/country";
+import {Language} from "../common/language";
 
 export class User {
-  userId: number;
+  id: number;
+  email: string;
+  password: string;
   firstName: string;
   lastName: string;
-  email: string;
-  userRole: UserRole;
-  password: string;
+  gender: string;
+  birthday: string;
+  country: Country;
+  languages: Language[];
+  type: string;
 }

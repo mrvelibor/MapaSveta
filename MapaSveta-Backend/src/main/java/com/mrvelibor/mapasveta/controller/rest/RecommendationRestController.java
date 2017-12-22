@@ -2,7 +2,6 @@ package com.mrvelibor.mapasveta.controller.rest;
 
 import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.countries.Country;
-import com.mrvelibor.mapasveta.model.json.RecommendationRatingValue;
 import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
 import com.mrvelibor.mapasveta.model.recommendations.RecommendationRating;
 import com.mrvelibor.mapasveta.model.user.User;
@@ -78,11 +77,20 @@ public class RecommendationRestController {
         return ResponseEntity.ok(ratings);
     }
 
-    @PostMapping(value = "{recommendationId}/ratings")
-    public ResponseEntity<RecommendationRating> rateRecommendation(@PathVariable Long recommendationId, @RequestBody RecommendationRatingValue rating, Principal principal) {
+    @PostMapping(value = "{recommendationId}/upvote")
+    public ResponseEntity<RecommendationRating> upvoteRecommendation(@PathVariable Long recommendationId, Principal principal) {
+        return rateRecommendation(recommendationId, principal, 1);
+    }
+
+    @PostMapping(value = "{recommendationId}/downvote")
+    public ResponseEntity<RecommendationRating> downvoteRecommendation(@PathVariable Long recommendationId, Principal principal) {
+        return rateRecommendation(recommendationId, principal, -1);
+    }
+
+    private ResponseEntity<RecommendationRating> rateRecommendation(Long recommendationId, Principal principal, int rating) {
         Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
         User currentUser = userService.loadUserByUsername(principal.getName());
-        RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, currentUser, rating.rating);
+        RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, currentUser, 1);
         return ResponseEntity.ok(recommendationRating);
     }
 }

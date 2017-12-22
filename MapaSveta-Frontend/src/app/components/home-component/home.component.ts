@@ -1,9 +1,10 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../models/user/user';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
-import {MapService} from '../../services/rest/map.service';
 import {Country} from '../../models/countries/country';
+import {CountryService} from "../../services/rest/country.service";
+import {CityService} from "../../services/rest/city.service";
 
 @Component({
   templateUrl: 'home.component.html',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   countries: Country[];
 
   constructor(private authService: AuthenticationService,
-              private mapService: MapService) {
+              private countryService: CountryService,
+              private cityService: CityService) {
   }
 
   ngOnInit() {
@@ -306,7 +308,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadCities() {
-    this.mapService.getCities().subscribe(
+    this.cityService.getCities().subscribe(
       cities => {
         console.log(cities);
         if (cities) {
@@ -323,7 +325,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadCountries() {
-    this.mapService.getCountries().subscribe(
+    this.countryService.getCountries().subscribe(
       countries => {
         console.log(countries);
         this.countries = countries;
@@ -335,7 +337,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.map.data.forEach(feature => {
       this.map.data.remove(feature);
     });
-    this.mapService.getMaps(size).subscribe(
+    this.countryService.getMaps(size).subscribe(
       maps => {
         console.log(maps);
         if (maps) {
@@ -357,7 +359,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadCountryMap(country: Country, size: string) {
-    this.mapService.getGeoJson(country, size).subscribe(
+    this.countryService.getGeoJson(country, size).subscribe(
       geoJson => {
         console.log(geoJson);
         if (geoJson) {

@@ -1,5 +1,5 @@
 import {Directive, forwardRef} from '@angular/core';
-import {NG_VALIDATORS, FormControl} from '@angular/forms';
+import {FormControl, NG_VALIDATORS} from '@angular/forms';
 
 @Directive({
   selector: '[validateNospace][ngModel],[validateNospace][formControl]',
