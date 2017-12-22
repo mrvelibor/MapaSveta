@@ -80,6 +80,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new ServletException("Please fill in email and password");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.save(user);
+        return userService.createUser(user);
     }
 }

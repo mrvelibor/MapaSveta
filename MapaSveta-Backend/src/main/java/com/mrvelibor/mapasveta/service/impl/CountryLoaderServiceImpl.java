@@ -102,8 +102,7 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
         }
     }
 
-    @Override
-    public Country createCountry(Country country) {
+    private Country createCountry(Country country) {
         country = countryDao.save(country);
         for (CountryMapSize size : CountryMapSize.values()) {
             CountryMap countryMap = new CountryMap();
