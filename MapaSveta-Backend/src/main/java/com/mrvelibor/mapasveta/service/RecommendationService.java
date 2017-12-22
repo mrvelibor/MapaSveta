@@ -9,10 +9,11 @@ import java.util.List;
 
 public interface RecommendationService {
     Recommendation createRecommendation(Recommendation recommendation);
+    Recommendation getRecommendation(Long recommendationId);
     boolean deleteRecommendation(Recommendation recommendation);
     List<Recommendation> getAllRecommendations();
     List<Recommendation> getAllRecommendationsByUser(User user);
-    List<Recommendation> getAllRecommendationsForCountry(Country country);
+    List<Recommendation> getAllRecommendationsByCountry(Country country);
     RecommendationRating rateRecommendation(Recommendation recommendation, User user, int rating);
     List<RecommendationRating> getAllRatingsForRecommendation(Recommendation recommendation);
     List<RecommendationRating> getAllRatingsByUser(User user);

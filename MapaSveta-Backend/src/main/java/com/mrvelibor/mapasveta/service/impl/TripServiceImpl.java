@@ -21,6 +21,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public Trip getTrip(Long tripId) {
+        return tripDao.findOne(tripId);
+    }
+
+    @Override
     public Trip editTrip(Trip trip) {
         return tripDao.save(trip);
     }

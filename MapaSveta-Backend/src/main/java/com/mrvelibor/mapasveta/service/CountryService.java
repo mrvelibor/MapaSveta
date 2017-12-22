@@ -8,6 +8,7 @@ import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
 import java.util.List;
 
 public interface CountryService {
+    Country getCountry(Long countryId);
     List<Country> getAllCountries();
     List<CountryMap> getMaps(CountryMapSize size);
     List<VisaRequirement> getVisaPolicy(Country country);

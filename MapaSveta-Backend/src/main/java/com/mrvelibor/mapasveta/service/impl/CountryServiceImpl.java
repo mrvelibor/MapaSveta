@@ -25,6 +25,11 @@ public class CountryServiceImpl implements CountryService {
     private VisaRequirementDao visaRequirementDao;
 
     @Override
+    public Country getCountry(Long countryId) {
+        return countryDao.findOne(countryId);
+    }
+
+    @Override
     public List<Country> getAllCountries() {
         return countryDao.findAll();
     }

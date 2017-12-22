@@ -26,6 +26,11 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
+    public Recommendation getRecommendation(Long recommendationId) {
+        return recommendationDao.findOne(recommendationId);
+    }
+
+    @Override
     public boolean deleteRecommendation(Recommendation recommendation) {
         recommendationDao.delete(recommendation.getId());
         return true;
@@ -42,7 +47,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
-    public List<Recommendation> getAllRecommendationsForCountry(Country country) {
+    public List<Recommendation> getAllRecommendationsByCountry(Country country) {
         return recommendationDao.findAllByAddress_Country_Id(country.getId());
     }
 
