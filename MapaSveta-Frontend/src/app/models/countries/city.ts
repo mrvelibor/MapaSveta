@@ -1,5 +1,5 @@
 import {Country} from './country';
-import {LatLng} from '../commons/lat-lng';
+import {LatLng} from '../common/lat-lng';
 
 export class City {
   id: number;

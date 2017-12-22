@@ -1,4 +1,6 @@
 import {City} from './city';
+import {Currency} from "../common/currency";
+import {Language} from "../common/language";
 
 export class Country {
   id: number;
@@ -11,5 +13,7 @@ export class Country {
   domain: string;
   capital: City;
   wikipediaUrl: string;
+  currencies: Currency[];
+  languages: Language[];
   maps: object[];
 }
