@@ -34,19 +34,16 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-sidenav-container class="app-sidenav-container">
-    <mat-sidenav mode="side" opened="true">Sidenav content</mat-sidenav>
-    <mat-sidenav-content class="app-content">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <div class="app-content">
+    <router-outlet></router-outlet>
+  </div>
 
   <mat-toolbar>
     <mat-toolbar-row>
       <span>Putnčka mapa <small>2017.</small></span>
       <span class="toolbar-spacer"></span>
       <!--<button mat-button>API URL: {{url}}</button>-->
-      <a href="http://mrvelibor.com"><button mat-button>Velibor Bačujkov 2493</button></a>
+      <a href="http://mrvelibor.com" target="_blank"><button mat-button>Velibor Bačujkov 2493</button></a>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

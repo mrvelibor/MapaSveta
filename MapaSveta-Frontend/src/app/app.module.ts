@@ -8,7 +8,7 @@ import {RestService} from './services/rest/rest.service';
 import {AuthenticationService} from './services/rest/authentication.service';
 import {AlertService} from './services/ui/alert/alert.service';
 import {OverlayService} from './services/ui/overlay/overlay.service';
-import {HomeComponent} from './components/home-component/home.component';
+import {MapComponent} from './components/map-component/map.component';
 import {LoginComponent} from './components/login-component/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -28,7 +28,7 @@ import {UserService} from "./services/rest/user.service";
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    MapComponent,
     LoginComponent,
     RegisterComponent,
     AlertComponent,

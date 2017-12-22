@@ -7,11 +7,11 @@ import {CountryService} from "../../services/rest/country.service";
 import {CityService} from "../../services/rest/city.service";
 
 @Component({
-  templateUrl: 'home.component.html',
-  styleUrls: ['home.component.scss']
+  templateUrl: 'map.component.html',
+  styleUrls: ['map.component.scss']
 })
 
-export class HomeComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnDestroy {
   currentUser: User;
   subscription: Subscription;
 
