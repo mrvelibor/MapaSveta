@@ -2,6 +2,10 @@ package com.mrvelibor.mapasveta.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mrvelibor.mapasveta.model.common.Language;
+import com.mrvelibor.mapasveta.model.common.enums.Gender;
+import com.mrvelibor.mapasveta.model.common.enums.UserType;
+import com.mrvelibor.mapasveta.model.countries.Country;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,12 +14,19 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(unique = true)
+    private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 
     @Column(nullable = false)
     @Size(min = 2)
@@ -25,11 +36,17 @@ public class User implements UserDetails {
     @Size(min = 2)
     private String lastName;
 
-    @Column(unique = true)
-    private String email;
+    private Gender gender;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
+    private Date birthday;
+
+    @ManyToOne
+    private Country country;
+
+    @OneToMany
+    private List<Language> languages;
+
+    private UserType type;
 
     @CreationTimestamp
     @JsonIgnore
@@ -44,27 +61,6 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
     }
 
     public String getEmail() {
@@ -83,12 +79,73 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
+    }
+
     public Date getCreated() {
         return created;
     }
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override

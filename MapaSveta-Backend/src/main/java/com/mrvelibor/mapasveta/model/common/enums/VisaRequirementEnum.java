@@ -1,5 +1,5 @@
 package com.mrvelibor.mapasveta.model.common.enums;
 
 public enum VisaRequirementEnum {
-    VISA_FREE, VISA_ON_ARRIVAL, ELECTRONIC_VISA, VISA_REQUIRED
+    vis_free, visa_on_arrival, electronic_visa, visa_required
 }

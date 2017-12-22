@@ -1,7 +1,11 @@
 package com.mrvelibor.mapasveta.model.countries;
 
 
+import com.mrvelibor.mapasveta.model.common.Currency;
+import com.mrvelibor.mapasveta.model.common.Language;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Country {
@@ -31,7 +35,11 @@ public class Country {
 
     private String wikipediaUrl;
 
-//    private List<String> currencies;
+    @OneToMany
+    private List<Currency> currencies;
+
+    @OneToMany
+    private List<Language> languages;
 
     public Long getId() {
         return id;
@@ -113,11 +121,19 @@ public class Country {
         this.wikipediaUrl = wikipediaUrl;
     }
 
-//    public List<String> getCurrencies() {
-//        return currencies;
-//    }
-//
-//    public void setCurrencies(List<String> currencies) {
-//        this.currencies = currencies;
-//    }
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List<Currency> currencies) {
+        this.currencies = currencies;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+    }
 }
