@@ -3,6 +3,7 @@ import {UserService} from "../../services/rest/user.service";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {User} from "../../models/user/user";
 import {environment} from "../../../environments/environment";
+import {Country} from "../../models/countries/country";
 
 @Component({
   templateUrl: 'user-list.component.html',
@@ -41,15 +42,19 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase(); // MatTableDataSource defaults to lowercase matches
   }
 
-  viewUser(user) {
+  viewUser(user: User) {
     console.log(user);
   }
 
-  editUser(user) {
+  viewCountry(country: Country) {
+    console.log(country);
+  }
+
+  editUser(user: User) {
     console.log(user);
   }
 
-  deleteUser(user) {
+  deleteUser(user: User) {
     console.log(user);
   }
 }

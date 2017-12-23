@@ -50,16 +50,16 @@
 
     <ng-container matColumnDef="country">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
-        <img *ngIf="element.country" matTooltip="{{element.country.commonName}}" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="64px">
+      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
+        <img *ngIf="element.country" matTooltip="{{element.country.commonName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="64px">
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="_options">
       <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-button-cell">
-        <button mat-button class="table-button" (click)="editUser(element)"> <mat-icon>edit</mat-icon> </button>
-        <button mat-button class="table-button" (click)="deleteUser(element)"> <mat-icon>delete</mat-icon> </button>
+        <button mat-button class="table-button" (click)="editUser(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button mat-button class="table-button" (click)="deleteUser(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
       </mat-cell>
     </ng-container>
 
@@ -67,5 +67,5 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="25"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="50"></mat-paginator>
 </div>
