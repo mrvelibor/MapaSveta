@@ -51,7 +51,7 @@
     <ng-container matColumnDef="country">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
-        <img *ngIf="element.country" matTooltip="{{element.country.commonName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="64px">
+        <img *ngIf="element.country" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="54px">
       </mat-cell>
     </ng-container>
 

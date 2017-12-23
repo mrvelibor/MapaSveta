@@ -1,1 +1,57 @@
-<div>Trip List</div>
+<div class="table-container mat-elevation-z8">
+  <div class="table-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pretraži">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="dateFrom">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Početak </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
+        {{element.dateFrom}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateTo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Kraj </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+        {{element.dateTo}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Grad </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+        <div *ngIf="element.city"> {{element.city.name}} </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
+        <img *ngIf="element.country" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="54px">
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Opis </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+        {{element.details}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="_options">
+      <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="table-button-cell">
+        <button mat-button class="table-button" (click)="editTrip(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button mat-button class="table-button" (click)="deleteTrip(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="50"></mat-paginator>
+</div>

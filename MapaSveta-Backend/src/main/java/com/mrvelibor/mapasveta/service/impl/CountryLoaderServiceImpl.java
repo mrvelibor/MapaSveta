@@ -112,6 +112,7 @@ public class CountryLoaderServiceImpl implements CountryLoaderService {
         country.setCountryCode2(object.getString("cca2"));
         country.setCountryCode3(object.getString("cca3"));
         country.setCommonName((String) object.query("/name/common"));
+        country.setSerbianName(country.getCommonName());
         country.setOfficialName((String) object.query("/name/official"));
 
         City capital = new City();

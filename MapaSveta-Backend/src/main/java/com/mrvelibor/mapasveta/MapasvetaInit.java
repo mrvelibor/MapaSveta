@@ -88,7 +88,8 @@ public class MapasvetaInit {
         LOG.info("Saved: " + user);
 
         Recommendation recommendation = new Recommendation();
-        recommendation.setDescription("Banja");
+        recommendation.setName("Banja");
+        recommendation.setDescription("Mesto za bleju");
         recommendation.setLocation(new LatLng(new BigDecimal("44.8737322"), new BigDecimal("20.6439815")));
         recommendation.setCreatedBy(user);
         recommendation = recommendationDao.save(recommendation);
