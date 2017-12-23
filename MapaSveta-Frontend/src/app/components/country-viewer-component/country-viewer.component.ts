@@ -26,7 +26,7 @@ export class CountryViewerComponent {
 })
 export class CountryViewerDialog {
   constructor(public dialogRef: MatDialogRef<CountryViewerDialog>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public country: Country) {
   }
 
   onNoClick(): void {

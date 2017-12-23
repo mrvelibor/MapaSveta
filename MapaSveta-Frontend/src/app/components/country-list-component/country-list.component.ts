@@ -45,7 +45,7 @@ export class CountryListComponent implements OnInit, AfterViewInit {
 
   viewCountry(country: Country) {
     this.dialog.open(CountryViewerDialog, {
-      data: { country: country }
+      data: country
     });
   }
 }
