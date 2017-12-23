@@ -6,7 +6,7 @@ export class Country {
   id: number;
   commonName: string;
   officialName: string;
-  nativeName: string;
+  nativeNames: string[];
   serbianName: string;
   countryCode2: string;
   countryCode3: string;

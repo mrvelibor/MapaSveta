@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @ManyToOne
     private Country country;
 
-    @OneToMany
+    @ManyToMany
     private List<Language> languages;
 
     @Column(nullable = false)

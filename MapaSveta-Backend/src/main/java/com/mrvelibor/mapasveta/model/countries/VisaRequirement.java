@@ -18,7 +18,9 @@ public class VisaRequirement {
 
     private VisaRequirementEnum requirement;
 
-    private Integer lengthOfStay;
+    private String lengthOfStay;
+
+    private String other;
 
     private String notes;
 
@@ -54,12 +56,20 @@ public class VisaRequirement {
         this.requirement = requirement;
     }
 
-    public Integer getLengthOfStay() {
+    public String getLengthOfStay() {
         return lengthOfStay;
     }
 
-    public void setLengthOfStay(Integer lengthOfStay) {
+    public void setLengthOfStay(String lengthOfStay) {
         this.lengthOfStay = lengthOfStay;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 
     public String getNotes() {

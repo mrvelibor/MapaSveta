@@ -52,11 +52,11 @@ public class MapasvetaInit {
 
         countryLoaderService.loadCountries();
 
-        City cityBelgrade = new City();
-        cityBelgrade.setName("Belgrade");
-        cityBelgrade.setLocation(new LatLng(new BigDecimal("44.816667"), new BigDecimal("20.466667")));
-        cityBelgrade = cityDao.save(cityBelgrade);
-        LOG.info("Saved: " + cityBelgrade);
+//        City cityBelgrade = new City();
+//        cityBelgrade.setName("Belgrade");
+//        cityBelgrade.setLocation(new LatLng(new BigDecimal("44.816667"), new BigDecimal("20.466667")));
+//        cityBelgrade = cityDao.save(cityBelgrade);
+//        LOG.info("Saved: " + cityBelgrade);
 
         Recommendation recommendation = new Recommendation();
         recommendation.setDescription("Banja");

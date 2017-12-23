@@ -6,6 +6,7 @@ import com.mrvelibor.mapasveta.model.common.Language;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Country {
@@ -17,7 +18,8 @@ public class Country {
 
     private String officialName;
 
-    private String nativeName;
+    @ElementCollection
+    private Set<String> nativeNames;
 
     private String serbianName;
 
@@ -39,10 +41,10 @@ public class Country {
 
     private String wikipediaUrl;
 
-    @OneToMany
+    @ManyToMany
     private List<Currency> currencies;
 
-    @OneToMany
+    @ManyToMany
     private List<Language> languages;
 
     public String getFlagUrl() {
@@ -73,12 +75,12 @@ public class Country {
         this.officialName = officialName;
     }
 
-    public String getNativeName() {
-        return nativeName;
+    public Set<String> getNativeNames() {
+        return nativeNames;
     }
 
-    public void setNativeName(String nativeName) {
-        this.nativeName = nativeName;
+    public void setNativeNames(Set<String> nativeNames) {
+        this.nativeNames = nativeNames;
     }
 
     public String getSerbianName() {
