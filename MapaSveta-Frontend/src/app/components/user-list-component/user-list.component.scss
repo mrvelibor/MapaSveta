@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.table-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-table {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.table-button-cell {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.table-button {
+  min-width: 0;
+}

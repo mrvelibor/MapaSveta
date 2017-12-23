@@ -1,10 +1,10 @@
-#map {
-  flex: 1 1 auto;
-}
-
 :host {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+}
+
+#map {
   flex: 1 1 auto;
 }
 

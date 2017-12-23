@@ -11,8 +11,9 @@
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-button [routerLink]="['/']">Putnčka mapa</button>
-      <button mat-button (click)="auth()">Lista država</button>
-      <button mat-button (click)="auth()">Lista zanimljivosti</button>
+      <button mat-button [routerLink]="['/countries']">Države</button>
+      <button mat-button [routerLink]="['/recommendations']">Zanimljivosti</button>
+      <button *ngIf="currentUser && currentUser.type === 'admin'" mat-button [routerLink]="['/users']">Korisnici</button>
       <span class="toolbar-spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu_map">Filteri</button>
       <mat-menu #menu_map="matMenu">

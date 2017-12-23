@@ -5,7 +5,7 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatStepperModule, MatTabsModule, MatToolbarModule,
   MatIconModule, MatFormFieldModule, MatSlideToggleModule, MatSidenavModule, MatTableModule, MatSnackBarModule,
-  MatTooltipModule, MatDialogModule, MatNativeDateModule
+  MatTooltipModule, MatDialogModule, MatNativeDateModule, MatPaginatorModule, MatSortModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -36,7 +36,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatDialogModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -63,7 +65,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatDialogModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
 })
 export class MapaSvetaMaterialModule { }
