@@ -1,16 +1,18 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
 import {RecommendationService} from "../../services/rest/recommendation.service";
 import {environment} from "../../../environments/environment";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Recommendation} from "../../models/recommendations/recommendation";
 import {User} from "../../models/user/user";
 import {Country} from "../../models/countries/country";
+import {RecommendationEditorDialog} from "../recommendation-editor-component/recommendation-editor.component";
+import {CountryViewerDialog} from "../country-viewer-component/country-viewer.component";
 
 @Component({
   templateUrl: 'recommendation-list.component.html',
   styleUrls: ['recommendation-list.component.scss']
 })
-export class RecommendationListComponent implements AfterViewInit {
+export class RecommendationListComponent implements OnInit, AfterViewInit {
 
   apiUrl = environment.apiUrl;
 
@@ -20,7 +22,8 @@ export class RecommendationListComponent implements AfterViewInit {
   displayedColumns = ['name', 'city', 'country', 'createdBy', 'description', '_options'];
   dataSource = new MatTableDataSource<Recommendation>([]);
 
-  constructor(private recommendationService: RecommendationService) {
+  constructor(private recommendationService: RecommendationService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -52,11 +55,15 @@ export class RecommendationListComponent implements AfterViewInit {
   }
 
   viewCountry(country: Country) {
-    console.log(country);
+    this.dialog.open(CountryViewerDialog, {
+      data: country
+    });
   }
 
   editRecommendation(recommendation: Recommendation) {
-    console.log(recommendation);
+    this.dialog.open(RecommendationEditorDialog, {
+      data: recommendation
+    });
   }
 
   deleteRecommendation(recommendation: Recommendation) {

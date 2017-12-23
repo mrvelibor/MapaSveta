@@ -17,6 +17,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Grad </mat-header-cell>
       <mat-cell *matCellDef="let element">
         <div *ngIf="element.address && element.address.city"> {{element.address.city.name}} </div>
+        <div *ngIf="element.address && !element.address.city"> {{element.address.cityName}} </div>
       </mat-cell>
     </ng-container>
 

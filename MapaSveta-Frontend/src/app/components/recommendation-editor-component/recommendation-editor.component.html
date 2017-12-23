@@ -1,1 +1,34 @@
-<div>{{recommendation.name}}</div>
+<mat-card class="editor-container">
+  <mat-form-field>
+    <input matInput placeholder="Input" [(ngModel)]="model.name">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Textarea" [(ngModel)]="model.description"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Ulica" [(ngModel)]="model.address.street">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Grad" [(ngModel)]="model.address.cityName">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Poštanski broj" [(ngModel)]="model.address.zipCode">
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" placeholder="Država" aria-label="Država" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.address.country">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+        {{ option.serbianName }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Broj telefona" [(ngModel)]="model.phoneNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Slika" [(ngModel)]="model.imageUrl">
+  </mat-form-field>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="saveRecommendation()">Sačuvaj</button>
+  </mat-card-actions>
+</mat-card>

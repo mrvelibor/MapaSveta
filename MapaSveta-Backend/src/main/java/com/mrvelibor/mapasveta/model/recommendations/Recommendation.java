@@ -24,6 +24,8 @@ public class Recommendation {
 
     private String phoneNumber;
 
+    private String imageUrl;
+
     @ManyToOne
     private User createdBy;
 
@@ -73,6 +75,14 @@ public class Recommendation {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public User getCreatedBy() {

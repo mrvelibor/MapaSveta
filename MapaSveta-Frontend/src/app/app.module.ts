@@ -28,7 +28,10 @@ import {
   CountryViewerComponent,
   CountryViewerDialog
 } from "./components/country-viewer-component/country-viewer.component";
-import {RecommendationEditorComponent} from "./components/recommendation-editor-component/recommendation-editor.component";
+import {
+  RecommendationEditorComponent,
+  RecommendationEditorDialog
+} from "./components/recommendation-editor-component/recommendation-editor.component";
 import {RecommendationListComponent} from "./components/recommendation-list-component/recommendation-list.component";
 import {RecommendationViewerComponent} from "./components/recommendation-viewer-component/recommendation-viewer.component";
 import {TripEditorComponent} from "./components/trip-editor-component/trip-editor.component";
@@ -51,6 +54,7 @@ import {UserViewerComponent} from "./components/user-viewer-component/user-viewe
     CountryViewerDialog,
     MapComponent,
     RecommendationEditorComponent,
+    RecommendationEditorDialog,
     RecommendationListComponent,
     RecommendationViewerComponent,
     TripEditorComponent,
@@ -87,7 +91,8 @@ import {UserViewerComponent} from "./components/user-viewer-component/user-viewe
     LoaderService
   ],
   entryComponents: [
-    CountryViewerDialog
+    CountryViewerDialog,
+    RecommendationEditorDialog
   ],
   bootstrap: [AppComponent]
 })

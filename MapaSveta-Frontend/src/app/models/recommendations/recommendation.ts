@@ -9,5 +9,6 @@ export class Recommendation {
   location: LatLng;
   address: Address;
   phoneNumber: string;
+  imageUrl: string;
   createdBy: User;
 }

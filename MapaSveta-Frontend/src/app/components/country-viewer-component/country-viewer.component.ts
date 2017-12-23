@@ -29,7 +29,7 @@ export class CountryViewerDialog {
               @Inject(MAT_DIALOG_DATA) public country: Country) {
   }
 
-  onNoClick(): void {
+  onCloseClick(): void {
     this.dialogRef.close();
   }
 }
