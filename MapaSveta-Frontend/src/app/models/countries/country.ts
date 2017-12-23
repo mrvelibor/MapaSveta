@@ -6,6 +6,8 @@ export class Country {
   id: number;
   commonName: string;
   officialName: string;
+  nativeName: string;
+  serbianName: string;
   countryCode2: string;
   countryCode3: string;
   visaCode: string;
@@ -15,5 +17,6 @@ export class Country {
   wikipediaUrl: string;
   currencies: Currency[];
   languages: Language[];
+  flagUrl: string;
   maps: object[];
 }

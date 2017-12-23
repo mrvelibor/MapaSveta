@@ -17,6 +17,10 @@ public class Country {
 
     private String officialName;
 
+    private String nativeName;
+
+    private String serbianName;
+
     @Column(unique = true)
     private String countryCode2;
 
@@ -41,6 +45,10 @@ public class Country {
     @OneToMany
     private List<Language> languages;
 
+    public String getFlagUrl() {
+        return "/res/country_flags/" + countryCode3.toLowerCase() + ".svg";
+    }
+
     public Long getId() {
         return id;
     }
@@ -63,6 +71,22 @@ public class Country {
 
     public void setOfficialName(String officialName) {
         this.officialName = officialName;
+    }
+
+    public String getNativeName() {
+        return nativeName;
+    }
+
+    public void setNativeName(String nativeName) {
+        this.nativeName = nativeName;
+    }
+
+    public String getSerbianName() {
+        return serbianName;
+    }
+
+    public void setSerbianName(String serbianName) {
+        this.serbianName = serbianName;
     }
 
     public String getCountryCode2() {
