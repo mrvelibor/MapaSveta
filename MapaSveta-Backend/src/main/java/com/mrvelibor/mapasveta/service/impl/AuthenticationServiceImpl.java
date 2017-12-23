@@ -1,5 +1,6 @@
 package com.mrvelibor.mapasveta.service.impl;
 
+import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.json.AuthenticationRequest;
 import com.mrvelibor.mapasveta.model.json.AuthenticationResponse;
 import com.mrvelibor.mapasveta.model.user.User;
@@ -79,6 +80,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (user.getEmail() == null || user.getEmail().isEmpty() || user.getPassword() == null || user.getPassword().isEmpty()) {
             throw new ServletException("Please fill in email and password");
         }
+        user.setType(UserType.traveller);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.createUser(user);
     }

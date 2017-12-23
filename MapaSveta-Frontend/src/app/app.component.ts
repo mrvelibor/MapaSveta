@@ -4,6 +4,7 @@ import {User} from './models/user/user';
 import {AuthenticationService} from './services/rest/authentication.service';
 import {Router} from '@angular/router';
 import {environment} from '../environments/environment';
+import {AlertService} from "./services/ui/alert/alert.service";
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   url = environment.apiUrl;
 
   constructor(private authService: AuthenticationService,
+              private alertService: AlertService,
               private router: Router) {
   }
 
@@ -31,12 +33,13 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+    this.alertService.success('Logged out!', true);
   }
 
   auth() {
     this.authService.auth().subscribe(
       data => {
-        console.log(JSON.stringify(data));
+        console.log(data);
       }
     );
   }

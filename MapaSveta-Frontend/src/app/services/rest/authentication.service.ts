@@ -37,12 +37,12 @@ export class AuthenticationService extends RestService {
     return user;
   }
 
-  auth(): Observable<User> {
+  auth(): Observable<string> {
     let options = RestService.options();
     return this.http.get(
       AuthenticationService.HOST,
       options
-    ).map(res => res.json());
+    ).map(res => res.text());
   }
 
   login(user: User): Observable<User> {

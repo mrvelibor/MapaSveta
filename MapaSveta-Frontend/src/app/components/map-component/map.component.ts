@@ -1,4 +1,4 @@
-import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../models/user/user';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
@@ -11,7 +11,7 @@ import {MatSidenav} from "@angular/material";
   templateUrl: 'map.component.html',
   styleUrls: ['map.component.scss']
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   currentUser: User;
   subscription: Subscription;
 
@@ -37,6 +37,11 @@ export class MapComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.loadCountries();
+    this.loadCities();
+  }
+
+  ngAfterViewInit() {
     let styledMapType = new google.maps.StyledMapType([
       {
         "elementType": "geometry",
@@ -316,8 +321,6 @@ export class MapComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.loadCountries();
-    this.loadCities();
     this.loadMaps('size_3');
   }
 

@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        user.setId(null);
         return userDao.save(user);
     }
 
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User editUser(User user) {
+        User oldUser = getUser(user.getId());
+        user.setPassword(oldUser.getPassword());
         return userDao.save(user);
     }
 

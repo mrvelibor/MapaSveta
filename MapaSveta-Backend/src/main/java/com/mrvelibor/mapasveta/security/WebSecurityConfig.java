@@ -33,9 +33,6 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${spring.jpa.hibernate.ddl-auto}")
-    private String ddlAuto;
-
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 

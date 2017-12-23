@@ -13,7 +13,7 @@
       <button mat-button [routerLink]="['/']">Putnčka mapa</button>
       <button mat-button (click)="auth()">Lista država</button>
       <button mat-button (click)="auth()">Lista zanimljivosti</button>
-      <span class="toolbar-spacer"><app-alert></app-alert></span>
+      <span class="toolbar-spacer"></span>
       <button mat-button [matMenuTriggerFor]="menu_map">Filteri</button>
       <mat-menu #menu_map="matMenu">
         <button mat-menu-item>Mapa država</button>
@@ -33,6 +33,9 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
+  <button type="button" mat-button (click)="alertService.clearMessage()">
+    <app-alert></app-alert>
+  </button>
 
   <div class="app-content">
     <router-outlet></router-outlet>
