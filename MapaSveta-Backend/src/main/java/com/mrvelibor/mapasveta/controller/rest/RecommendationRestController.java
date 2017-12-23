@@ -28,6 +28,21 @@ public class RecommendationRestController {
     @Autowired
     private CountryService countryService;
 
+    @GetMapping(value = "{recommendationId}")
+    public ResponseEntity<Recommendation> getRecommendation(@PathVariable Long recommendationId) {
+        Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
+        if (recommendation == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(recommendation);
+    }
+
+    @GetMapping(value = "")
+    public ResponseEntity<List<Recommendation>> getAllRecommendations() {
+        List<Recommendation> recommendations = recommendationService.getAllRecommendations();
+        return ResponseEntity.ok(recommendations);
+    }
+
     @PostMapping(value = "")
     public ResponseEntity<Recommendation> createRecommendation(@RequestBody Recommendation recommendation, Principal principal) {
         User currentUser = userService.loadUserByUsername(principal.getName());
@@ -48,12 +63,6 @@ public class RecommendationRestController {
         }
         boolean deleted = recommendationService.deleteRecommendation(recommendation);
         return ResponseEntity.ok(deleted);
-    }
-
-    @GetMapping(value = "")
-    public ResponseEntity<List<Recommendation>> getAllRecommendations() {
-        List<Recommendation> recommendations = recommendationService.getAllRecommendations();
-        return ResponseEntity.ok(recommendations);
     }
 
     @GetMapping(value = "by_user/{userId}")

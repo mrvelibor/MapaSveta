@@ -16,6 +16,14 @@ export class RecommendationService extends RestService {
     super(http);
   }
 
+  getRecommendation(recommendationId: number): Observable<Recommendation> {
+    let options = RestService.options();
+    return this.http.get(
+      `${RecommendationService.HOST}/${recommendationId}`,
+      options
+    ).map(res => res.json());
+  }
+
   getRecommendations(): Observable<Recommendation[]> {
     let options = RestService.options();
     return this.http.get(

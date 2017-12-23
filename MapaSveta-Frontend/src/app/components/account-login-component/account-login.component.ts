@@ -2,24 +2,16 @@
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {AlertService} from '../../services/ui/alert/alert.service';
-import {FormControl, Validators} from '@angular/forms';
 import {FormInputMatcher} from '../../directives/form-input.matcher';
+import {FormControl, Validators} from '@angular/forms';
 import {LoaderService} from '../../services/ui/loader/loader.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: 'register.component.html',
-  styleUrls: ['register.component.scss']
+  selector: 'app-account-login',
+  templateUrl: 'account-login.component.html',
+  styleUrls: ['account-login.component.scss']
 })
-export class RegisterComponent {
-
-  firstNameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
-  lastNameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
+export class AccountLoginComponent {
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -32,25 +24,26 @@ export class RegisterComponent {
   ]);
 
   matcher = new FormInputMatcher();
+
   model: any = {};
   loading: boolean;
 
   constructor(private router: Router,
-              private loginService: AuthenticationService,
+              private authenticationService: AuthenticationService,
               private alertService: AlertService,
               private loaderService: LoaderService) {
   }
 
-  register() {
+  login() {
     this.loading = true;
     this.loaderService.showIndeterminate();
     this.alertService.clearMessage();
-    this.loginService.register(this.model)
+    this.authenticationService.login(this.model)
       .subscribe(
         data => {
           console.log(data);
           this.loaderService.hideProgress();
-          this.alertService.success('Registration successful!', true);
+          this.alertService.success('Login successful!', true);
           this.router.navigate(['/']);
         },
         error => {

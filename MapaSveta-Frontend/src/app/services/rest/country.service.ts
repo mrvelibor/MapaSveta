@@ -6,6 +6,7 @@ import {Country} from '../../models/countries/country';
 import {Observable} from "rxjs/Observable";
 import {VisaRequirement} from "../../models/countries/visa-requirement";
 import {CountryMap} from "../../models/countries/country-map";
+import {VisaPermissionCountry} from "../../models/countries/visa-permission";
 
 @Injectable()
 export class CountryService extends RestService {
@@ -56,7 +57,21 @@ export class CountryService extends RestService {
     ).map(res => res.json());
   }
 
+  getVisaPermission(country: Country): Observable<VisaPermissionCountry> {
+    if (!country) {
+      return;
+    }
+    let options = RestService.options();
+    return this.http.get(
+      `${environment.apiUrl}/res/country_visas/${country.visaCode}.visas.json`,
+      options
+    ).map(res => res.json());
+  }
+
   getGeoJson(country: Country, size: string) {
+    if (!country) {
+      return;
+    }
     if (!size) {
       size = 'original';
     }

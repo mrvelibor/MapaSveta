@@ -7,11 +7,11 @@ import {FormControl, Validators} from '@angular/forms';
 import {LoaderService} from '../../services/ui/loader/loader.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+  selector: 'app-account-editor',
+  templateUrl: 'account-editor.component.html',
+  styleUrls: ['account-editor.component.scss']
 })
-export class LoginComponent {
+export class AccountEditorComponent {
 
   emailFormControl = new FormControl('', [
     Validators.required,

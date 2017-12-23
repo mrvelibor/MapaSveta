@@ -22,6 +22,26 @@ public class TripRestController {
     @Autowired
     private UserService userService;
 
+    @GetMapping(value = "{tripId}")
+    public ResponseEntity<Trip> getTrip(@PathVariable Long tripId, Principal principal) {
+        Trip trip = tripService.getTrip(tripId);
+        if (trip == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser.getType() != UserType.admin && !currentUser.getId().equals(trip.getUser().getId())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return ResponseEntity.ok(trip);
+    }
+
+    @GetMapping(value = "")
+    public ResponseEntity<List<Trip>> getAllTrips(Principal principal) {
+        User user = userService.loadUserByUsername(principal.getName());
+        List<Trip> trips = tripService.getAllTripsForUser(user);
+        return ResponseEntity.ok(trips);
+    }
+
     @PostMapping(value = "")
     public ResponseEntity<Trip> createTrip(@RequestBody Trip trip, Principal principal) {
         User user = userService.loadUserByUsername(principal.getName());
@@ -57,12 +77,5 @@ public class TripRestController {
         }
         boolean deleted = tripService.deleteTrip(trip);
         return ResponseEntity.ok(deleted);
-    }
-
-    @GetMapping(value = "")
-    public ResponseEntity<List<Trip>> getAllTrips(Principal principal) {
-        User user = userService.loadUserByUsername(principal.getName());
-        List<Trip> trips = tripService.getAllTripsForUser(user);
-        return ResponseEntity.ok(trips);
     }
 }

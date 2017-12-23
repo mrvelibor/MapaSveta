@@ -9,13 +9,13 @@ import {AuthenticationService} from './services/rest/authentication.service';
 import {AlertService} from './services/ui/alert/alert.service';
 import {OverlayService} from './services/ui/overlay/overlay.service';
 import {MapComponent} from './components/map-component/map.component';
-import {LoginComponent} from './components/login-component/login.component';
+import {AccountLoginComponent} from './components/account-login-component/account-login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {routing} from './app.routing';
 import {AlertComponent} from './services/ui/alert/alert.component';
 import {OverlayComponent} from './services/ui/overlay/overlay.component';
-import {RegisterComponent} from './components/register-component/register.component';
+import {AccountRegisterComponent} from './components/account-register-component/account-register.component';
 import {MapaSvetaMaterialModule} from './mapa-sveta-material.module';
 import {LoaderComponent} from './services/ui/loader/loader.component';
 import {LoaderService} from './services/ui/loader/loader.service';
@@ -31,20 +31,30 @@ import {RecommendationViewerComponent} from "./components/recommendation-viewer-
 import {TripEditorComponent} from "./components/trip-editor-component/trip-editor.component";
 import {TripListComponent} from "./components/trip-list-component/trip-list.component";
 import {UserListComponent} from "./components/user-list-component/user-list.component";
+import {AccountEditorComponent} from "./components/account-editor-component/account-editor.component";
+import {CountryListComponent} from "./components/country-list-component/country-list.component";
+import {TripViewerComponent} from "./components/trip-viewer-component/trip-viewer.component";
+import {UserEditorComponent} from "./components/user-editor-component/user-editor.component";
+import {UserViewerComponent} from "./components/user-viewer-component/user-viewer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    AccountEditorComponent,
+    AccountLoginComponent,
+    AccountRegisterComponent,
+    CountryListComponent,
     CountryViewerComponent,
-    LoginComponent,
     MapComponent,
     RecommendationEditorComponent,
     RecommendationListComponent,
     RecommendationViewerComponent,
-    RegisterComponent,
     TripEditorComponent,
     TripListComponent,
+    TripViewerComponent,
+    UserEditorComponent,
     UserListComponent,
+    UserViewerComponent,
     AlertComponent,
     OverlayComponent,
     LoaderComponent

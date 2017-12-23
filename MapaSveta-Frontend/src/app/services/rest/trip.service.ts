@@ -13,6 +13,14 @@ export class TripService extends RestService {
     super(http);
   }
 
+  getTrip(tripId: number): Observable<Trip> {
+    let options = RestService.options();
+    return this.http.get(
+      `${TripService.HOST}/${tripId}`,
+      options
+    ).map(res => res.json());
+  }
+
   getTrips(): Observable<Trip[]> {
     let options = RestService.options();
     return this.http.get(

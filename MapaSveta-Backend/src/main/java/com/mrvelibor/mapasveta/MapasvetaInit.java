@@ -41,6 +41,14 @@ public class MapasvetaInit {
     public void init() throws Exception {
         mongoTemplate.getDb().dropDatabase();
 
+        countryLoaderService.loadCountries();
+
+//        City cityBelgrade = new City();
+//        cityBelgrade.setName("Belgrade");
+//        cityBelgrade.setLocation(new LatLng(new BigDecimal("44.816667"), new BigDecimal("20.466667")));
+//        cityBelgrade = cityDao.save(cityBelgrade);
+//        LOG.info("Saved: " + cityBelgrade);
+
         User user = new User();
         user.setFirstName("Veli");
         user.setLastName("Bor");
@@ -50,13 +58,14 @@ public class MapasvetaInit {
         user = authenticationService.register(user);
         LOG.info("Saved: " + user);
 
-        countryLoaderService.loadCountries();
-
-//        City cityBelgrade = new City();
-//        cityBelgrade.setName("Belgrade");
-//        cityBelgrade.setLocation(new LatLng(new BigDecimal("44.816667"), new BigDecimal("20.466667")));
-//        cityBelgrade = cityDao.save(cityBelgrade);
-//        LOG.info("Saved: " + cityBelgrade);
+        User admin = new User();
+        admin.setFirstName("Admin");
+        admin.setLastName("Bor");
+        admin.setEmail("admin@localhost");
+        admin.setPassword("passw0rd");
+        admin.setType(UserType.admin);
+        admin = authenticationService.register(admin);
+        LOG.info("Saved: " + admin);
 
         Recommendation recommendation = new Recommendation();
         recommendation.setDescription("Banja");

@@ -13,6 +13,14 @@ export class UserService extends RestService {
     super(http);
   }
 
+  getUser(userId: number): Observable<User> {
+    let options = RestService.options();
+    return this.http.get(
+      `${UserService.HOST}/${userId}`,
+      options
+    ).map(res => res.json());
+  }
+
   getUsers(): Observable<User[]> {
     let options = RestService.options();
     return this.http.get(

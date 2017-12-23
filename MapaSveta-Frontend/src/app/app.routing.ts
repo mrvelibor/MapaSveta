@@ -1,12 +1,12 @@
 ﻿import {Routes, RouterModule} from '@angular/router';
 import {MapComponent} from './components/map-component/map.component';
-import {LoginComponent} from './components/login-component/login.component';
-import {RegisterComponent} from './components/register-component/register.component';
+import {AccountLoginComponent} from './components/account-login-component/account-login.component';
+import {AccountRegisterComponent} from './components/account-register-component/account-register.component';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: AccountLoginComponent},
+  {path: 'register', component: AccountRegisterComponent},
   {path: '**', redirectTo: ''}
 ];
 
