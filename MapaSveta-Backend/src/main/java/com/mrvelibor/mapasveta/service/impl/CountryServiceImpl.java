@@ -30,6 +30,31 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    public Country findCountryByCode2(String countryCode2) {
+        return countryDao.findByCountryCode2(countryCode2);
+    }
+
+    @Override
+    public Country findCountryByCode3(String countryCode3) {
+        return countryDao.findByCountryCode3(countryCode3);
+    }
+
+    @Override
+    public Country findCountryByVisaCode(String visaCode) {
+        return countryDao.findByVisaCode(visaCode);
+    }
+
+    @Override
+    public Country findCountryByCommonName(String commonName) {
+        return countryDao.findByCommonName(commonName);
+    }
+
+    @Override
+    public List<Country> findCountriesByName(String name) {
+        return countryDao.findAllByCommonNameContainingOrOfficialNameContaining(name, name);
+    }
+
+    @Override
     public List<Country> getAllCountries() {
         return countryDao.findAll();
     }
