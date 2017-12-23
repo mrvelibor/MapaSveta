@@ -1,14 +1,15 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
 import {CountryService} from "../../services/rest/country.service";
 import {environment} from "../../../environments/environment";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Country} from "../../models/countries/country";
+import {CountryViewerDialog} from "../country-viewer-component/country-viewer.component";
 
 @Component({
   templateUrl: 'country-list.component.html',
   styleUrls: ['country-list.component.scss']
 })
-export class CountryListComponent implements AfterViewInit {
+export class CountryListComponent implements OnInit, AfterViewInit {
 
   apiUrl = environment.apiUrl;
 
@@ -18,7 +19,8 @@ export class CountryListComponent implements AfterViewInit {
   displayedColumns = ['flag', 'serbianName', 'officialName', 'capital', 'diallingCode', 'domain', 'languages'];
   dataSource = new MatTableDataSource<Country>([]);
 
-  constructor(private countryService: CountryService) {
+  constructor(private countryService: CountryService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -42,14 +44,8 @@ export class CountryListComponent implements AfterViewInit {
   }
 
   viewCountry(country: Country) {
-    console.log(country);
-  }
-
-  editCountry(country: Country) {
-    console.log(country);
-  }
-
-  deleteCountry(country: Country) {
-    console.log(country);
+    this.dialog.open(CountryViewerDialog, {
+      data: { country: country }
+    });
   }
 }

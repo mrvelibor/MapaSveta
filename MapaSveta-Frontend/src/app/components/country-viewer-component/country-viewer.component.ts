@@ -1,7 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {Component, Inject, Input} from "@angular/core";
 import {Country} from "../../models/countries/country";
 import {CountryService} from "../../services/rest/country.service";
 import {environment} from "../../../environments/environment";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-country-viewer',
@@ -16,5 +17,19 @@ export class CountryViewerComponent {
   country: Country;
 
   constructor(private countryService: CountryService) {
+  }
+}
+
+@Component({
+  selector: 'dialog-country-viewer',
+  templateUrl: 'country-viewer.dialog.html'
+})
+export class CountryViewerDialog {
+  constructor(public dialogRef: MatDialogRef<CountryViewerDialog>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

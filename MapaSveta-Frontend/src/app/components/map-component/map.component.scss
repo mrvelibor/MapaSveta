@@ -16,9 +16,12 @@
 }
 
 .app-sidenav {
-  width: 320px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   flex: 1 1 auto;
+}
+
+.app-sidenav-button {
+  min-height: 40px;
 }

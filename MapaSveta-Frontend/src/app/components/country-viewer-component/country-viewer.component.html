@@ -1,2 +1,75 @@
-<img src="{{apiUrl}}{{country.flagUrl}}" height="48px" width="64px">
-<div>{{country.officialName}}</div>
+<mat-card class="details-card">
+  <mat-card-header>
+    <img mat-card-avatar src="{{apiUrl}}{{country.flagUrl}}">
+    <mat-card-title>{{country.serbianName}}</mat-card-title>
+    <mat-card-subtitle>{{country.officialName}}</mat-card-subtitle>
+    <mat-card-subtitle *ngFor="let name of country.nativeNames">{{name}}</mat-card-subtitle>
+  </mat-card-header>
+  <img *ngIf="country.flagUrl" mat-card-image src="{{apiUrl}}{{country.flagUrl}}">
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngIf="country.capital">
+        <h3 mat-line> <mat-icon mat-list-icon>location_city</mat-icon> {{country.capital.name}} </h3>
+        <p mat-line> Glavni grad </p>
+      </mat-list-item>
+      <mat-list-item *ngIf="country.diallingCode">
+        <h3 mat-line> <mat-icon mat-list-icon>call</mat-icon> {{country.diallingCode}} </h3>
+        <p mat-line> Pozivni broj </p>
+      </mat-list-item>
+      <mat-list-item *ngIf="country.domain">
+        <h3 mat-line> <mat-icon mat-list-icon>wifi</mat-icon> {{country.domain}} </h3>
+        <p mat-line> Domen </p>
+      </mat-list-item>
+    </mat-list>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <mat-icon mat-list-icon>language</mat-icon> </mat-panel-title>
+          <mat-panel-description> Jezici </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item *ngFor="let language of country.languages">
+            <h4 mat-line>{{language.name}}</h4>
+            <p mat-line> {{language.code}} </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <mat-icon mat-list-icon>monetization_on</mat-icon> </mat-panel-title>
+          <mat-panel-description> Valute </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item *ngFor="let currency of country.currencies">
+            <h4 mat-line>{{currency.name}}</h4>
+            <p mat-line> {{currency.code}} </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> <mat-icon mat-list-icon>info</mat-icon> </mat-panel-title>
+          <mat-panel-description> Ostali podaci </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>
+            <h4 mat-line> {{country.countryCode2}} </h4>
+            <p mat-line> cc2 </p>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line> {{country.countryCode3}} </h4>
+            <p mat-line> cc3 </p>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line> {{country.visaCode}} </h4>
+            <p mat-line> csvc </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-card-actions>
+      <button mat-button>Dodaj putovanje</button>
+      <button mat-button>Pogledaj vize</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
