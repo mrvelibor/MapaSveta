@@ -24,13 +24,27 @@ import {CountryService} from "./services/rest/country.service";
 import {RecommendationService} from "./services/rest/recommendation.service";
 import {TripService} from "./services/rest/trip.service";
 import {UserService} from "./services/rest/user.service";
+import {CountryViewerComponent} from "./components/country-viewer-component/country-viewer.component";
+import {RecommendationEditorComponent} from "./components/recommendation-editor-component/recommendation-editor.component";
+import {RecommendationListComponent} from "./components/recommendation-list-component/recommendation-list.component";
+import {RecommendationViewerComponent} from "./components/recommendation-viewer-component/recommendation-viewer.component";
+import {TripEditorComponent} from "./components/trip-editor-component/trip-editor.component";
+import {TripListComponent} from "./components/trip-list-component/trip-list.component";
+import {UserListComponent} from "./components/user-list-component/user-list.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent,
+    CountryViewerComponent,
     LoginComponent,
+    MapComponent,
+    RecommendationEditorComponent,
+    RecommendationListComponent,
+    RecommendationViewerComponent,
     RegisterComponent,
+    TripEditorComponent,
+    TripListComponent,
+    UserListComponent,
     AlertComponent,
     OverlayComponent,
     LoaderComponent

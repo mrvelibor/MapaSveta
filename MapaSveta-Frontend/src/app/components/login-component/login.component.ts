@@ -11,7 +11,6 @@ import {LoaderService} from '../../services/ui/loader/loader.service';
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss']
 })
-
 export class LoginComponent {
 
   emailFormControl = new FormControl('', [

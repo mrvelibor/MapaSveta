@@ -1,5 +1,10 @@
 <mat-sidenav-container class="app-sidenav-container">
-  <mat-sidenav mode="side" opened="true">Sidenav content</mat-sidenav>
+  <mat-sidenav class="app-sidenav" #drawer mode="side" opened="false">
+    <button type="button" mat-button (click)="drawer.close()">
+      <mat-icon>close</mat-icon> Zatvori
+    </button>
+    <app-country-viewer *ngIf="country" [country]="country"></app-country-viewer>
+  </mat-sidenav>
   <mat-sidenav-content class="app-sidenav-container">
     <div id="map"></div>
   </mat-sidenav-content>

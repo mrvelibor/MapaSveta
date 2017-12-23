@@ -11,7 +11,6 @@ import {LoaderService} from '../../services/ui/loader/loader.service';
   templateUrl: 'register.component.html',
   styleUrls: ['register.component.scss']
 })
-
 export class RegisterComponent {
 
   firstNameFormControl = new FormControl('', [

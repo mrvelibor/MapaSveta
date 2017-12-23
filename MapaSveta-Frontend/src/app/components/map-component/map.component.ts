@@ -1,25 +1,31 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../models/user/user';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {Country} from '../../models/countries/country';
 import {CountryService} from "../../services/rest/country.service";
 import {CityService} from "../../services/rest/city.service";
+import {MatSidenav} from "@angular/material";
 
 @Component({
   templateUrl: 'map.component.html',
   styleUrls: ['map.component.scss']
 })
-
 export class MapComponent implements OnInit, OnDestroy {
   currentUser: User;
   subscription: Subscription;
+
+  @ViewChild('drawer')
+  sidenav: MatSidenav;
 
   map;
 
   countries: Country[];
 
-  constructor(private authService: AuthenticationService,
+  country: Country;
+
+  constructor(private _ngZone: NgZone,
+              private authService: AuthenticationService,
               private countryService: CountryService,
               private cityService: CityService) {
   }
@@ -297,6 +303,18 @@ export class MapComponent implements OnInit, OnDestroy {
     this.map = new google.maps.Map(document.getElementById('map'), props);
     this.map.mapTypes.set('styled_map', styledMapType);
     this.map.setMapTypeId('styled_map');
+
+    this.map.data.addListener('click', (event) => {
+      console.log(event);
+      if (event.feature.f.cca2) {
+        this.country = this.countries.find(country => country.countryCode2.toUpperCase() === event.feature.f.cca2.toUpperCase());
+        if (this.country) {
+          this._ngZone.run(() => {
+            this.sidenav.open();
+          });
+        }
+      }
+    });
 
     this.loadCountries();
     this.loadCities();
