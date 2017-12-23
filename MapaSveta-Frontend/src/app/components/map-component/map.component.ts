@@ -321,8 +321,6 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
-    google.maps.event.trigger(this.map, "resize");
-
     this.loadMaps('size_3');
   }
 
@@ -377,6 +375,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           );
         }
+        google.maps.event.trigger(this.map, "resize");
       }
     );
   }
