@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>
+  {{data.title}}
+</h1>
+<mat-dialog-content>
+  {{data.message}}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onButtonClick(1)" cdkFocusInitial>Da</button>
+  <button mat-button (click)="onButtonClick(0)">Ne</button>
+</mat-dialog-actions>

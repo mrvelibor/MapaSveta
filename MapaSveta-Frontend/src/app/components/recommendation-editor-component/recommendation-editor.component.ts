@@ -25,11 +25,8 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
 
   @Input('recommendation')
   set recommendation(recommendation: Recommendation) {
-    let obj = new Recommendation();
-    Object.assign(obj, recommendation);
-    if (!obj.address) {
-      obj.address = new Address();
-    }
+    let obj = Object.assign(new Recommendation(), recommendation);
+    obj.address = Object.assign(new Address(), obj.address);
     this.model = obj;
   }
 

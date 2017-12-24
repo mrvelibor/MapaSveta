@@ -44,6 +44,7 @@ import {UserEditorComponent} from "./components/user-editor-component/user-edito
 import {UserViewerComponent} from "./components/user-viewer-component/user-viewer.component";
 import {NospaceValidator} from "./directives/nospace.validator";
 import {IsObjectValidator} from "./directives/is-object.validator";
+import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.dialog";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {IsObjectValidator} from "./directives/is-object.validator";
     AccountEditorComponent,
     AccountLoginComponent,
     AccountRegisterComponent,
+    ConfirmationDialog,
     CountryListComponent,
     CountryViewerComponent,
     CountryViewerDialog,
@@ -95,6 +97,7 @@ import {IsObjectValidator} from "./directives/is-object.validator";
     LoaderService
   ],
   entryComponents: [
+    ConfirmationDialog,
     CountryViewerDialog,
     RecommendationEditorDialog
   ],

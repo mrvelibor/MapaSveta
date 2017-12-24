@@ -7,6 +7,7 @@ import {User} from "../../models/user/user";
 import {Country} from "../../models/countries/country";
 import {RecommendationEditorDialog} from "../recommendation-editor-component/recommendation-editor.component";
 import {CountryViewerDialog} from "../country-viewer-component/country-viewer.component";
+import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
 
 @Component({
   templateUrl: 'recommendation-list.component.html',
@@ -16,10 +17,10 @@ export class RecommendationListComponent implements OnInit, AfterViewInit {
 
   apiUrl = environment.apiUrl;
 
+  displayedColumns = ['name', 'city', 'country', 'createdBy', 'description', '_options'];
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  displayedColumns = ['name', 'city', 'country', 'createdBy', 'description', '_options'];
   dataSource = new MatTableDataSource<Recommendation>([]);
 
   constructor(private recommendationService: RecommendationService,
@@ -30,9 +31,8 @@ export class RecommendationListComponent implements OnInit, AfterViewInit {
     this.recommendationService.getRecommendations().subscribe(
       data => {
         console.log(data);
-        this.dataSource = new MatTableDataSource<Recommendation>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = data;
+        this.dataSource._updateChangeSubscription();
       }
     )
   }
@@ -70,6 +70,22 @@ export class RecommendationListComponent implements OnInit, AfterViewInit {
   }
 
   deleteRecommendation(recommendation: Recommendation) {
-    console.log(recommendation);
+    let dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: new DialogData("Obrisati zanimljivost?", `Da li ste sigurni da želite da obrišete zanimljivost ${recommendation.name}?`)
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recommendationService.deleteRecommendation(recommendation).subscribe(
+          data => {
+            console.log(data);
+            var index = this.dataSource.data.indexOf(recommendation, 0);
+            if (index > -1) {
+              this.dataSource.data.splice(index, 1);
+              this.dataSource._updateChangeSubscription();
+            }
+          }
+        )
+      }
+    });
   }
 }
