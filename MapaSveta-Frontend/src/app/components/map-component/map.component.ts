@@ -5,10 +5,14 @@ import {AuthenticationService} from '../../services/rest/authentication.service'
 import {Country} from '../../models/countries/country';
 import {CountryService} from "../../services/rest/country.service";
 import {CityService} from "../../services/rest/city.service";
-import {MatSidenav} from "@angular/material";
+import {MatDialog, MatSidenav} from "@angular/material";
 import {MapService, MapType} from "./map.service";
 import {RecommendationService} from "../../services/rest/recommendation.service";
 import {Recommendation} from "../../models/recommendations/recommendation";
+import {RecommendationEditorDialog} from "../recommendation-editor-component/recommendation-editor.component";
+import {LatLng} from "../../models/common/lat-lng";
+import {Address} from "../../models/common/address";
+import {AlertService} from "../../services/ui/alert/alert.service";
 
 @Component({
   templateUrl: 'map.component.html',
@@ -24,8 +28,12 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   countries: Country[];
   countriesSubscription: Subscription;
 
+  recommendationsSubscription: Subscription;
+  visasSubscription: Subscription;
+
   map;
-  mapLoaded: boolean;
+  mapMarkers = [];
+  mapLoaded = false;
 
   @ViewChild('drawer')
   sidenav: MatSidenav;
@@ -38,7 +46,9 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
               private authService: AuthenticationService,
               private countryService: CountryService,
               private cityService: CityService,
-              private recommendationService: RecommendationService) {
+              private recommendationService: RecommendationService,
+              private alertService: AlertService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -51,7 +61,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mapTypeSubscription = this.mapService.mapType$.subscribe(
       mapType => {
         this.mapType = mapType;
-        this.onMapTypeChanged();
+        this.setupMap();
       }
     );
     this.countriesSubscription = this.countryService.countries$.subscribe(
@@ -341,34 +351,48 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.map.setMapTypeId('styled_map');
 
     this.map.data.addListener('click', (event) => {
-      console.log(event);
-      console.log(event.latLng);
-      console.log(event.latLng.lat());
-      console.log(event.latLng.lng());
       if (event.feature.f.cca2) {
         let country = this.countries.find(country => country.countryCode2.toUpperCase() === event.feature.f.cca2.toUpperCase());
         if (country) {
           this._ngZone.run(() => {
-            this.countryClicked(country);
+            this.countryClicked(country, event.latLng);
           });
         }
       }
     });
-    this.setupMap();
-
     this.loadMaps('size_3');
   }
 
+  lastMapType: string;
+
   setupMap() {
-    if (!this.mapLoaded) {
+    if (!this.mapLoaded || this.mapType.type === this.lastMapType) {
       return;
     }
+    this.alertService.clearMessage();
+    this.lastMapType = this.mapType.type;
+
+    if (this.recommendationsSubscription) {
+      this.recommendationsSubscription.unsubscribe();
+    }
+    if (this.visasSubscription) {
+      this.visasSubscription.unsubscribe();
+    }
+    this.mapMarkers.forEach(marker => marker.setMap(null));
+    this.mapMarkers = [];
+    this.sidenav.close();
     switch (this.mapType.type) {
       case 'countries':
         this.map.setMapTypeId('styled_map');
+        this.map.data.forEach(feature => {
+          this.map.data.overrideStyle(feature, {fillColor: 'gray'});
+        });
         break;
       case 'recommendations':
         this.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+        this.map.data.forEach(feature => {
+          this.map.data.overrideStyle(feature, {fillColor: 'transparent'});
+        });
         this.loadRecommendations();
         break;
       case 'visas':
@@ -384,10 +408,6 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
         this.loadVisas(country);
         break;
     }
-  }
-
-  onMapTypeChanged() {
-    this.setupMap();
   }
 
   loadMaps(size: string) {
@@ -415,8 +435,9 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           );
         }
+        this.mapLoaded = true;
+        this.setupMap();
         google.maps.event.trigger(this.map, "resize");
-
       }
     );
   }
@@ -439,32 +460,36 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadRecommendations() {
-    this.recommendationService.getRecommendations().subscribe(
+    this.recommendationsSubscription = this.recommendationService.getRecommendations().subscribe(
       recommendations => {
         console.log(recommendations);
-        if (recommendations) {
-          recommendations.forEach(recommendation => {
-            let marker = new google.maps.Marker({
-              position: recommendation.location,
-              map: this.map,
-              title: recommendation.name
-            });
-            marker.addListener('click', (event) => {
-              this._ngZone.run(() => {
-                this.recommendationClicked(recommendation);
-              });
-            });
-          });
-        }
+        recommendations.forEach(recommendation => {
+          this.addRecommendationMarker(recommendation);
+        });
       }
     );
   }
 
+  addRecommendationMarker(recommendation: Recommendation) {
+    let marker = new google.maps.Marker({
+      position: recommendation.location,
+      map: this.map,
+      title: recommendation.name
+    });
+    marker.addListener('click', (event) => {
+      this._ngZone.run(() => {
+        this.recommendationClicked(recommendation);
+      });
+    });
+    this.mapMarkers.push(marker);
+  }
+
   loadVisas(country: Country) {
-    this.countryService.getVisaPermission(country).subscribe(
-      data => {
+    this.visasSubscription = this.countryService.getVisaPermission(country).subscribe(
+      visaPolicy => {
+        console.log(visaPolicy);
         this.map.data.forEach(feature => {
-          let requirement = data.requirements[feature.f.visaCode];
+          let requirement = visaPolicy.requirements[feature.f.visaCode];
           let color = 'gray';
           if (requirement) switch (requirement.permission) {
             case "free":
@@ -486,15 +511,40 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           }
           this.map.data.overrideStyle(feature, {fillColor: color});
-        })
+        });
       }
     );
   }
 
-  countryClicked(country: Country) {
-    this.selectedRecommendation = null;
-    this.selectedCountry = country;
-    this.sidenav.open();
+  countryClicked(country: Country, latLng) {
+    switch (this.mapType.type) {
+      case 'countries':
+        this.selectedRecommendation = null;
+        this.selectedCountry = country;
+        this.sidenav.open();
+        break;
+      case 'recommendations':
+        if (this.mapType.shouldAdd) {
+          let recommendation = new Recommendation();
+          recommendation.location = new LatLng(latLng.lat(), latLng.lng());
+          recommendation.address = new Address();
+          recommendation.address.country = country;
+          let dialogRef = this.dialog.open(RecommendationEditorDialog, {
+            data: recommendation
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.addRecommendationMarker(result);
+            }
+            this.mapType.shouldAdd = false;
+            this.alertService.clearMessage();
+          });
+        }
+        break;
+      case 'visas':
+        this.loadVisas(country);
+        break;
+    }
   }
 
   recommendationClicked(recommendation: Recommendation) {
@@ -502,70 +552,4 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedRecommendation = recommendation;
     this.sidenav.open();
   }
-
-  // this.map.data.forEach(feature => {
-  //   this.map.data.remove(feature);
-  // });
-  // this.map.data.addListener('addfeature', (event) => {
-  //   if (event.feature.f.cca3 === 'SRB') {
-  //     this.map.data.overrideStyle(event.feature, {fillColor: 'blue'});
-  //   } else if (event.feature.f.cca2 === 'gr' ||
-  //     event.feature.f.cca2 === 'ru' ||
-  //     event.feature.f.cca2 === 'ba' ||
-  //     event.feature.f.cca2 === 'me' ||
-  //     event.feature.f.cca2 === 'tr' ||
-  //     event.feature.f.cca2 === 'it' ||
-  //     event.feature.f.cca2 === 'fr' ||
-  //     event.feature.f.cca2 === 'us' ||
-  //     event.feature.f.cca2 === 'eg' ||
-  //     event.feature.f.cca2 === 'at' ||
-  //     event.feature.f.cca2 === 'hu' ||
-  //     event.feature.f.cca2 === 'mk' ||
-  //     event.feature.f.cca2 === 'cz' ||
-  //     event.feature.f.cca2 === 'ee' ||
-  //     event.feature.f.cca2 === 'nl' ||
-  //     event.feature.f.cca2 === 'pl' ||
-  //     event.feature.f.cca2 === 'es'
-  //   ) {
-  //     this.map.data.overrideStyle(event.feature, {fillColor: 'green'});
-  //   } else if (event.feature.f.cca2 === 'de' ||
-  //     event.feature.f.cca2 === 'gb' ||
-  //     event.feature.f.cca2 === 'il' ||
-  //     event.feature.f.cca2 === 'sa' ||
-  //     event.feature.f.cca2 === 'bg' ||
-  //     event.feature.f.cca2 === 'al' ||
-  //     event.feature.f.cca2 === 'se'
-  //   ) {
-  //     this.map.data.overrideStyle(event.feature, {fillColor: 'yellow'});
-  //   }
-  // });
-  //   this.map.data.addListener('addfeature', (event) => {
-  //   if (event.feature.f.cca3 === 'SRB') {
-  //   this.map.data.overrideStyle(event.feature, {fillColor: 'blue'});
-  // } else {
-  //   let country = this.visa.requirements[event.feature.f.csvc];
-  //   if (country) {
-  //     switch (country.permission) {
-  //       case 'free':
-  //         this.map.data.overrideStyle(event.feature, {fillColor: 'green'});
-  //         break;
-  //       case 'arrival':
-  //         this.map.data.overrideStyle(event.feature, {fillColor: 'yellow'});
-  //         break;
-  //       case 'required':
-  //         this.map.data.overrideStyle(event.feature, {fillColor: 'red'});
-  //         break;
-  //     }
-  //   }
-  // }
-  // });
-  // this.map.data.addListener('click', (event) => {
-  //   if (event.feature.f.a) {
-  //     this.map.data.overrideStyle(event.feature, {fillColor: 'yellow'});
-  //     event.feature.f.a = false;
-  //   } else {
-  //     this.map.data.overrideStyle(event.feature, {fillColor: 'green'});
-  //     event.feature.f.a = true;
-  //   }
-  // });
 }

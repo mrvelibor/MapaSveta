@@ -21,6 +21,9 @@ export class AppComponent implements OnInit, OnDestroy {
   countries: Country[];
   countriesSubscription: Subscription;
 
+  mapType: MapType;
+  mapTypeSubscription: Subscription;
+
   routeSubscription: Subscription;
 
   url = environment.apiUrl;
@@ -45,6 +48,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.countries = countries;
       }
     );
+    this.mapTypeSubscription = this.mapService.mapType$.subscribe(
+      mapType => {
+        this.mapType = mapType;
+      }
+    );
     this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
   }
 
@@ -52,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.countriesSubscription.unsubscribe();
+    this.mapTypeSubscription.unsubscribe();
   }
 
   logout() {
@@ -69,6 +78,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   setMapType(type: string) {
-    this.mapService.setMapType(new MapType(type, null));
+    this.mapService.setMapType(new MapType(type));
+  }
+
+  enableAdding() {
+    this.mapService.setMapType(new MapType('recommendations', null, true));
+    this.alertService.success('Kliknite na mapu da dodate zanimljivost.');
   }
 }

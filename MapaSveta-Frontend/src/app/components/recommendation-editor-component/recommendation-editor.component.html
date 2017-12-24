@@ -1,7 +1,7 @@
 <mat-card class="editor-container">
   <form name="form" class="editor-container" (ngSubmit)="f.form.valid && saveRecommendation()" #f="ngForm">
     <mat-form-field>
-      <input matInput placeholder="Input" name="name" [(ngModel)]="model.name" required>
+      <input matInput placeholder="Naziv" name="name" [(ngModel)]="model.name" required>
       <mat-error *ngIf="f.form.controls['name'] && f.form.controls['name'].hasError('required')">
         Naziv je obavezan.
       </mat-error>

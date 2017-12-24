@@ -16,13 +16,13 @@
       <button *ngIf="currentUser" mat-button [routerLink]="['/trips']"> Putovanja </button>
       <button *ngIf="currentUser && currentUser.type === 'admin'" mat-button [routerLink]="['/users']"> Korisnici </button>
       <span class="toolbar-spacer"></span>
-      <button *ngIf="currentUser && currentUrl === '/'" mat-button [matMenuTriggerFor]="menuMap"> <mat-icon>add_location</mat-icon> Dodaj zanimljivost </button>
+      <button *ngIf="currentUser && currentUrl === '/' && mapType.type === 'recommendations'" mat-button (click)="enableAdding()"> <mat-icon>add_location</mat-icon> Dodaj zanimljivost </button>
       <button *ngIf="currentUrl === '/'" mat-button [matMenuTriggerFor]="menuMap"> <mat-icon>layers</mat-icon> Filteri </button>
       <mat-menu #menuMap="matMenu">
-        <button mat-menu-item (click)="setMapType('countries')">Mapa država</button>
-        <button mat-menu-item (click)="setMapType('recommendations')">Mapa zanimljivosti</button>
-        <button mat-menu-item (click)="setMapType('visas')">Mapa viza</button>
-        <button *ngIf="currentUser" mat-menu-item (click)="setMapType('trips')">Mapa putovanja</button>
+        <button mat-menu-item (click)="setMapType('countries')" color="mapType.type === 'countries' ? 'accent' : ''">Mapa država</button>
+        <button mat-menu-item (click)="setMapType('recommendations')" color="mapType.type === 'recommendations' ? 'accent' : ''">Mapa zanimljivosti</button>
+        <button mat-menu-item (click)="setMapType('visas')" color="mapType.type === 'visas' ? 'accent' : ''">Mapa viza</button>
+        <button *ngIf="currentUser" mat-menu-item (click)="setMapType('trips')" color="mapType.type === 'trips' ? 'accent' : ''">Mapa putovanja</button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="menuAccount"> <mat-icon>account_circle</mat-icon> {{currentUser ? currentUser.firstName + ' ' + currentUser.lastName[0] : 'Nalog'}}</button>
       <mat-menu #menuAccount="matMenu">

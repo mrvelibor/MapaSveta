@@ -5,7 +5,7 @@
     <mat-card-subtitle> {{recommendation.createdBy.firstName}} {{recommendation.createdBy.lastName}} </mat-card-subtitle>
     <mat-card-subtitle> {{recommendation.createdBy.email}} </mat-card-subtitle>
   </mat-card-header>
-  <img *ngIf="recommendation.imageUrl" mat-card-image src="{{apiUrl}}{{recommendation.imageUrl}}">
+  <img *ngIf="recommendation.imageUrl" mat-card-image src="{{recommendation.imageUrl}}">
   <mat-card-content>
     <h2> {{recommendation.name}} </h2>
     <p> {{recommendation.description}} </p>

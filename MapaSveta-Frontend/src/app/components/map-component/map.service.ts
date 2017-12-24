@@ -22,9 +22,11 @@ export class MapService {
 export class MapType {
   type: string;
   country: Country;
+  shouldAdd: boolean;
 
-  constructor(type: string, country: Country) {
+  constructor(type: string, country: Country = null, shouldAdd: boolean = false) {
     this.type = type;
     this.country = country;
+    this.shouldAdd = shouldAdd;
   }
 }
