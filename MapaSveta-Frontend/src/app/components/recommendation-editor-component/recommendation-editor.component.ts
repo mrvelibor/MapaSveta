@@ -9,6 +9,7 @@ import {Observable} from "rxjs/Observable";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {environment} from "../../../environments/environment";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-recommendation-edtior',
@@ -20,6 +21,7 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
   apiUrl = environment.apiUrl;
 
   countries: Country[];
+  countriesSubscription: Subscription;
 
   model: Recommendation;
 
@@ -46,7 +48,7 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.countryService.getCountries().subscribe(
+    this.countriesSubscription = this.countryService.countries$.subscribe(
       data => {
         this.countries = data;
       }
@@ -55,6 +57,7 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.countriesSubscription.unsubscribe();
   }
 
   filteredCountries: Observable<Country[]>;

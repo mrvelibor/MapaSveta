@@ -7,13 +7,22 @@ import {Observable} from "rxjs/Observable";
 import {VisaRequirement} from "../../models/countries/visa-requirement";
 import {CountryMap} from "../../models/countries/country-map";
 import {VisaPermissionCountry} from "../../models/countries/visa-permission";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class CountryService extends RestService {
   private static HOST = `${environment.apiUrl}/countries`;
 
+  private _countriesSource;
+  private countries;
+  countries$;
+
   constructor(http: Http) {
     super(http);
+    this._countriesSource = new BehaviorSubject<Country[]>([]);
+    this.countries$ = this._countriesSource.asObservable();
+    this.countries$.subscribe(u => this.countries = u);
+    this.getCountries().subscribe(countries => this._countriesSource.next(countries));
   }
 
   getCountries(): Observable<Country[]> {

@@ -6,6 +6,8 @@ import {NavigationEnd, Router} from '@angular/router';
 import {environment} from '../environments/environment';
 import {AlertService} from "./services/ui/alert/alert.service";
 import {MapService, MapType} from "./components/map-component/map.service";
+import {Country} from "./models/countries/country";
+import {CountryService} from "./services/rest/country.service";
 
 @Component({
   selector: 'app-root',
@@ -16,28 +18,40 @@ export class AppComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   currentUser: User;
 
+  countries: Country[];
+  countriesSubscription: Subscription;
+
+  routeSubscription: Subscription;
+
   url = environment.apiUrl;
 
   currentUrl: string;
 
   constructor(private authService: AuthenticationService,
+              private countryService: CountryService,
               private alertService: AlertService,
               private mapService: MapService,
               private router: Router) {
   }
 
   ngOnInit() {
-    this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
-    this.router.events.subscribe(event => {
-      console.log(event);
+    this.routeSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd ) {
         this.currentUrl = event.url;
       }
     });
+    this.countriesSubscription = this.countryService.countries$.subscribe(
+      countries => {
+        this.countries = countries;
+      }
+    );
+    this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
   }
 
   ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
+    this.countriesSubscription.unsubscribe();
   }
 
   logout() {

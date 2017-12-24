@@ -8,6 +8,8 @@ import {Observable} from "rxjs/Observable";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {Subscriber} from "rxjs/Subscriber";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-trip-edtior',
@@ -19,6 +21,7 @@ export class TripEditorComponent implements OnInit, OnDestroy {
   apiUrl = environment.apiUrl;
 
   countries: Country[];
+  countriesSubscription: Subscription;
 
   model: Trip;
 
@@ -47,7 +50,7 @@ export class TripEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.countryService.getCountries().subscribe(
+    this.countriesSubscription = this.countryService.countries$.subscribe(
       data => {
         this.countries = data;
       }
@@ -56,6 +59,7 @@ export class TripEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.countriesSubscription.unsubscribe();
   }
 
   filteredCountries: Observable<Country[]>;

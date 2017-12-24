@@ -30,9 +30,8 @@ export class TripListComponent implements AfterViewInit {
     this.tripService.getTrips().subscribe(
       data => {
         console.log(data);
-        this.dataSource = new MatTableDataSource<Trip>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = data;
+        this.dataSource._updateChangeSubscription();
       }
     )
   }

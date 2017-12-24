@@ -39,7 +39,8 @@
   </button>
 
   <div class="app-content">
-    <router-outlet></router-outlet>
+    <mat-progress-spinner *ngIf="!countries || countries.length === 0"></mat-progress-spinner>
+    <router-outlet *ngIf="countries && countries.length > 0"></router-outlet>
   </div>
 
   <mat-toolbar>
