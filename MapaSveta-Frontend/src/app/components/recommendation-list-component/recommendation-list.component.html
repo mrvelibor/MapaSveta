@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="country">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
+      <mat-cell *matCellDef="let element" (click)="viewCountry(element.address.country)">
         <img *ngIf="element.address && element.address.country" matTooltip="{{element.address.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.address.country.flagUrl}}" height="32px" width="54px">
       </mat-cell>
     </ng-container>
@@ -45,8 +45,8 @@
     <ng-container matColumnDef="_options">
       <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-button-cell">
-        <button mat-button class="table-button" (click)="editRecommendation(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
-        <button mat-button class="table-button" (click)="deleteRecommendation(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
+        <button *ngIf="currentUser.type === 'admin' || currentUser.id === element.createdBy.id" mat-button class="table-button" (click)="editRecommendation(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button *ngIf="currentUser.type === 'admin' || currentUser.id === element.createdBy.id" mat-button class="table-button" (click)="deleteRecommendation(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
       </mat-cell>
     </ng-container>
 

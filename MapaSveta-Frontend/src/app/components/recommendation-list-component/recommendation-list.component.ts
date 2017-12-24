@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {RecommendationService} from "../../services/rest/recommendation.service";
 import {environment} from "../../../environments/environment";
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
@@ -8,14 +8,19 @@ import {Country} from "../../models/countries/country";
 import {RecommendationEditorDialog} from "../recommendation-editor-component/recommendation-editor.component";
 import {CountryViewerDialog} from "../country-viewer-component/country-viewer.component";
 import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
+import {AuthenticationService} from "../../services/rest/authentication.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   templateUrl: 'recommendation-list.component.html',
   styleUrls: ['recommendation-list.component.scss']
 })
-export class RecommendationListComponent implements OnInit, AfterViewInit {
+export class RecommendationListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   apiUrl = environment.apiUrl;
+
+  subscription: Subscription;
+  currentUser: User;
 
   displayedColumns = ['name', 'city', 'country', 'createdBy', 'description', '_options'];
 
@@ -23,11 +28,23 @@ export class RecommendationListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<Recommendation>([]);
 
-  constructor(private recommendationService: RecommendationService,
+  constructor(private authService: AuthenticationService,
+              private recommendationService: RecommendationService,
               private dialog: MatDialog) {
   }
 
   ngOnInit() {
+    this.subscription = this.authService.user$.subscribe(
+      user => {
+        this.currentUser = user;
+        if (!this.currentUser) {
+          var index = this.displayedColumns.indexOf('_options', 0);
+          if (index > -1) {
+            this.displayedColumns.splice(index, 1);
+          }
+        }
+      }
+    );
     this.recommendationService.getRecommendations().subscribe(
       data => {
         console.log(data);
@@ -40,6 +57,10 @@ export class RecommendationListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   applyFilter(filterValue: string) {
