@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../models/user/user';
 import {Subscription} from 'rxjs/Subscription';
 import {AuthenticationService} from '../../services/rest/authentication.service';
@@ -6,6 +6,8 @@ import {Country} from '../../models/countries/country';
 import {CountryService} from "../../services/rest/country.service";
 import {CityService} from "../../services/rest/city.service";
 import {MatSidenav} from "@angular/material";
+import {MapService, MapType} from "./map.service";
+import {RecommendationService} from "../../services/rest/recommendation.service";
 
 @Component({
   templateUrl: 'map.component.html',
@@ -13,27 +15,39 @@ import {MatSidenav} from "@angular/material";
 })
 export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   currentUser: User;
-  subscription: Subscription;
+  userSubscription: Subscription;
+
+  mapType: MapType;
+  mapTypeSubscription: Subscription;
 
   @ViewChild('drawer')
   sidenav: MatSidenav;
 
   map;
 
+
   countries: Country[];
 
   country: Country;
 
   constructor(private _ngZone: NgZone,
+              private mapService: MapService,
               private authService: AuthenticationService,
               private countryService: CountryService,
-              private cityService: CityService) {
+              private cityService: CityService,
+              private recommendationService: RecommendationService) {
   }
 
   ngOnInit() {
-    this.subscription = this.authService.user$.subscribe(
+    this.userSubscription = this.authService.user$.subscribe(
       user => {
         this.currentUser = user;
+      }
+    );
+    this.mapTypeSubscription = this.mapService.mapType$.subscribe(
+      mapType => {
+        this.mapType = mapType;
+        this.onMapTypeChanged();
       }
     );
 
@@ -325,24 +339,11 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
-  loadCities() {
-    this.cityService.getCities().subscribe(
-      cities => {
-        console.log(cities);
-        if (cities) {
-          cities.forEach(city => {
-            let marker = new google.maps.Marker({
-              position: city.location,
-              map: this.map,
-              title: city.name
-            });
-          });
-        }
-      }
-    );
+  onMapTypeChanged() {
+    console.log(this.mapType);
   }
 
   loadCountries() {
@@ -380,12 +381,35 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  loadCountryMap(country: Country, size: string) {
-    this.countryService.getGeoJson(country, size).subscribe(
-      geoJson => {
-        console.log(geoJson);
-        if (geoJson) {
-          this.map.data.addGeoJson(geoJson);
+  loadCities() {
+    this.cityService.getCities().subscribe(
+      cities => {
+        console.log(cities);
+        if (cities) {
+          cities.forEach(city => {
+            let marker = new google.maps.Marker({
+              position: city.location,
+              map: this.map,
+              title: city.name
+            });
+          });
+        }
+      }
+    );
+  }
+
+  loadRecommendations() {
+    this.recommendationService.getRecommendations().subscribe(
+      recommendations => {
+        console.log(recommendations);
+        if (recommendations) {
+          recommendations.forEach(recommendation => {
+            let marker = new google.maps.Marker({
+              position: recommendation.location,
+              map: this.map,
+              title: recommendation.name
+            });
+          });
         }
       }
     );

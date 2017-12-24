@@ -10,23 +10,22 @@
 <div class="app-container">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <button mat-button [routerLink]="['/']">Putnčka mapa</button>
-      <button mat-button [routerLink]="['/countries']">Države</button>
-      <button mat-button [routerLink]="['/recommendations']">Zanimljivosti</button>
-      <button *ngIf="currentUser" mat-button [routerLink]="['/trips']">Putovanja</button>
-      <button *ngIf="currentUser && currentUser.type === 'admin'" mat-button [routerLink]="['/users']">Korisnici</button>
+      <button mat-raised-button color="accent" [routerLink]="['/']"> <mat-icon>map</mat-icon> Putnčka mapa </button>
+      <button mat-button [routerLink]="['/countries']"> Države </button>
+      <button mat-button [routerLink]="['/recommendations']"> Zanimljivosti </button>
+      <button *ngIf="currentUser" mat-button [routerLink]="['/trips']"> Putovanja </button>
+      <button *ngIf="currentUser && currentUser.type === 'admin'" mat-button [routerLink]="['/users']"> Korisnici </button>
       <span class="toolbar-spacer"></span>
-      <button mat-button [matMenuTriggerFor]="menu_map">Filteri</button>
-      <mat-menu #menu_map="matMenu">
-        <button mat-menu-item>Mapa država</button>
-        <button mat-menu-item>Mapa zanimljivosti</button>
-        <button mat-menu-item>Mapa viza</button>
-        <button mat-menu-item>Mapa temperatura</button>
+      <button *ngIf="currentUser && currentUrl === '/'" mat-button [matMenuTriggerFor]="menuMap"> <mat-icon>add_location</mat-icon> Dodaj zanimljivost </button>
+      <button *ngIf="currentUrl === '/'" mat-button [matMenuTriggerFor]="menuMap"> <mat-icon>layers</mat-icon> Filteri </button>
+      <mat-menu #menuMap="matMenu">
+        <button mat-menu-item (click)="setMapType('countries')">Mapa država</button>
+        <button mat-menu-item (click)="setMapType('recommendations')">Mapa zanimljivosti</button>
+        <button mat-menu-item (click)="setMapType('visas')">Mapa viza</button>
+        <button *ngIf="currentUser" mat-menu-item (click)="setMapType('trips')">Mapa putovanja</button>
       </mat-menu>
-      <mat-icon *ngIf="currentUser" class="toolbar-icon">language</mat-icon>
-      <mat-icon *ngIf="currentUser" class="toolbar-icon">grade</mat-icon>
-      <button mat-button [matMenuTriggerFor]="menu_account">Nalog</button>
-      <mat-menu #menu_account="matMenu">
+      <button mat-button [matMenuTriggerFor]="menuAccount"> <mat-icon>account_circle</mat-icon> {{currentUser ? currentUser.firstName + ' ' + currentUser.lastName[0] : 'Nalog'}}</button>
+      <mat-menu #menuAccount="matMenu">
         <button *ngIf="!currentUser" mat-menu-item [routerLink]="['/login']">Uloguj se</button>
         <button *ngIf="!currentUser" mat-menu-item [routerLink]="['/register']">Registruj se</button>
         <button *ngIf="currentUser" mat-menu-item>{{currentUser.email}}</button>

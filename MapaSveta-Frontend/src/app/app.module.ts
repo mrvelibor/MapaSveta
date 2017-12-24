@@ -48,6 +48,7 @@ import {UserViewerComponent, UserViewerDialog} from "./components/user-viewer-co
 import {NospaceValidator} from "./directives/nospace.validator";
 import {IsObjectValidator} from "./directives/is-object.validator";
 import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.dialog";
+import {MapService} from "./components/map-component/map.service";
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.
     MapaSvetaMaterialModule
   ],
   providers: [
+    MapService,
     AdminGuard,
     AuthGuard,
     RestService,

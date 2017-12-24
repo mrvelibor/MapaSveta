@@ -2,9 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 import {User} from './models/user/user';
 import {AuthenticationService} from './services/rest/authentication.service';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {environment} from '../environments/environment';
 import {AlertService} from "./services/ui/alert/alert.service";
+import {MapService, MapType} from "./components/map-component/map.service";
 
 @Component({
   selector: 'app-root',
@@ -12,22 +13,31 @@ import {AlertService} from "./services/ui/alert/alert.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+  userSubscription: Subscription;
   currentUser: User;
 
   url = environment.apiUrl;
 
+  currentUrl: string;
+
   constructor(private authService: AuthenticationService,
               private alertService: AlertService,
+              private mapService: MapService,
               private router: Router) {
   }
 
   ngOnInit() {
-    this.subscription = this.authService.user$.subscribe(user => this.currentUser = user);
+    this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
+    this.router.events.subscribe(event => {
+      console.log(event);
+      if (event instanceof NavigationEnd ) {
+        this.currentUrl = event.url;
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   logout() {
@@ -42,5 +52,9 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log(data);
       }
     );
+  }
+
+  setMapType(type: string) {
+    this.mapService.setMapType(new MapType(type, null));
   }
 }
