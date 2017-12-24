@@ -43,6 +43,8 @@ public class User implements UserDetails {
     @ManyToOne
     private Country country;
 
+    private String avatarUrl;
+
     @ManyToMany
     private List<Language> languages;
 
@@ -119,6 +121,14 @@ public class User implements UserDetails {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public List<Language> getLanguages() {

@@ -1,1 +1,27 @@
-<div>Trip List</div>
+<mat-card class="details-card">
+  <mat-card-header>
+    <img mat-card-avatar *ngIf="user.avatarUrl" src="{{apiUrl}}{{user.avatarUrl}}">
+    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
+  </mat-card-header>
+  <img *ngIf="user.avatarUrl" mat-card-image src="{{apiUrl}}{{user.avatarUrl}}">
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngIf="user.country">
+        <h3 mat-line>
+          <img matTooltip="{{user.country.nativeNames.length > 0 ? user.country.nativeNames[0] : user.country.officialName}}" matTooltipPosition="right" src="{{apiUrl}}{{user.country.flagUrl}}" height="32px" width="54px">
+          {{user.country.serbianName}}
+        </h3>
+        <p mat-line> Država </p>
+      </mat-list-item>
+      <mat-list-item *ngIf="user.gender">
+        <h3 mat-line> <mat-icon mat-list-icon>assignment_ind</mat-icon> {{user.gender}} </h3>
+        <p mat-line> Pol </p>
+      </mat-list-item>
+      <mat-list-item *ngIf="user.birthday">
+        <h3 mat-line> <mat-icon mat-list-icon>date_range</mat-icon> {{user.birthday}} </h3>
+        <p mat-line> Rođendan </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

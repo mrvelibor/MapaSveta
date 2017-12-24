@@ -10,6 +10,8 @@ import {CountryViewerDialog} from "../country-viewer-component/country-viewer.co
 import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
 import {AuthenticationService} from "../../services/rest/authentication.service";
 import {Subscription} from "rxjs/Subscription";
+import {UserViewerDialog} from "../user-viewer-component/user-viewer.component";
+import {RecommendationViewerDialog} from "../recommendation-viewer-component/recommendation-viewer.component";
 
 @Component({
   templateUrl: 'recommendation-list.component.html',
@@ -68,11 +70,15 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
   }
 
   viewRecommendation(recommendation: Recommendation) {
-    console.log(recommendation);
+    this.dialog.open(RecommendationViewerDialog, {
+      data: recommendation
+    });
   }
 
   viewUser(user: User) {
-    console.log(user);
+    this.dialog.open(UserViewerDialog, {
+      data: user
+    });
   }
 
   viewCountry(country: Country) {

@@ -33,7 +33,10 @@ import {
   RecommendationEditorDialog
 } from "./components/recommendation-editor-component/recommendation-editor.component";
 import {RecommendationListComponent} from "./components/recommendation-list-component/recommendation-list.component";
-import {RecommendationViewerComponent} from "./components/recommendation-viewer-component/recommendation-viewer.component";
+import {
+  RecommendationViewerComponent,
+  RecommendationViewerDialog
+} from "./components/recommendation-viewer-component/recommendation-viewer.component";
 import {TripEditorComponent, TripEditorDialog} from "./components/trip-editor-component/trip-editor.component";
 import {TripListComponent} from "./components/trip-list-component/trip-list.component";
 import {UserListComponent} from "./components/user-list-component/user-list.component";
@@ -41,7 +44,7 @@ import {AccountEditorComponent} from "./components/account-editor-component/acco
 import {CountryListComponent} from "./components/country-list-component/country-list.component";
 import {TripViewerComponent} from "./components/trip-viewer-component/trip-viewer.component";
 import {UserEditorComponent} from "./components/user-editor-component/user-editor.component";
-import {UserViewerComponent} from "./components/user-viewer-component/user-viewer.component";
+import {UserViewerComponent, UserViewerDialog} from "./components/user-viewer-component/user-viewer.component";
 import {NospaceValidator} from "./directives/nospace.validator";
 import {IsObjectValidator} from "./directives/is-object.validator";
 import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.dialog";
@@ -61,6 +64,7 @@ import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.
     RecommendationEditorDialog,
     RecommendationListComponent,
     RecommendationViewerComponent,
+    RecommendationViewerDialog,
     TripEditorComponent,
     TripEditorDialog,
     TripListComponent,
@@ -68,6 +72,7 @@ import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.
     UserEditorComponent,
     UserListComponent,
     UserViewerComponent,
+    UserViewerDialog,
     AlertComponent,
     OverlayComponent,
     LoaderComponent,
@@ -101,7 +106,9 @@ import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.
     ConfirmationDialog,
     CountryViewerDialog,
     RecommendationEditorDialog,
-    TripEditorDialog
+    RecommendationViewerDialog,
+    TripEditorDialog,
+    UserViewerDialog
   ],
   bootstrap: [AppComponent]
 })

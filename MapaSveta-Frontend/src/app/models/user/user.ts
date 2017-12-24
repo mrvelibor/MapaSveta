@@ -10,6 +10,7 @@ export class User {
   gender: string;
   birthday: string;
   country: Country;
+  avatarUrl: string;
   languages: Language[];
   type: string;
 }

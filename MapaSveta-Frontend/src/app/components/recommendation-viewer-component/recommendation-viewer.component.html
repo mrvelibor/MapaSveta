@@ -1,1 +1,36 @@
-<div>{{recommendation.name}}</div>
+<mat-card class="details-card">
+  <mat-card-header>
+    <img mat-card-avatar *ngIf="recommendation.createdBy.avatarUrl" src="{{apiUrl}}{{recommendation.createdBy.avatarUrl}}">
+    <mat-card-title> Preporučio: </mat-card-title>
+    <mat-card-subtitle> {{recommendation.createdBy.firstName}} {{recommendation.createdBy.lastName}} </mat-card-subtitle>
+    <mat-card-subtitle> {{recommendation.createdBy.email}} </mat-card-subtitle>
+  </mat-card-header>
+  <img *ngIf="recommendation.imageUrl" mat-card-image src="{{apiUrl}}{{recommendation.imageUrl}}">
+  <mat-card-content>
+    <h2> {{recommendation.name}} </h2>
+    <p> {{recommendation.description}} </p>
+    <mat-list>
+      <mat-list-item *ngIf="recommendation.address">
+        <h3 mat-line> <mat-icon mat-list-icon>location_city</mat-icon>
+          {{recommendation.address.street ? recommendation.address.street + ',' : ''}} {{recommendation.address.zipCode}} {{recommendation.address.cityName}}
+        </h3>
+        <p mat-line> Adresa </p>
+      </mat-list-item>
+      <mat-list-item *ngIf="recommendation.address && recommendation.address.country">
+        <h3 mat-line>
+          <img matTooltip="{{recommendation.address.country.nativeNames.length > 0 ? recommendation.address.country.nativeNames[0] : recommendation.address.country.officialName}}" matTooltipPosition="right" src="{{apiUrl}}{{recommendation.address.country.flagUrl}}" height="32px" width="54px">
+          {{recommendation.address.country.serbianName}}
+        </h3>
+        <p mat-line> Država </p>
+      </mat-list-item>
+      <mat-list-item *ngIf="recommendation.phoneNumber">
+        <h3 mat-line> <mat-icon mat-list-icon>call</mat-icon> {{recommendation.phoneNumber}} </h3>
+        <p mat-line> Telefon </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button> <mat-icon mat-list-icon>thumb_up</mat-icon> </button>
+    <button mat-raised-button> <mat-icon mat-list-icon>thumb_down</mat-icon> </button>
+  </mat-card-actions>
+</mat-card>

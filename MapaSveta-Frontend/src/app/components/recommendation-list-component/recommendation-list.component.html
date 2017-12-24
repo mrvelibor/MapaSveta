@@ -30,7 +30,7 @@
 
     <ng-container matColumnDef="createdBy">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Preporučio </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
+      <mat-cell *matCellDef="let element" (click)="viewUser(element.createdBy)">
         <div *ngIf="element.createdBy"> {{element.createdBy.firstName}} {{element.createdBy.lastName}} </div>
       </mat-cell>
     </ng-container>
