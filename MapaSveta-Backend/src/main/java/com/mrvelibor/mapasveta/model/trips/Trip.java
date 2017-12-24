@@ -22,6 +22,8 @@ public class Trip {
     @ManyToOne
     private City city;
 
+    private String cityName;
+
     private Date dateFrom;
 
     private Date dateTo;
@@ -58,6 +60,14 @@ public class Trip {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public Date getDateFrom() {

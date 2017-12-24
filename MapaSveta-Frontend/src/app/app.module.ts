@@ -34,7 +34,7 @@ import {
 } from "./components/recommendation-editor-component/recommendation-editor.component";
 import {RecommendationListComponent} from "./components/recommendation-list-component/recommendation-list.component";
 import {RecommendationViewerComponent} from "./components/recommendation-viewer-component/recommendation-viewer.component";
-import {TripEditorComponent} from "./components/trip-editor-component/trip-editor.component";
+import {TripEditorComponent, TripEditorDialog} from "./components/trip-editor-component/trip-editor.component";
 import {TripListComponent} from "./components/trip-list-component/trip-list.component";
 import {UserListComponent} from "./components/user-list-component/user-list.component";
 import {AccountEditorComponent} from "./components/account-editor-component/account-editor.component";
@@ -62,6 +62,7 @@ import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.
     RecommendationListComponent,
     RecommendationViewerComponent,
     TripEditorComponent,
+    TripEditorDialog,
     TripListComponent,
     TripViewerComponent,
     UserEditorComponent,
@@ -99,7 +100,8 @@ import {ConfirmationDialog} from "./components/confirmation-dialog/confirmation.
   entryComponents: [
     ConfirmationDialog,
     CountryViewerDialog,
-    RecommendationEditorDialog
+    RecommendationEditorDialog,
+    TripEditorDialog
   ],
   bootstrap: [AppComponent]
 })

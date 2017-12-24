@@ -7,6 +7,7 @@ export class Trip {
   user: User;
   country: Country;
   city: City;
+  cityName: string;
   dateFrom: string;
   dateTo: string;
   details: string;

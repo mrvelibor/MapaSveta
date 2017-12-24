@@ -6,6 +6,21 @@
   </div>
 
   <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
+        <img *ngIf="element.country" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="54px">
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Grad </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+        <div *ngIf="element.city"> {{element.city.name}} </div>
+        <div *ngIf="!element.city"> {{element.cityName}} </div>
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="dateFrom">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Početak </mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="viewUser(element)">
@@ -20,22 +35,8 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="city">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Grad </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
-        <div *ngIf="element.city"> {{element.city.name}} </div>
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
-        <img *ngIf="element.country" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="54px">
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="details">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Opis </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Detalji </mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
         {{element.details}}
       </mat-cell>

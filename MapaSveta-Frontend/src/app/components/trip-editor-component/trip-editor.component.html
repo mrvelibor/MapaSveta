@@ -1,1 +1,38 @@
-<div>{{recommendation.name}}</div>
+<mat-card class="editor-container">
+  <form name="form" class="editor-container" (ngSubmit)="f.form.valid && saveTrip()" #f="ngForm">
+    <mat-form-field>
+      <input type="text" placeholder="Država" name="country" aria-label="country" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.country" validateIsObject required>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+          <img src="{{apiUrl}}{{option.flagUrl}}" height="24px" width="38px"> {{ option.serbianName }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="countryInput.hasError('required')">
+        Država je obavezna.
+      </mat-error>
+      <mat-error *ngIf="countryInput.hasError('validateIsObject')">
+        Unesite postojeću državu.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Grad" name="cityName" [(ngModel)]="model.cityName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerFrom" placeholder="Datum" name="dateFrom" [(ngModel)]="model.dateFrom">
+      <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerTo" placeholder="Datum" name="dateTo" [(ngModel)]="model.dateTo">
+      <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Detalji" name="details" [(ngModel)]="model.details" required></textarea>
+      <mat-error *ngIf="f.form.controls['details'] && f.form.controls['details'].hasError('required')">
+        Opis je obavezan.
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary">Sačuvaj</button>
+  </form>
+</mat-card>
