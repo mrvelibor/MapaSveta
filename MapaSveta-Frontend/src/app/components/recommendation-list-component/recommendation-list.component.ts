@@ -61,8 +61,11 @@ export class RecommendationListComponent implements OnInit, AfterViewInit {
   }
 
   editRecommendation(recommendation: Recommendation) {
-    this.dialog.open(RecommendationEditorDialog, {
+    let dialogRef = this.dialog.open(RecommendationEditorDialog, {
       data: recommendation
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      Object.assign(recommendation, result);
     });
   }
 

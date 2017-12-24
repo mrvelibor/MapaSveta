@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {Recommendation} from "../../models/recommendations/recommendation";
 import {RecommendationService} from "../../services/rest/recommendation.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
@@ -8,6 +8,7 @@ import {Country} from "../../models/countries/country";
 import {Observable} from "rxjs/Observable";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-recommendation-edtior',
@@ -16,15 +17,14 @@ import {map, startWith} from "rxjs/operators";
 })
 export class RecommendationEditorComponent implements OnInit, OnDestroy {
 
-  model: Recommendation;
+  apiUrl = environment.apiUrl;
 
   countries: Country[];
 
-  _recommendation: Recommendation;
+  model: Recommendation;
 
   @Input('recommendation')
   set recommendation(recommendation: Recommendation) {
-    this._recommendation = recommendation;
     let obj = new Recommendation();
     Object.assign(obj, recommendation);
     if (!obj.address) {
@@ -34,14 +34,18 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
   }
 
   get recommendation() {
-    return this._recommendation;
+    return this.model;
   }
+
+  @Output('recommendationSaved')
+  changeEmitter: EventEmitter<Recommendation>;
 
   constructor(private recommendationService: RecommendationService,
               private countryService: CountryService) {
     this.model = new Recommendation();
     this.model.address = new Address();
     this.countries = [];
+    this.changeEmitter = new EventEmitter<Recommendation>();
   }
 
   ngOnInit() {
@@ -69,7 +73,10 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
   }
 
   filter(name): Country[] {
-    return this.countries.filter(option => option.serbianName.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    return this.countries.filter(option =>
+      (option.serbianName.toLowerCase().indexOf(name.toLowerCase()) === 0) ||
+      (option.officialName.toLowerCase().indexOf(name.toLowerCase()) === 0)
+    );
   }
 
   displayFn(country: Country): string {
@@ -81,12 +88,7 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
     this.recommendationService.createRecommendation(this.model).subscribe(
       data => {
         console.log(data);
-        if (this._recommendation) {
-          Object.assign(this._recommendation, this.model);
-        } else {
-          // TODO: Add to list
-        }
-
+        this.changeEmitter.emit(data);
       },
       error => {
         console.log(error);
@@ -102,5 +104,9 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
 export class RecommendationEditorDialog {
   constructor(public dialogRef: MatDialogRef<RecommendationEditorDialog>,
               @Inject(MAT_DIALOG_DATA) public recommendation: Recommendation) {
+  }
+
+  onRecommendationSaved(recommendation: Recommendation) {
+    this.dialogRef.close(recommendation);
   }
 }

@@ -42,6 +42,8 @@ import {CountryListComponent} from "./components/country-list-component/country-
 import {TripViewerComponent} from "./components/trip-viewer-component/trip-viewer.component";
 import {UserEditorComponent} from "./components/user-editor-component/user-editor.component";
 import {UserViewerComponent} from "./components/user-viewer-component/user-viewer.component";
+import {NospaceValidator} from "./directives/nospace.validator";
+import {IsObjectValidator} from "./directives/is-object.validator";
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import {UserViewerComponent} from "./components/user-viewer-component/user-viewe
     UserViewerComponent,
     AlertComponent,
     OverlayComponent,
-    LoaderComponent
+    LoaderComponent,
+    IsObjectValidator,
+    NospaceValidator
   ],
   imports: [
     BrowserModule,

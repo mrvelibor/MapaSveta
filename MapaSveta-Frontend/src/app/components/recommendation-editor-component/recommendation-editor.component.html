@@ -1,34 +1,49 @@
 <mat-card class="editor-container">
-  <mat-form-field>
-    <input matInput placeholder="Input" [(ngModel)]="model.name">
-  </mat-form-field>
-  <mat-form-field>
-    <textarea matInput placeholder="Textarea" [(ngModel)]="model.description"></textarea>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Ulica" [(ngModel)]="model.address.street">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Grad" [(ngModel)]="model.address.cityName">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Poštanski broj" [(ngModel)]="model.address.zipCode">
-  </mat-form-field>
-  <mat-form-field>
-    <input type="text" placeholder="Država" aria-label="Država" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.address.country">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
-        {{ option.serbianName }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Broj telefona" [(ngModel)]="model.phoneNumber">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Slika" [(ngModel)]="model.imageUrl">
-  </mat-form-field>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="saveRecommendation()">Sačuvaj</button>
-  </mat-card-actions>
+  <form name="form" class="editor-container" (ngSubmit)="f.form.valid && saveRecommendation()" #f="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Input" name="name" [(ngModel)]="model.name" required>
+      <mat-error *ngIf="f.form.controls['name'] && f.form.controls['name'].hasError('required')">
+        Naziv je obavezan.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Opis" name="description" [(ngModel)]="model.description" required></textarea>
+      <mat-error *ngIf="f.form.controls['description'] && f.form.controls['description'].hasError('required')">
+        Opis je obavezan.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ulica" name="street" [(ngModel)]="model.address.street">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Grad" name="cityName" [(ngModel)]="model.address.cityName" required>
+      <mat-error *ngIf="f.form.controls['cityName'] && f.form.controls['cityName'].hasError('required')">
+        Grad je obavezan.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Poštanski broj" name="zipCode" [(ngModel)]="model.address.zipCode">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" placeholder="Država" name="country" aria-label="country" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.address.country" validateIsObject required>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+          <img src="{{apiUrl}}{{option.flagUrl}}" height="24px" width="38px"> {{ option.serbianName }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="countryInput.hasError('required')">
+        Država je obavezna.
+      </mat-error>
+      <mat-error *ngIf="countryInput.hasError('validateIsObject')">
+        Unesite postojeću državu.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Broj telefona" name="phoneNumber" [(ngModel)]="model.phoneNumber">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Slika" name="imageUrl" [(ngModel)]="model.imageUrl">
+    </mat-form-field>
+    <button mat-raised-button color="primary">Sačuvaj</button>
+  </form>
 </mat-card>
