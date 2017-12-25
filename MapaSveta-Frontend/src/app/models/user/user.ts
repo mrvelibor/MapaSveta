@@ -13,4 +13,6 @@ export class User {
   avatarUrl: string;
   languages: Language[];
   type: string;
+  googleId: string;
+  facebookId: string;
 }

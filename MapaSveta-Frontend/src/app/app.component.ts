@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
         appId: environment.facebookAppId,
         cookie: true,
         xfbml: true,
-        version: 'v2.4'
+        version: environment.facebookGraphVersion
       });
       FB.AppEvents.logPageView();
     };

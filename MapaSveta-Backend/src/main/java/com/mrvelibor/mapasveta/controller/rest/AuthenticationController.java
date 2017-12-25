@@ -5,6 +5,7 @@ import com.mrvelibor.mapasveta.model.json.AuthenticationResponse;
 import com.mrvelibor.mapasveta.model.json.SocialAuthenticationRequest;
 import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.AuthenticationService;
+import com.mrvelibor.mapasveta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -19,6 +20,9 @@ import java.security.Principal;
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "")
     public ResponseEntity<?> auth(Principal principal) throws AuthenticationException {
@@ -42,12 +46,22 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "google")
-    public ResponseEntity<AuthenticationResponse> google(@RequestBody SocialAuthenticationRequest socialAuthenticationRequest) throws ServletException {
-        return ResponseEntity.ok(new AuthenticationResponse("Google: " + socialAuthenticationRequest.token, null));
+    public ResponseEntity<AuthenticationResponse> google(@RequestBody SocialAuthenticationRequest socialAuthenticationRequest, Principal principal) throws ServletException {
+        User currentUser = null;
+        if (principal != null) {
+            userService.loadUserByUsername(principal.getName());
+        }
+        AuthenticationResponse response = authenticationService.googleAuth(socialAuthenticationRequest, currentUser);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping(value = "facebook")
-    public ResponseEntity<AuthenticationResponse> facebook(@RequestBody SocialAuthenticationRequest socialAuthenticationRequest) throws ServletException {
-        return ResponseEntity.ok(new AuthenticationResponse("Facebook: " + socialAuthenticationRequest.token, null));
+    public ResponseEntity<AuthenticationResponse> facebook(@RequestBody SocialAuthenticationRequest socialAuthenticationRequest, Principal principal) throws ServletException {
+        User currentUser = null;
+        if (principal != null) {
+            userService.loadUserByUsername(principal.getName());
+        }
+        AuthenticationResponse response = authenticationService.facebookAuth(socialAuthenticationRequest, currentUser);
+        return ResponseEntity.ok(response);
     }
 }

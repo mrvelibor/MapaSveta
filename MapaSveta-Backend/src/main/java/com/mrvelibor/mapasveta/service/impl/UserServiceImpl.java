@@ -14,14 +14,14 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User createUser(User user) {
-        user.setId(null);
-        return userDao.save(user);
+    public User getUser(Long userId) {
+        return userDao.findOne(userId);
     }
 
     @Override
-    public User getUser(Long userId) {
-        return userDao.findOne(userId);
+    public User createUser(User user) {
+        user.setId(null);
+        return userDao.save(user);
     }
 
     @Override
@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService {
         User oldUser = getUser(user.getId());
         user.setPassword(oldUser.getPassword());
         user.setType(oldUser.getType());
+        user.setFacebookId(oldUser.getFacebookId());
+        user.setGoogleId(oldUser.getGoogleId());
         return userDao.save(user);
     }
 
@@ -41,6 +43,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User loadUserByUsername(String username) {
         return userDao.findByEmail(username);
+    }
+
+    @Override
+    public User findByFacebookId(String facebookId) {
+        return userDao.findByFacebookId(facebookId);
+    }
+
+    @Override
+    public User findByGoogleId(String googleId) {
+        return findByGoogleId(googleId);
     }
 
     @Override

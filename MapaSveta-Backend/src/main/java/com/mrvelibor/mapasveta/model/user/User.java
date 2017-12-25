@@ -48,6 +48,12 @@ public class User implements UserDetails {
     @ManyToMany
     private List<Language> languages;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String googleId;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String facebookId;
+
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private UserType type;
@@ -137,6 +143,22 @@ public class User implements UserDetails {
 
     public void setLanguages(List<Language> languages) {
         this.languages = languages;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
     public UserType getType() {

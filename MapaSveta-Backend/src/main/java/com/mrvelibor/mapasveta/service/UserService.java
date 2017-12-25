@@ -6,10 +6,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-    User createUser(User user);
     User getUser(Long userId);
+    User createUser(User user);
     User editUser(User user);
     boolean deleteUser(User user);
     User loadUserByUsername(String username);
+    User findByFacebookId(String facebookId);
+    User findByGoogleId(String googleId);
     List<User> getAllUsers();
 }

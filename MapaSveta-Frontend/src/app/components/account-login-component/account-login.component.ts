@@ -1,4 +1,4 @@
-﻿import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+﻿import {AfterViewInit, Component, NgZone, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {AlertService} from '../../services/ui/alert/alert.service';
@@ -14,9 +14,8 @@ export class AccountLoginComponent implements AfterViewInit, OnDestroy {
   model: any = {};
   loading: boolean;
 
-  auth2: any;
-
   constructor(private router: Router,
+              private _ngZone: NgZone,
               private authService: AuthenticationService,
               private alertService: AlertService,
               private loaderService: LoaderService) {
@@ -31,18 +30,20 @@ export class AccountLoginComponent implements AfterViewInit, OnDestroy {
     this.facebookDestroy();
   }
 
+  auth2: any;
+
   googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
         client_id: environment.googleClientId,
         cookiepolicy: 'single_host_origin',
-        scope: 'profile email'
+        scope: environment.googleScope
       });
       this.auth2.attachClickHandler(document.getElementById('googleBtn'), {},
         (googleUser) => {
-          this.onGoogleSignIn(googleUser);
+          this._ngZone.run(() => this.onGoogleSignIn(googleUser));
         }, (error) => {
-          this.onGoogleSignInError(error);
+          this._ngZone.run(() => this.onGoogleSignInError(error));
         });
     });
     gapi.signin2.render('googleBtn', {
@@ -56,12 +57,26 @@ export class AccountLoginComponent implements AfterViewInit, OnDestroy {
 
   onGoogleSignIn(googleUser) {
     console.log(googleUser);
-    this.authService.googleAuth(googleUser.getAuthResponse().id_token).subscribe(result => console.log(result));
+    this.loading = true;
+    this.loaderService.showIndeterminate();
+    this.alertService.clearMessage();
+    this.authService.googleAuth(googleUser.getAuthResponse().id_token).subscribe(
+        data => {
+          console.log(data);
+          this.loaderService.hideProgress();
+          this.alertService.success('Uspešno ste se ulogovali!', true);
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.loaderService.hideProgress();
+          this.alertService.error(error);
+          this.loading = false;
+        });
   }
 
   onGoogleSignInError(error) {
     console.log(error);
-    alert(JSON.stringify(error));
+    this.alertService.error(JSON.stringify(error));
   }
 
   facebookHandler: any;
@@ -70,9 +85,9 @@ export class AccountLoginComponent implements AfterViewInit, OnDestroy {
     this.facebookHandler = response => {
       console.log(response);
       if (response.status === 'connected') {
-        this.onFacebookSignIn(response);
+        this._ngZone.run(() => this.onFacebookSignIn(response));
       } else {
-        this.onFacebookSignInError(response);
+        this._ngZone.run(() => this.onFacebookSignInError(response));
       }
     };
     FB.Event.subscribe('auth.statusChange', this.facebookHandler);
@@ -87,20 +102,33 @@ export class AccountLoginComponent implements AfterViewInit, OnDestroy {
 
   onFacebookSignIn(response) {
     console.log(response);
-    this.authService.facebookAuth(response.authResponse.accessToken).subscribe(result => console.log(result));
+    this.loading = true;
+    this.loaderService.showIndeterminate();
+    this.alertService.clearMessage();
+    this.authService.facebookAuth(response.authResponse.accessToken).subscribe(
+        data => {
+          console.log(data);
+          this.loaderService.hideProgress();
+          this.alertService.success('Uspešno ste se ulogovali!', true);
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.loaderService.hideProgress();
+          this.alertService.error(error);
+          this.loading = false;
+        });
   }
 
   onFacebookSignInError(response) {
     console.log(response);
-    alert(JSON.stringify(response));
+    this.alertService.error(JSON.stringify(response));
   }
 
   login() {
     this.loading = true;
     this.loaderService.showIndeterminate();
     this.alertService.clearMessage();
-    this.authService.login(this.model)
-      .subscribe(
+    this.authService.login(this.model).subscribe(
         data => {
           console.log(data);
           this.loaderService.hideProgress();
