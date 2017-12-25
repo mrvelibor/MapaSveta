@@ -599,7 +599,7 @@
     "DENK": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "free",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3

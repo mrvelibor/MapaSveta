@@ -468,13 +468,13 @@
     },
     "CHIN": {
       "conflict": [],
-      "note": "Visa-free for Diplomatic passport holders.",
-      "permission": "required",
+      "note": "",
+      "permission": "free",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3
       },
-      "time": ""
+      "time": "30 Days"
     },
     "CHRI": {
       "conflict": [],
@@ -609,7 +609,7 @@
     "DENK": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "free",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3
@@ -749,7 +749,7 @@
     "FGUI": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "free",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3
@@ -1089,7 +1089,7 @@
     "ISRA": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "free",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3
@@ -1229,7 +1229,7 @@
     "KYRG": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "electronic",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3
@@ -1369,7 +1369,7 @@
     "MALA": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "electronic",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3
@@ -1869,7 +1869,7 @@
     "QATA": {
       "conflict": [],
       "note": "",
-      "permission": "required",
+      "permission": "electronic",
       "required": {
         "passport_blank_pages": 2,
         "passport_expiry": 3

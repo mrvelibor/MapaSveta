@@ -4,6 +4,7 @@ export class VisaPermissionCountry {
   ccn3: string;
   csvc: string;
   jurisdiction: string;
+  parent: string;
   name: string;
   requirements: object;
 }
