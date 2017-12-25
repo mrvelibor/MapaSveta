@@ -50,6 +50,7 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
     this.recommendationService.getRecommendations().subscribe(
       data => {
         console.log(data);
+        this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       }
     )
