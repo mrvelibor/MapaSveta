@@ -29,7 +29,7 @@
         <button *ngIf="!currentUser" mat-menu-item [routerLink]="['/login']">Uloguj se</button>
         <button *ngIf="!currentUser" mat-menu-item [routerLink]="['/register']">Registruj se</button>
         <button *ngIf="currentUser" mat-menu-item>{{currentUser.email}}</button>
-        <button *ngIf="currentUser" mat-menu-item>Izmeni nalog</button>
+        <button *ngIf="currentUser" mat-menu-item [routerLink]="['/account']">Izmeni nalog</button>
         <button *ngIf="currentUser" mat-menu-item (click)="logout()">Izloguj se</button>
       </mat-menu>
     </mat-toolbar-row>

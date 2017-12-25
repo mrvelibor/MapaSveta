@@ -2,8 +2,6 @@
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {AlertService} from '../../services/ui/alert/alert.service';
-import {FormControl, Validators} from '@angular/forms';
-import {FormInputMatcher} from '../../directives/form-input.matcher';
 import {LoaderService} from '../../services/ui/loader/loader.service';
 
 @Component({
@@ -12,26 +10,6 @@ import {LoaderService} from '../../services/ui/loader/loader.service';
   styleUrls: ['account-register.component.scss']
 })
 export class AccountRegisterComponent {
-
-  firstNameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
-  lastNameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-  ]);
-
-  matcher = new FormInputMatcher();
   model: any = {};
   loading: boolean;
 
@@ -50,7 +28,7 @@ export class AccountRegisterComponent {
         data => {
           console.log(data);
           this.loaderService.hideProgress();
-          this.alertService.success('Registration successful!', true);
+          this.alertService.success('Uspešna registracija!', true);
           this.router.navigate(['/']);
         },
         error => {

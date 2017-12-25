@@ -1,55 +1,92 @@
-﻿import {Component} from '@angular/core';
+﻿import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {AlertService} from '../../services/ui/alert/alert.service';
-import {FormInputMatcher} from '../../directives/form-input.matcher';
-import {FormControl, Validators} from '@angular/forms';
 import {LoaderService} from '../../services/ui/loader/loader.service';
+import {UserService} from "../../services/rest/user.service";
+import {User} from "../../models/user/user";
+import {Subscription} from "rxjs/Subscription";
+import {Country} from "../../models/countries/country";
+import {environment} from "../../../environments/environment";
+import {CountryService} from "../../services/rest/country.service";
+import {Observable} from "rxjs/Observable";
+import {FormControl} from "@angular/forms";
+import {map, startWith} from "rxjs/operators";
 
 @Component({
   selector: 'app-account-editor',
   templateUrl: 'account-editor.component.html',
   styleUrls: ['account-editor.component.scss']
 })
-export class AccountEditorComponent {
+export class AccountEditorComponent implements OnInit, OnDestroy{
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  apiUrl = environment.apiUrl;
 
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-  ]);
+  countries: Country[];
+  countriesSubscription: Subscription;
 
-  matcher = new FormInputMatcher();
+  userSubscription: Subscription;
+  model: User;
 
-  model: any = {};
   loading: boolean;
 
-  constructor(private router: Router,
-              private authenticationService: AuthenticationService,
+  constructor(private authService: AuthenticationService,
               private alertService: AlertService,
+              private userService: UserService,
+              private countryService: CountryService,
               private loaderService: LoaderService) {
   }
 
-  login() {
+  ngOnInit() {
+    this.userSubscription = this.authService.user$.subscribe(user => this.model = user);
+    this.countriesSubscription = this.countryService.countries$.subscribe(
+      data => {
+        this.countries = data;
+      }
+    );
+    this.setupFilter();
+  }
+
+  ngOnDestroy() {
+    this.loaderService.hideProgress();
+    this.userSubscription.unsubscribe();
+    this.countriesSubscription.unsubscribe();
+  }
+
+  filteredCountries: Observable<Country[]>;
+  countryInput = new FormControl();
+
+  setupFilter() {
+    this.filteredCountries = this.countryInput.valueChanges
+      .pipe(
+        startWith({} as Country),
+        map(country => country && typeof country === 'object' ? country.serbianName : country),
+        map(name => name ? this.filter(name) : this.countries.slice())
+      );
+  }
+
+  filter(name): Country[] {
+    return this.countries.filter(option =>
+      (option.serbianName.toLowerCase().indexOf(name.toLowerCase()) === 0) ||
+      (option.officialName.toLowerCase().indexOf(name.toLowerCase()) === 0)
+    );
+  }
+
+  displayFn(country: Country): string {
+    return country ? country.serbianName : '';
+  }
+
+  updateAccount() {
     this.loading = true;
     this.loaderService.showIndeterminate();
     this.alertService.clearMessage();
-    this.authenticationService.login(this.model)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.loaderService.hideProgress();
-          this.alertService.success('Login successful!', true);
-          this.router.navigate(['/']);
-        },
-        error => {
-          this.loaderService.hideProgress();
-          this.alertService.error(error);
-          this.loading = false;
-        });
+    this.userService.updateUser(this.model).subscribe(
+      data => {
+        this.loaderService.hideProgress();
+      },
+      error => {
+        this.loaderService.hideProgress();
+      }
+    )
   }
 }

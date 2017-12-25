@@ -65,8 +65,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
+    this.alertService.success('Logged out!', this.currentUrl !== '/');
     this.router.navigate(['/']);
-    this.alertService.success('Logged out!');
   }
 
   auth() {

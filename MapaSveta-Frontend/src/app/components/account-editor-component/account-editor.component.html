@@ -1,29 +1,48 @@
 ﻿<mat-card class="card-container">
-  <form class="example-form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Imejl adresa" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-             [(ngModel)]="model.email" >
-      <mat-hint>Imejl adresa sa kojom ste registrovali nalog.</mat-hint>
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Molimo unestie validnu imejl adresu.
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Imejl adresa je <strong>obavezna</strong>.
+  <form class="editor-form" name="form" (ngSubmit)="f.form.valid && updateAccount()" #f="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Ime" name="firstName" [(ngModel)]="model.firstName" required>
+      <mat-hint>Vaše ime.</mat-hint>
+      <mat-error *ngIf="f.form.controls['firstName'] && f.form.controls['firstName'].hasError('required')">
+        Ime je obavezno.
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Lozinka" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
-             [(ngModel)]="model.password" type="password">
-      <mat-hint>Lozinka koju koju ste koristili pri registraciji naloga.</mat-hint>
-      <mat-error *ngIf="passwordFormControl.hasError('minlength')">
-        Lozinka mora da sadrži najmanje 8 karaktera.
+    <mat-form-field>
+      <input matInput placeholder="Prezime" name="lastName" [(ngModel)]="model.lastName" required>
+      <mat-hint>Vaše prezime.</mat-hint>
+      <mat-error *ngIf="f.form.controls['lastName'] && f.form.controls['lastName'].hasError('required')">
+        Prezime je obavezno.
       </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Uloguj se</button>
-    <button mat-button [disabled]="loading" [routerLink]="['/register']">Nemate nalog?</button>
-    <div style="margin-top: 16px">
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <img src="https://scontent.fbeg4-1.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?oh=e633755bfd5e3641d245d159ea1cdd69&oe=5AB18CEA" style="margin-top: 8px; height: 32px; width: 200px;">
-    </div>
+    <mat-form-field>
+      <mat-select placeholder="Pol" name="gender" [(ngModel)]="model.gender">
+        <mat-option>
+          - nije izabran -
+        </mat-option>
+        <mat-option value="male">
+          Muški
+        </mat-option>
+        <mat-option value="female">
+          Ženski
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerBirthday" placeholder="Rođendan" name="birthday" [(ngModel)]="model.birthday">
+      <mat-datepicker-toggle matSuffix [for]="pickerBirthday"></mat-datepicker-toggle>
+      <mat-datepicker #pickerBirthday></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" placeholder="Država" name="country" aria-label="country" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.country" validateIsObject>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+          <img src="{{apiUrl}}{{option.flagUrl}}" height="24px" width="38px"> {{ option.serbianName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Avatar" name="avatarUrl" [(ngModel)]="model.avatarUrl">
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Sačuvaj</button>
   </form>
 </mat-card>

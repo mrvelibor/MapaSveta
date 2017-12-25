@@ -1,38 +1,37 @@
 ﻿<mat-card class="card-container">
-  <form class="example-form" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Ime" [formControl]="firstNameFormControl" [errorStateMatcher]="matcher"
-             [(ngModel)]="model.firstName" >
+  <form class="editor-form" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Ime" name="firstName" [(ngModel)]="model.firstName" required>
       <mat-hint>Vaše ime.</mat-hint>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Ime je <strong>obavezno</strong>.
+      <mat-error *ngIf="f.form.controls['firstName'] && f.form.controls['firstName'].hasError('required')">
+        Ime je obavezno.
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Prezime" [formControl]="lastNameFormControl" [errorStateMatcher]="matcher"
-             [(ngModel)]="model.lastName" >
+    <mat-form-field>
+      <input matInput placeholder="Prezime" name="lastName" [(ngModel)]="model.lastName" required>
       <mat-hint>Vaše prezime.</mat-hint>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Prezime je <strong>obavezno</strong>.
+      <mat-error *ngIf="f.form.controls['lastName'] && f.form.controls['lastName'].hasError('required')">
+        Prezime je obavezno.
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Imejl adresa" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-             [(ngModel)]="model.email" >
-      <mat-hint>Imejl adresa koju ćete koristiti za pristup.</mat-hint>
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Molimo unestie validnu imejl adresu.
+    <mat-form-field>
+      <input matInput placeholder="Imejl adresa" name="email" [(ngModel)]="model.email" required email>
+      <mat-hint>Vaša imejl adresa.</mat-hint>
+      <mat-error *ngIf="f.form.controls['email'] && f.form.controls['email'].hasError('required')">
+        Imejl adresa je obavezna.
       </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Imejl adresa je <strong>obavezna</strong>.
+      <mat-error *ngIf="f.form.controls['email'] && !f.form.controls['email'].hasError('required') && f.form.controls['email'].hasError('email')">
+        Unesite validnu imejl adresu.
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Lozinka" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
-             [(ngModel)]="model.password" type="password">
-      <mat-hint>Lozinka koju ćete koristiti za pristup.</mat-hint>
-      <mat-error *ngIf="passwordFormControl.hasError('minlength')">
-        Sifra mora da sadrzi najmanje 8 karaktera.
+    <mat-form-field>
+      <input matInput placeholder="Loznika" name="password" [(ngModel)]="model.password" type="password" required minlength="8">
+      <mat-hint>Lozinka koju ćete koristiti za logovanje.</mat-hint>
+      <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('required')">
+        Lozinka je obavezna.
+      </mat-error>
+      <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('minlength')">
+        Lozinka mora imati najmanje 8 karaktera.
       </mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Registruj se</button>

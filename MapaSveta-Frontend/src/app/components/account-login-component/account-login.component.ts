@@ -2,8 +2,6 @@
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/rest/authentication.service';
 import {AlertService} from '../../services/ui/alert/alert.service';
-import {FormInputMatcher} from '../../directives/form-input.matcher';
-import {FormControl, Validators} from '@angular/forms';
 import {LoaderService} from '../../services/ui/loader/loader.service';
 
 @Component({
@@ -12,18 +10,6 @@ import {LoaderService} from '../../services/ui/loader/loader.service';
   styleUrls: ['account-login.component.scss']
 })
 export class AccountLoginComponent {
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-  ]);
-
-  matcher = new FormInputMatcher();
 
   model: any = {};
   loading: boolean;
@@ -43,7 +29,7 @@ export class AccountLoginComponent {
         data => {
           console.log(data);
           this.loaderService.hideProgress();
-          this.alertService.success('Login successful!', true);
+          this.alertService.success('Uspešno ste se ulogovali!', true);
           this.router.navigate(['/']);
         },
         error => {
