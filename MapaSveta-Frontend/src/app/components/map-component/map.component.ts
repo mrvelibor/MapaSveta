@@ -384,7 +384,6 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.mapLoaded || this.mapType.type === this.lastMapType) {
       return;
     }
-    this.alertService.clearMessage();
     this.lastMapType = this.mapType.type;
 
     if (this.recommendationsSubscription) {
@@ -403,6 +402,8 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mapMarkers.forEach(marker => marker.setMap(null));
     this.mapMarkers = [];
     this.sidenav.close();
+    this.alertService.clearMessage();
+
     switch (this.mapType.type) {
       case 'countries':
         this.map.setMapTypeId('styled_map');
@@ -521,11 +522,13 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadVisas(country: Country) {
-    console.log(country.visaCode);
     this.visasSubscription = this.countryService.getVisaPermission(country).subscribe(
       visaPolicy => {
         if (visaPolicy.parent) {
-          this.loadVisas(this.countries.find(c => c.visaCode === visaPolicy.parent));
+          let parent = this.countries.find(c => c.visaCode === visaPolicy.parent);
+          if (parent) {
+            this.loadVisas(parent);
+          }
           return;
         }
         console.log(visaPolicy);
