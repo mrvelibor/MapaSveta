@@ -38,7 +38,7 @@
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Opis </mat-header-cell>
       <mat-cell *matCellDef="let element" (click)="viewRecommendation(element)">
-        {{element.description}}
+        {{element.description && element.description.length > 40 ? element.description.substring(0, 40) + '...' : element.description}}
       </mat-cell>
     </ng-container>
 

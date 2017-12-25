@@ -69,8 +69,8 @@
     </mat-accordion>
   </mat-card-content>
   <mat-card-actions *ngIf="currentUser">
-    <button mat-button (click)="addTrip()"> Dodaj putovanje </button>
-    <button *ngIf="!isInWishlist" mat-button (click)="addToWishlist()"> Dodaj u listu želja </button>
-    <button *ngIf="isInWishlist" mat-button (click)="removeFromWishlist()"> Ukloni iz liste želja </button>
+    <button mat-raised-button color="primary" (click)="addTrip()"> <mat-icon>flight</mat-icon> Dodaj putovanje </button>
+    <button *ngIf="!isInWishlist" mat-raised-button color="accent" (click)="addToWishlist()"> <mat-icon>favorite_border</mat-icon> Dodaj u listu želja </button>
+    <button *ngIf="isInWishlist" mat-raised-button (click)="removeFromWishlist()"> <mat-icon>favorite</mat-icon> Ukloni iz liste želja </button>
   </mat-card-actions>
 </mat-card>
