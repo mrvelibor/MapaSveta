@@ -485,9 +485,73 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadVisas(country: Country) {
+    console.log(country.visaCode);
     this.visasSubscription = this.countryService.getVisaPermission(country).subscribe(
       visaPolicy => {
-        console.log(visaPolicy);
+        if (visaPolicy.csvc === 'SERB') {
+          visaPolicy.requirements['URUG'].permission = 'free';
+          visaPolicy.requirements['BRAZ'].permission = 'free';
+          visaPolicy.requirements['MAUR'].permission = 'free';
+          visaPolicy.requirements['GAMB'].permission = 'free';
+          visaPolicy.requirements['TOGO'].permission = 'free';
+          visaPolicy.requirements['ZMBI'].permission = 'free';
+          visaPolicy.requirements['IRAN'].permission = 'free';
+          visaPolicy.requirements['GEOR'].permission = 'free';
+          visaPolicy.requirements['MONG'].permission = 'free';
+          visaPolicy.requirements['JAPA'].permission = 'free';
+          visaPolicy.requirements['INDO'].permission = 'free';
+          visaPolicy.requirements['INDI'].permission = 'electronic';
+          visaPolicy.requirements['MYAN'].permission = 'electronic';
+          visaPolicy.requirements['ZIMB'].permission = 'electronic';
+          visaPolicy.requirements['IVOR'].permission = 'electronic';
+          visaPolicy.requirements['HOND'].permission = 'electronic';
+          visaPolicy.requirements['DOMR'].permission = 'electronic';
+          visaPolicy.requirements['LESO'].permission = 'electronic';
+          visaPolicy.requirements['SWAZ'].permission = 'electronic';
+          visaPolicy.requirements['OMAN'].permission = 'arrival';
+          visaPolicy.requirements['MAUR'].permission = 'arrival';
+          visaPolicy.requirements['SIER'].permission = 'arrival';
+          visaPolicy.requirements['GABO'].permission = 'arrival';
+          visaPolicy.requirements['UGAN'].permission = 'arrival';
+          visaPolicy.requirements['KENY'].permission = 'arrival';
+          visaPolicy.requirements['SENE'].permission = 'required';
+        }
+        if (visaPolicy.csvc === 'SERB' || visaPolicy.csvc === 'BOSN' || visaPolicy.csvc === 'MACE' || visaPolicy.csvc === 'MONT') {
+          visaPolicy.requirements['PRTG'].permission = 'free';
+          visaPolicy.requirements['ESPA'].permission = 'free';
+          visaPolicy.requirements['FRAN'].permission = 'free';
+          visaPolicy.requirements['FRAN'].permission = 'free';
+          visaPolicy.requirements['SLOV'].permission = 'free';
+          visaPolicy.requirements['CROA'].permission = 'free';
+          visaPolicy.requirements['ITAL'].permission = 'free';
+          visaPolicy.requirements['SWTZ'].permission = 'free';
+          visaPolicy.requirements['LUXE'].permission = 'free';
+          visaPolicy.requirements['BELG'].permission = 'free';
+          visaPolicy.requirements['NETH'].permission = 'free';
+          visaPolicy.requirements['DEUT'].permission = 'free';
+          visaPolicy.requirements['OSTE'].permission = 'free';
+          visaPolicy.requirements['GRCE'].permission = 'free';
+          visaPolicy.requirements['BULG'].permission = 'free';
+          visaPolicy.requirements['TURK'].permission = 'free';
+          visaPolicy.requirements['ROMA'].permission = 'free';
+          visaPolicy.requirements['HUNG'].permission = 'free';
+          visaPolicy.requirements['SVKI'].permission = 'free';
+          visaPolicy.requirements['CZEC'].permission = 'free';
+          visaPolicy.requirements['POLA'].permission = 'free';
+          visaPolicy.requirements['UKRA'].permission = 'free';
+          visaPolicy.requirements['MOLD'].permission = 'free';
+          visaPolicy.requirements['BELA'].permission = 'free';
+          visaPolicy.requirements['LITH'].permission = 'free';
+          visaPolicy.requirements['LATV'].permission = 'free';
+          visaPolicy.requirements['ESTO'].permission = 'free';
+          visaPolicy.requirements['SWED'].permission = 'free';
+          visaPolicy.requirements['FINL'].permission = 'free';
+          visaPolicy.requirements['NORW'].permission = 'free';
+          visaPolicy.requirements['ICEL'].permission = 'free';
+          visaPolicy.requirements['GRNL'].permission = 'free';
+          console.log(JSON.stringify(visaPolicy));
+        }
+        //console.log(visaPolicy);
         this.map.data.forEach(feature => {
           let requirement = visaPolicy.requirements[feature.f.visaCode];
           let color = 'gray';
