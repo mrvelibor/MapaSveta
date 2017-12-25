@@ -5,3 +5,4 @@ interface NodeModule {
 }
 declare var google: any;
 declare var gapi: any;
+declare var FB: any;

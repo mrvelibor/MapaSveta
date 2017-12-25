@@ -17,7 +17,7 @@ export class AccountRegisterComponent implements AfterViewInit {
   public auth2: any;
 
   constructor(private router: Router,
-              private loginService: AuthenticationService,
+              private authService: AuthenticationService,
               private alertService: AlertService,
               private loaderService: LoaderService) {
   }
@@ -68,7 +68,7 @@ export class AccountRegisterComponent implements AfterViewInit {
     this.loading = true;
     this.loaderService.showIndeterminate();
     this.alertService.clearMessage();
-    this.loginService.register(this.model)
+    this.authService.register(this.model)
       .subscribe(
         data => {
           console.log(data);

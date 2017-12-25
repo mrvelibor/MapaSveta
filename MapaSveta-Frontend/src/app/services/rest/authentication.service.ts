@@ -6,6 +6,7 @@ import {User} from '../../models/user/user';
 import {environment} from '../../../environments/environment';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from "rxjs/Observable";
+import {SocialAuthRequest} from "../../models/user/social-auth-request";
 
 @Injectable()
 export class AuthenticationService extends RestService {
@@ -31,6 +32,9 @@ export class AuthenticationService extends RestService {
     }
     let user = userData.user;
     let token = userData.token;
+    if (!user || !token) {
+      return;
+    }
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
     this._userSource.next(user);
@@ -64,6 +68,32 @@ export class AuthenticationService extends RestService {
     let options = RestService.options();
     return this.http.post(
       `${AuthenticationService.HOST}/register`,
+      body,
+      options
+    ).map((res: Response) => {
+      return this.handleResponse(res);
+    });
+  }
+
+  googleAuth(token: string): Observable<User> {
+    let body = JSON.stringify(new SocialAuthRequest(token));
+    console.log(body);
+    let options = RestService.options();
+    return this.http.post(
+      `${AuthenticationService.HOST}/google`,
+      body,
+      options
+    ).map((res: Response) => {
+      return this.handleResponse(res);
+    });
+  }
+
+  facebookAuth(token: string): Observable<User> {
+    let body = JSON.stringify(new SocialAuthRequest(token));
+    console.log(body);
+    let options = RestService.options();
+    return this.http.post(
+      `${AuthenticationService.HOST}/facebook`,
       body,
       options
     ).map((res: Response) => {

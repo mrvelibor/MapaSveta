@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080',
-  googleClientId: '967367361769-37tqjbpm1q9b0b788tpi883dlpolft7d.apps.googleusercontent.com'
+  googleClientId: '967367361769-37tqjbpm1q9b0b788tpi883dlpolft7d.apps.googleusercontent.com',
+  facebookAppId: '111838979568883'
 };
