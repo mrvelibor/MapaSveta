@@ -19,10 +19,10 @@
       <button *ngIf="currentUser && currentUrl === '/' && mapType.type === 'recommendations'" mat-button (click)="enableAdding()"> <mat-icon>add_location</mat-icon> Dodaj zanimljivost </button>
       <button *ngIf="currentUrl === '/'" mat-button [matMenuTriggerFor]="menuMap"> <mat-icon>layers</mat-icon> Filteri </button>
       <mat-menu #menuMap="matMenu">
-        <button mat-menu-item (click)="setMapType('countries')" color="mapType.type === 'countries' ? 'accent' : ''">Mapa država</button>
-        <button mat-menu-item (click)="setMapType('recommendations')" color="mapType.type === 'recommendations' ? 'accent' : ''">Mapa zanimljivosti</button>
-        <button mat-menu-item (click)="setMapType('visas')" color="mapType.type === 'visas' ? 'accent' : ''">Mapa viza</button>
-        <button *ngIf="currentUser" mat-menu-item (click)="setMapType('trips')" color="mapType.type === 'trips' ? 'accent' : ''">Mapa putovanja</button>
+        <button mat-menu-item (click)="setMapType('countries')" [ngClass]="mapType.type === 'countries' ? 'button-accent' : ''">Mapa država</button>
+        <button mat-menu-item (click)="setMapType('recommendations')" [ngClass]="mapType.type === 'recommendations' ? 'button-accent' : ''">Mapa zanimljivosti</button>
+        <button mat-menu-item (click)="setMapType('visas')" [ngClass]="mapType.type === 'visas' ? 'button-accent' : ''">Mapa viza</button>
+        <button *ngIf="currentUser" mat-menu-item (click)="setMapType('trips')" [ngClass]="mapType.type === 'trips' ? 'button-accent' : ''">Mapa putovanja</button>
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="menuAccount"> <mat-icon>account_circle</mat-icon> {{currentUser ? currentUser.firstName + ' ' + currentUser.lastName[0] : 'Nalog'}}</button>
       <mat-menu #menuAccount="matMenu">
@@ -47,7 +47,6 @@
     <mat-toolbar-row>
       <span>Putnčka mapa <small>2017.</small></span>
       <span class="toolbar-spacer"></span>
-      <!--<button mat-button>API URL: {{url}}</button>-->
       <a href="http://mrvelibor.com" target="_blank"><button mat-button>Velibor Bačujkov 2493</button></a>
     </mat-toolbar-row>
   </mat-toolbar>

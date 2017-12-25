@@ -1,18 +1,22 @@
 package com.mrvelibor.mapasveta.controller.rest;
 
 import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
+import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.countries.Country;
 import com.mrvelibor.mapasveta.model.countries.CountryMap;
 import com.mrvelibor.mapasveta.model.countries.VisaRequirement;
+import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.CountryService;
+import com.mrvelibor.mapasveta.service.TripService;
+import com.mrvelibor.mapasveta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/countries")
@@ -20,10 +24,64 @@ public class CountryRestController {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private TripService tripService;
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping(value = "")
     public ResponseEntity<List<Country>> getAllCountries() {
         List<Country> countries = countryService.getAllCountries();
         return ResponseEntity.ok(countries);
+    }
+
+    @GetMapping(value = "visited")
+    public ResponseEntity<Set<Country>> getVisitedCountries(Principal principal) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Set<Country> countries = tripService.getVisitedCountries(currentUser);
+        return ResponseEntity.ok(countries);
+    }
+
+    @GetMapping(value = "wishlist")
+    public ResponseEntity<Set<Country>> getWishlistCountries(Principal principal) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Set<Country> countries = tripService.getWishlistCountries(currentUser);
+        return ResponseEntity.ok(countries);
+    }
+
+    @PostMapping(value = "wishlist/{countryId}")
+    public ResponseEntity<Boolean> addCountryToWishList(@PathVariable Long countryId, Principal principal) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        boolean result = tripService.addCountryToWishList(country, currentUser);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping(value = "wishlist/{countryId}")
+    public ResponseEntity<Boolean> deleteCountryFromWishList(@PathVariable Long countryId, Principal principal) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        boolean result = tripService.deleteCountryFromWishList(country, currentUser);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = "maps/{size}")

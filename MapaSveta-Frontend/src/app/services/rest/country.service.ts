@@ -33,6 +33,45 @@ export class CountryService extends RestService {
     ).map(res => res.json());
   }
 
+  getVisitedCountries(): Observable<Country[]> {
+    let options = RestService.options();
+    return this.http.get(
+      `${CountryService.HOST}/visited`,
+      options
+    ).map(res => res.json());
+  }
+
+  getWishlistCountries(): Observable<Country[]> {
+    let options = RestService.options();
+    return this.http.get(
+      `${CountryService.HOST}/wishlist`,
+      options
+    ).map(res => res.json());
+  }
+
+  addToWishlist(country: Country): Observable<boolean> {
+    if (!country) {
+      return;
+    }
+    let options = RestService.options();
+    return this.http.post(
+      `${CountryService.HOST}/wishlist/${country.id}`,
+      '',
+      options
+    ).map(res => res.json());
+  }
+
+  deleteFromWishlist(country: Country): Observable<boolean> {
+    if (!country) {
+      return;
+    }
+    let options = RestService.options();
+    return this.http.delete(
+      `${CountryService.HOST}/wishlist/${country.id}`,
+      options
+    ).map(res => res.json());
+  }
+
   getMaps(size: string): Observable<CountryMap[]> {
     if (!size) {
       size = 'original';

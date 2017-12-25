@@ -10,4 +10,5 @@ import java.util.List;
 public interface TripDao extends JpaRepository<Trip, Long> {
     List<Trip> findAllByUser_Id(Long userId);
     List<Trip> findAllByCountry_Id(Long countryId);
+    List<Trip> findAllByUser_IdAndCountry_Id(Long userId, Long countryId);
 }

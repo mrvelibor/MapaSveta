@@ -31,6 +31,9 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   recommendationsSubscription: Subscription;
   visasSubscription: Subscription;
 
+  visitedSubscription: Subscription;
+  wishlistSubscription: Subscription;
+
   map;
   mapMarkers = [];
   mapLoaded = false;
@@ -80,6 +83,18 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.countriesSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.mapTypeSubscription.unsubscribe();
+    if (this.recommendationsSubscription) {
+      this.recommendationsSubscription.unsubscribe();
+    }
+    if (this.visasSubscription) {
+      this.visasSubscription.unsubscribe();
+    }
+    if (this.visitedSubscription) {
+      this.visitedSubscription.unsubscribe();
+    }
+    if (this.wishlistSubscription) {
+      this.wishlistSubscription.unsubscribe();
+    }
   }
 
   initMap() {
@@ -378,6 +393,13 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.visasSubscription) {
       this.visasSubscription.unsubscribe();
     }
+    if (this.visitedSubscription) {
+      this.visitedSubscription.unsubscribe();
+    }
+    if (this.wishlistSubscription) {
+      this.wishlistSubscription.unsubscribe();
+    }
+
     this.mapMarkers.forEach(marker => marker.setMap(null));
     this.mapMarkers = [];
     this.sidenav.close();
@@ -406,6 +428,20 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }
         this.loadVisas(country);
+        break;
+      case 'trips':
+        this.map.data.forEach(feature => {
+          this.map.data.overrideStyle(feature, {fillColor: 'gray'});
+        });
+        if (this.currentUser.country) {
+          this.map.data.forEach(feature => {
+            if (feature.f.cca2 === this.currentUser.country.countryCode2.toLowerCase()) {
+              this.map.data.overrideStyle(feature, {fillColor: 'blue'});
+            }
+          });
+        }
+        this.loadVisitedCountries();
+        this.loadWishlistCountries();
         break;
     }
   }
@@ -521,9 +557,36 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  loadVisitedCountries() {
+    this.visitedSubscription = this.countryService.getVisitedCountries().subscribe(
+      visitedCountries => {
+        console.log(visitedCountries);
+        this.map.data.forEach(feature => {
+          if (visitedCountries.find(country => country.countryCode2.toLowerCase() === feature.f.cca2)) {
+            this.map.data.overrideStyle(feature, {fillColor: 'green'});
+          }
+        });
+      }
+    );
+  }
+
+  loadWishlistCountries() {
+    this.wishlistSubscription = this.countryService.getWishlistCountries().subscribe(
+      wishlistCountries => {
+        console.log(wishlistCountries);
+        this.map.data.forEach(feature => {
+          if (wishlistCountries.find(country => country.countryCode2.toLowerCase() === feature.f.cca2)) {
+            this.map.data.overrideStyle(feature, {fillColor: 'yellow'});
+          }
+        });
+      }
+    );
+  }
+
   countryClicked(country: Country, latLng) {
     switch (this.mapType.type) {
       case 'countries':
+      case 'trips':
         this.selectedRecommendation = null;
         this.selectedCountry = country;
         this.sidenav.open();
