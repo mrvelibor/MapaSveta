@@ -86,6 +86,20 @@ public class RecommendationRestController {
         return ResponseEntity.ok(ratings);
     }
 
+    @GetMapping(value = "{recommendationId}/rating")
+    public ResponseEntity<RecommendationRating> getUserRecommendationRating(@PathVariable Long recommendationId, Principal principal) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
+        if (recommendation == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        RecommendationRating rating = recommendationService.getRecommendationRatingForUser(recommendation, currentUser);
+        return ResponseEntity.ok(rating);
+    }
+
     @PostMapping(value = "{recommendationId}/upvote")
     public ResponseEntity<RecommendationRating> upvoteRecommendation(@PathVariable Long recommendationId, Principal principal) {
         return rateRecommendation(recommendationId, principal, 1);
@@ -99,7 +113,7 @@ public class RecommendationRestController {
     private ResponseEntity<RecommendationRating> rateRecommendation(Long recommendationId, Principal principal, int rating) {
         Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
         User currentUser = userService.loadUserByUsername(principal.getName());
-        RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, currentUser, 1);
+        RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, currentUser, rating);
         return ResponseEntity.ok(recommendationRating);
     }
 }

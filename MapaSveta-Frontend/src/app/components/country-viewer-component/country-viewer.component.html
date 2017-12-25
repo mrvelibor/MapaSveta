@@ -68,8 +68,9 @@
       </mat-expansion-panel>
     </mat-accordion>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>Dodaj putovanje</button>
-    <button mat-button>Pogledaj vize</button>
+  <mat-card-actions *ngIf="currentUser">
+    <button mat-button (click)="addTrip()"> Dodaj putovanje </button>
+    <button *ngIf="!isInWishlist" mat-button (click)="addToWishlist()"> Dodaj u listu želja </button>
+    <button *ngIf="isInWishlist" mat-button (click)="removeFromWishlist()"> Ukloni iz liste želja </button>
   </mat-card-actions>
 </mat-card>

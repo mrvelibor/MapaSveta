@@ -67,6 +67,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public boolean isCountryInWishlist(Country country, User user) {
+        return countryWishDao.findByUser_IdAndCountry_Id(user.getId(), country.getId()) != null;
+    }
+
+    @Override
     public boolean addCountryToWishList(Country country, User user) {
         try {
             CountryWish countryWish = new CountryWish();

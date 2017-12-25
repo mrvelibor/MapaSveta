@@ -31,7 +31,7 @@ export class TripEditorComponent implements OnInit, OnDestroy {
   set trip(trip: Trip) {
     console.log(trip);
     let obj = Object.assign(new Trip(), trip);
-    this.isUpdate = true;
+    this.isUpdate = obj.id != null;
     this.model = obj;
   }
 

@@ -49,6 +49,17 @@ export class CountryService extends RestService {
     ).map(res => res.json());
   }
 
+  isInWishlist(country: Country): Observable<boolean> {
+    if (!country) {
+      return;
+    }
+    let options = RestService.options();
+    return this.http.get(
+      `${CountryService.HOST}/wishlist/${country.id}`,
+      options
+    ).map(res => res.json());
+  }
+
   addToWishlist(country: Country): Observable<boolean> {
     if (!country) {
       return;
@@ -61,7 +72,7 @@ export class CountryService extends RestService {
     ).map(res => res.json());
   }
 
-  deleteFromWishlist(country: Country): Observable<boolean> {
+  removeFromWishlist(country: Country): Observable<boolean> {
     if (!country) {
       return;
     }

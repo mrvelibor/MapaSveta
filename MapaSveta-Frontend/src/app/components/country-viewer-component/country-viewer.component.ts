@@ -1,22 +1,80 @@
-import {Component, Inject, Input} from "@angular/core";
+import {Component, Inject, Input, OnDestroy, OnInit} from "@angular/core";
 import {Country} from "../../models/countries/country";
 import {CountryService} from "../../services/rest/country.service";
 import {environment} from "../../../environments/environment";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
+import {Subscription} from "rxjs/Subscription";
+import {User} from "../../models/user/user";
+import {AuthenticationService} from "../../services/rest/authentication.service";
+import {TripEditorDialog} from "../trip-editor-component/trip-editor.component";
+import {Trip} from "../../models/trips/trip";
 
 @Component({
   selector: 'app-country-viewer',
   templateUrl: 'country-viewer.component.html',
   styleUrls: ['country-viewer.component.scss']
 })
-export class CountryViewerComponent {
-
+export class CountryViewerComponent implements OnInit, OnDestroy {
   apiUrl = environment.apiUrl;
 
-  @Input('country')
-  country: Country;
+  userSubscription: Subscription;
+  currentUser: User;
 
-  constructor(private countryService: CountryService) {
+  _country: Country;
+
+  @Input('country')
+  set country(value: Country) {
+    this._country = value;
+    this.isInWishlist = false;
+    if (this.currentUser) {
+      this.countryService.isInWishlist(this.country).subscribe(result => this.isInWishlist = result);
+    }
+  }
+
+  get country() {
+    return this._country;
+  }
+
+  isInWishlist: boolean;
+
+  constructor(private authService: AuthenticationService,
+              private countryService: CountryService,
+              private dialog: MatDialog) {
+  }
+
+  ngOnInit() {
+    this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
+
+  addTrip() {
+    let trip = new Trip();
+    trip.country = this.country;
+    let dialogRef = this.dialog.open(TripEditorDialog, {
+      data: trip
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      Object.assign(trip, result);
+    });
+  }
+
+  addToWishlist() {
+    this.countryService.addToWishlist(this.country).subscribe(result => {
+      if (result) {
+        this.isInWishlist = true;
+      };
+    });
+  }
+
+  removeFromWishlist() {
+    this.countryService.removeFromWishlist(this.country).subscribe(result => {
+      if (result) {
+        this.isInWishlist = false;
+      };
+    });
   }
 }
 

@@ -56,6 +56,20 @@ public class CountryRestController {
         return ResponseEntity.ok(countries);
     }
 
+    @GetMapping(value = "wishlist/{countryId}")
+    public ResponseEntity<Boolean> isCountryInWishlist(@PathVariable Long countryId, Principal principal) {
+        User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        boolean result = tripService.isCountryInWishlist(country, currentUser);
+        return ResponseEntity.ok(result);
+    }
+
     @PostMapping(value = "wishlist/{countryId}")
     public ResponseEntity<Boolean> addCountryToWishList(@PathVariable Long countryId, Principal principal) {
         User currentUser = userService.loadUserByUsername(principal.getName());

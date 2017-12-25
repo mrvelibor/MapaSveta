@@ -10,4 +10,5 @@ import java.util.List;
 public interface RecommendationRatingDao extends JpaRepository<RecommendationRating, Long> {
     List<RecommendationRating> findAllByUser_Id(Long userId);
     List<RecommendationRating> findAllByRecommendation_Id(Long recommendationId);
+    RecommendationRating findByRecommendation_IdAndUser_Id(Long recommendationId, Long userId);
 }

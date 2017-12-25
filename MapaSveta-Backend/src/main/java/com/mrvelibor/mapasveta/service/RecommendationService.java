@@ -17,4 +17,5 @@ public interface RecommendationService {
     RecommendationRating rateRecommendation(Recommendation recommendation, User user, int rating);
     List<RecommendationRating> getAllRatingsForRecommendation(Recommendation recommendation);
     List<RecommendationRating> getAllRatingsByUser(User user);
+    RecommendationRating getRecommendationRatingForUser(Recommendation recommendation, User user);
 }

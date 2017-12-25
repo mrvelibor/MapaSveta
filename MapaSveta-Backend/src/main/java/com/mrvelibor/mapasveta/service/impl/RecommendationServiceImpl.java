@@ -70,4 +70,14 @@ public class RecommendationServiceImpl implements RecommendationService {
     public List<RecommendationRating> getAllRatingsByUser(User user) {
         return recommendationRatingDao.findAllByUser_Id(user.getId());
     }
+
+    @Override
+    public RecommendationRating getRecommendationRatingForUser(Recommendation recommendation, User user) {
+        RecommendationRating recommendationRating = recommendationRatingDao.findByRecommendation_IdAndUser_Id(recommendation.getId(), user.getId());
+        if (recommendationRating == null) {
+            recommendationRating = new RecommendationRating();
+            recommendationRating.setRating(0);
+        }
+        return recommendationRating;
+    }
 }
