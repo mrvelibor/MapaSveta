@@ -2,7 +2,7 @@
   <form class="editor-form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
     <mat-form-field>
       <input matInput placeholder="Imejl adresa" name="email" [(ngModel)]="model.email" required email>
-      <mat-hint>Imejl adresa koju koju ste koristili pri registraciji naloga.</mat-hint>
+      <mat-hint>Registrovana imejl adresa.</mat-hint>
       <mat-error *ngIf="f.form.controls['email'] && f.form.controls['email'].hasError('required')">
         Imejl adresa je obavezna.
       </mat-error>
@@ -12,7 +12,7 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Loznika" name="password" [(ngModel)]="model.password" type="password" required minlength="8">
-      <mat-hint>Lozinka koju ste koristili pri registraciji naloga.</mat-hint>
+      <mat-hint>Vaša lozinka.</mat-hint>
       <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('required')">
         Lozinka je obavezna.
       </mat-error>
@@ -22,9 +22,7 @@
     </mat-form-field>
     <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Uloguj se</button>
     <button mat-button [disabled]="loading" [routerLink]="['/register']">Nemate nalog?</button>
-    <div style="margin-top: 16px">
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <img src="https://scontent.fbeg4-1.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?oh=e633755bfd5e3641d245d159ea1cdd69&oe=5AB18CEA" style="margin-top: 8px; height: 32px; width: 200px;">
-    </div>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <img src="https://scontent.fbeg4-1.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?oh=e633755bfd5e3641d245d159ea1cdd69&oe=5AB18CEA" style="margin: 8px auto; height: 32px; width: 200px;">
   </form>
 </mat-card>

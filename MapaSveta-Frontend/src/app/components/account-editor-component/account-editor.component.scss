@@ -1,12 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
 .editor-form {
   display: flex;
   flex-direction: column;
   min-width: 240px;
-  width: 100%;
 }
 
 .card-container {
-  width: 500px;
+  flex: 0 0 auto;
+  max-width: 500px;
   margin: 16px auto;
 }
 

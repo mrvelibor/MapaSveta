@@ -4,3 +4,4 @@ interface NodeModule {
   id: string;
 }
 declare var google: any;
+declare var gapi: any;
