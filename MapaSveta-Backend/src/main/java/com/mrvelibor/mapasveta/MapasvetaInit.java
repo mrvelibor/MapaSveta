@@ -91,20 +91,20 @@ public class MapasvetaInit {
         User user = new User();
         user.setFirstName("Velibor");
         user.setLastName("Bačujkov");
-        user.setEmail("velibor.bacujkov.2493@metropolitan.ac.rs");
+        user.setEmail("velja@velja.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("Serbia"));
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
 
-        Recommendation recommendation = new Recommendation();
-        recommendation.setName("Banja");
-        recommendation.setDescription("Mesto za bleju");
-        recommendation.setLocation(new LatLng(new BigDecimal("44.8737322"), new BigDecimal("20.6439815")));
-        recommendation.setCreatedBy(user);
-        recommendation = recommendationDao.save(recommendation);
-        LOG.info("Saved: " + recommendation);
+//        Recommendation recommendation = new Recommendation();
+//        recommendation.setName("Banja");
+//        recommendation.setDescription("Mesto za bleju");
+//        recommendation.setLocation(new LatLng(new BigDecimal("44.8737322"), new BigDecimal("20.6439815")));
+//        recommendation.setCreatedBy(user);
+//        recommendation = recommendationDao.save(recommendation);
+//        LOG.info("Saved: " + recommendation);
 
         Trip trip = new Trip();
         trip.setCountry(countryService.findCountryByCommonName("Russia"));
