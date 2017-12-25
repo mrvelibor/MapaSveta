@@ -43,7 +43,7 @@ import {UserListComponent} from "./components/user-list-component/user-list.comp
 import {AccountEditorComponent} from "./components/account-editor-component/account-editor.component";
 import {CountryListComponent} from "./components/country-list-component/country-list.component";
 import {TripViewerComponent} from "./components/trip-viewer-component/trip-viewer.component";
-import {UserEditorComponent} from "./components/user-editor-component/user-editor.component";
+import {UserEditorComponent, UserEditorDialog} from "./components/user-editor-component/user-editor.component";
 import {UserViewerComponent, UserViewerDialog} from "./components/user-viewer-component/user-viewer.component";
 import {NospaceValidator} from "./directives/nospace.validator";
 import {IsObjectValidator} from "./directives/is-object.validator";
@@ -71,6 +71,7 @@ import {MapService} from "./components/map-component/map.service";
     TripListComponent,
     TripViewerComponent,
     UserEditorComponent,
+    UserEditorDialog,
     UserListComponent,
     UserViewerComponent,
     UserViewerDialog,
@@ -110,6 +111,7 @@ import {MapService} from "./components/map-component/map.service";
     RecommendationEditorDialog,
     RecommendationViewerDialog,
     TripEditorDialog,
+    UserEditorDialog,
     UserViewerDialog
   ],
   bootstrap: [AppComponent]

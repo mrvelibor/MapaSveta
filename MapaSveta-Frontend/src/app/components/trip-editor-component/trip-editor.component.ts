@@ -12,7 +12,7 @@ import {Subscriber} from "rxjs/Subscriber";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-trip-edtior',
+  selector: 'app-trip-editor',
   templateUrl: 'trip-editor.component.html',
   styleUrls: ['trip-editor.component.scss']
 })
@@ -100,7 +100,7 @@ export class TripEditorComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-  selector: 'dialog-trip-edtior',
+  selector: 'dialog-trip-editor',
   templateUrl: 'trip-editor.dialog.html'
 })
 export class TripEditorDialog {

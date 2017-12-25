@@ -12,7 +12,7 @@ import {environment} from "../../../environments/environment";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-recommendation-edtior',
+  selector: 'app-recommendation-editor',
   templateUrl: 'recommendation-editor.component.html',
   styleUrls: ['recommendation-editor.component.scss']
 })
@@ -98,7 +98,7 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-  selector: 'dialog-recommendation-edtior',
+  selector: 'dialog-recommendation-editor',
   templateUrl: 'recommendation-editor.dialog.html'
 })
 export class RecommendationEditorDialog {

@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     public User editUser(User user) {
         User oldUser = getUser(user.getId());
         user.setPassword(oldUser.getPassword());
+        user.setType(oldUser.getType());
         return userDao.save(user);
     }
 
