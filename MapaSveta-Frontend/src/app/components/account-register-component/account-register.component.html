@@ -36,9 +36,14 @@
     </mat-form-field>
     <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Registruj se</button>
     <button mat-button [disabled]="loading" [routerLink]="['/login']">Već imate nalog?</button>
-    <div style="margin-top: 16px">
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <img src="https://scontent.fbeg4-1.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?oh=e633755bfd5e3641d245d159ea1cdd69&oe=5AB18CEA" style="margin-top: 8px; height: 32px; width: 200px;">
-    </div>
   </form>
+</mat-card>
+<mat-card class="card-container">
+  <mat-card-content>
+    Ili se povežite putem jedne od društvenih mreža
+  </mat-card-content>
+  <mat-card-actions class="editor-form">
+    <div id="googleBtn" class="g-signin2" data-onsuccess="onSignIn" style="margin: 8px auto">Google</div>
+    <img src="https://scontent.fbeg4-1.fna.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?oh=e633755bfd5e3641d245d159ea1cdd69&oe=5AB18CEA" style="margin: 8px auto; height: 32px; width: 200px;">
+  </mat-card-actions>
 </mat-card>
