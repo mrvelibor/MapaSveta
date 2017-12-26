@@ -5,6 +5,7 @@ import com.mrvelibor.mapasveta.model.json.AuthenticationRequest;
 import com.mrvelibor.mapasveta.model.json.AuthenticationResponse;
 import com.mrvelibor.mapasveta.model.json.SocialAuthenticationRequest;
 import com.mrvelibor.mapasveta.model.json.facebook.GraphUserResponse;
+import com.mrvelibor.mapasveta.model.json.google.GapiUserResponse;
 import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.security.TokenUtils;
 import com.mrvelibor.mapasveta.service.AuthenticationService;
@@ -97,8 +98,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return userService.createUser(user);
     }
 
-    private final String GRAPH_API_URL = "https://graph.facebook.com/v2.11/me?fields={fields}&access_token={token}";
-    private final String FIELDS = "id,name,first_name,last_name,email,birthday,age_range,gender,hometown{location},location{location},picture.type(large)";
+    private static final String GRAPH_API_URL = "https://graph.facebook.com/v2.11/me?fields={fields}&access_token={token}";
+    private static final String FIELDS = "id,name,first_name,last_name,email,birthday,age_range,gender,hometown{location},location{location},picture.type(large)";
 
     @Override
     public AuthenticationResponse facebookAuth(SocialAuthenticationRequest socialAuthenticationRequest, User currentUser) throws AuthenticationException {
@@ -129,8 +130,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return createAuthenticationResponse(user.getEmail());
     }
 
+    private static final String GOOGLE_API_URL = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={token}";
+
     @Override
     public AuthenticationResponse googleAuth(SocialAuthenticationRequest socialAuthenticationRequest, User currentUser) throws AuthenticationException {
-        return null;
+        GapiUserResponse gapiUserResponse = restTemplate.getForObject(GOOGLE_API_URL, GapiUserResponse.class, socialAuthenticationRequest.token);
+        if (gapiUserResponse == null || gapiUserResponse.sub == null) {
+            throw new BadCredentialsException("No user found.");
+        }
+        User user = userService.findByGoogleId(gapiUserResponse.sub);
+        if (user == null) {
+            user = new User();
+            user.setGoogleId(gapiUserResponse.sub);
+            user.setFirstName(gapiUserResponse.given_name);
+            user.setLastName(gapiUserResponse.family_name);
+            user.setEmail(gapiUserResponse.email);
+            user.setAvatarUrl(gapiUserResponse.picture);
+            user.setType(UserType.traveller);
+            user = userService.createUser(user);
+        }
+        return createAuthenticationResponse(user.getEmail());
     }
 }
