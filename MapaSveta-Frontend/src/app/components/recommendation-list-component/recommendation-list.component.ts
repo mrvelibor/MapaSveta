@@ -12,6 +12,8 @@ import {AuthenticationService} from "../../services/rest/authentication.service"
 import {Subscription} from "rxjs/Subscription";
 import {UserViewerDialog} from "../user-viewer-component/user-viewer.component";
 import {RecommendationViewerDialog} from "../recommendation-viewer-component/recommendation-viewer.component";
+import {LoaderService} from "../../services/ui/loader/loader.service";
+import {AlertService} from "../../services/ui/alert/alert.service";
 
 @Component({
   templateUrl: 'recommendation-list.component.html',
@@ -32,6 +34,8 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
 
   constructor(private authService: AuthenticationService,
               private recommendationService: RecommendationService,
+              private alertService: AlertService,
+              private loaderService: LoaderService,
               private dialog: MatDialog) {
   }
 
@@ -92,6 +96,7 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
       data: recommendation
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.alertService.success('Zanimljivost je izmenjena.');
       Object.assign(recommendation, result);
     });
   }
@@ -105,6 +110,7 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
         this.recommendationService.deleteRecommendation(recommendation).subscribe(
           data => {
             console.log(data);
+            this.alertService.success('Zanimljivost je obrisana.');
             var index = this.dataSource.data.indexOf(recommendation, 0);
             if (index > -1) {
               this.dataSource.data.splice(index, 1);

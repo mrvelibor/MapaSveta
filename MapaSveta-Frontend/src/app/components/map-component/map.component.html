@@ -3,7 +3,7 @@
     <button type="button" class="app-sidenav-button" mat-button (click)="drawer.close()">
       <mat-icon>close</mat-icon> Zatvori
     </button>
-    <app-country-viewer *ngIf="selectedCountry" [country]="selectedCountry"></app-country-viewer>
+    <app-country-viewer *ngIf="selectedCountry" [country]="selectedCountry" (countryUpdated)="onCountryUpdated($event)"></app-country-viewer>
     <app-recommendation-viewer *ngIf="selectedRecommendation" [recommendation]="selectedRecommendation"></app-recommendation-viewer>
   </mat-sidenav>
   <mat-sidenav-content class="app-sidenav-container">

@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnDestroy, OnInit} from "@angular/core";
+import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {Country} from "../../models/countries/country";
 import {CountryService} from "../../services/rest/country.service";
 import {environment} from "../../../environments/environment";
@@ -37,9 +37,13 @@ export class CountryViewerComponent implements OnInit, OnDestroy {
 
   isInWishlist: boolean;
 
+  @Output('countryUpdated')
+  eventEmitter: EventEmitter<any>;
+
   constructor(private authService: AuthenticationService,
               private countryService: CountryService,
               private dialog: MatDialog) {
+    this.eventEmitter = new EventEmitter<any>();
   }
 
   ngOnInit() {
@@ -58,6 +62,7 @@ export class CountryViewerComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       Object.assign(trip, result);
+      this.eventEmitter.next({country: trip.country, trip: trip});
     });
   }
 
@@ -65,6 +70,7 @@ export class CountryViewerComponent implements OnInit, OnDestroy {
     this.countryService.addToWishlist(this.country).subscribe(result => {
       if (result) {
         this.isInWishlist = true;
+        this.eventEmitter.next({country: this.country, wishlist: {isInWishlist: this.isInWishlist}});
       };
     });
   }
@@ -73,6 +79,7 @@ export class CountryViewerComponent implements OnInit, OnDestroy {
     this.countryService.removeFromWishlist(this.country).subscribe(result => {
       if (result) {
         this.isInWishlist = false;
+        this.eventEmitter.next({country: this.country, wishlist: {isInWishlist: this.isInWishlist}});
       };
     });
   }

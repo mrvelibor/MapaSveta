@@ -7,6 +7,8 @@ import {Trip} from "../../models/trips/trip";
 import {Country} from "../../models/countries/country";
 import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
 import {TripEditorDialog} from "../trip-editor-component/trip-editor.component";
+import {AlertService} from "../../services/ui/alert/alert.service";
+import {LoaderService} from "../../services/ui/loader/loader.service";
 
 @Component({
   templateUrl: 'trip-list.component.html',
@@ -23,6 +25,8 @@ export class TripListComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Trip>([]);
 
   constructor(private tripService: TripService,
+              private alertService: AlertService,
+              private loaderService: LoaderService,
               private dialog: MatDialog) {
   }
 
@@ -58,6 +62,7 @@ export class TripListComponent implements AfterViewInit {
       data: trip
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.alertService.success('Putovanje je izmenjeno.');
       Object.assign(trip, result);
     });
   }
@@ -71,6 +76,7 @@ export class TripListComponent implements AfterViewInit {
         this.tripService.deleteTrip(trip).subscribe(
           data => {
             console.log(data);
+            this.alertService.success('Putovanje je obrisano.');
             var index = this.dataSource.data.indexOf(trip, 0);
             if (index > -1) {
               this.dataSource.data.splice(index, 1);

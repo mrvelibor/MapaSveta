@@ -10,6 +10,8 @@ import {map, startWith} from "rxjs/operators";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {Subscriber} from "rxjs/Subscriber";
 import {Subscription} from "rxjs/Subscription";
+import {AlertService} from "../../services/ui/alert/alert.service";
+import {LoaderService} from "../../services/ui/loader/loader.service";
 
 @Component({
   selector: 'app-trip-editor',
@@ -43,7 +45,9 @@ export class TripEditorComponent implements OnInit, OnDestroy {
   changeEmitter: EventEmitter<Trip>;
 
   constructor(private tripService: TripService,
-              private countryService: CountryService) {
+              private countryService: CountryService,
+              private alertService: AlertService,
+              private loaderService: LoaderService) {
     this.model = new Trip();
     this.countries = [];
     this.changeEmitter = new EventEmitter<Trip>();

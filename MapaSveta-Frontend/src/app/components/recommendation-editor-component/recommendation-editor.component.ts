@@ -10,6 +10,8 @@ import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {environment} from "../../../environments/environment";
 import {Subscription} from "rxjs/Subscription";
+import {AlertService} from "../../services/ui/alert/alert.service";
+import {LoaderService} from "../../services/ui/loader/loader.service";
 
 @Component({
   selector: 'app-recommendation-editor',
@@ -40,7 +42,9 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
   changeEmitter: EventEmitter<Recommendation>;
 
   constructor(private recommendationService: RecommendationService,
-              private countryService: CountryService) {
+              private countryService: CountryService,
+              private alertService: AlertService,
+              private loaderService: LoaderService) {
     this.model = new Recommendation();
     this.model.address = new Address();
     this.countries = [];

@@ -58,8 +58,8 @@
     <ng-container matColumnDef="_options">
       <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
       <mat-cell *matCellDef="let element" class="table-button-cell">
-        <button mat-button class="table-button" (click)="editUser(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
-        <button mat-button class="table-button" (click)="deleteUser(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
+        <button mat-button *ngIf="element.type !== 'admin'" class="table-button" (click)="editUser(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button mat-button *ngIf="element.type !== 'admin'" class="table-button" (click)="deleteUser(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
       </mat-cell>
     </ng-container>
 

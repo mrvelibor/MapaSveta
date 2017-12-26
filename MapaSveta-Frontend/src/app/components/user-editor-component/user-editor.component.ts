@@ -9,6 +9,8 @@ import {Observable} from "rxjs/Observable";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {AlertService} from "../../services/ui/alert/alert.service";
+import {LoaderService} from "../../services/ui/loader/loader.service";
 
 @Component({
   selector: 'app-user-editor',
@@ -38,7 +40,9 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   changeEmitter: EventEmitter<User>;
 
   constructor(private userService: UserService,
-              private countryService: CountryService) {
+              private countryService: CountryService,
+              private alertService: AlertService,
+              private loaderService: LoaderService) {
     this.model = new User();
     this.countries = [];
     this.changeEmitter = new EventEmitter<User>();

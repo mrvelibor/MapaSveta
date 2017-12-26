@@ -431,6 +431,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
         this.loadVisas(country);
         break;
       case 'trips':
+        this.map.setMapTypeId('styled_map');
         this.map.data.forEach(feature => {
           this.map.data.overrideStyle(feature, {fillColor: 'gray'});
         });
@@ -616,6 +617,30 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
         this.loadVisas(country);
         break;
     }
+  }
+
+  onCountryUpdated(event) {
+    if (!event || !event.country || this.mapType.type !== 'trips') {
+      return;
+    }
+    let color: string;
+    if (event.wishlist) {
+      if (event.wishlist.isInWishlist) {
+        color = 'yellow';
+        this.alertService.success('Država je dodata u listu želja!');
+      } else {
+        color = 'gray';
+        this.alertService.success('Država je uklonjena iz liste želja!');
+      }
+    } else if (event.trip) {
+      color = 'green';
+      this.alertService.success('Putovanje je dodato!');
+    }
+    this.map.data.forEach(feature => {
+      if (event.country.countryCode2.toLowerCase() === feature.f.cca2) {
+        this.map.data.overrideStyle(feature, {fillColor: color});
+      }
+    });
   }
 
   recommendationClicked(recommendation: Recommendation) {

@@ -8,6 +8,8 @@ import {CountryViewerDialog} from "../country-viewer-component/country-viewer.co
 import {UserEditorDialog} from "../user-editor-component/user-editor.component";
 import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
 import {UserViewerDialog} from "../user-viewer-component/user-viewer.component";
+import {AlertService} from "../../services/ui/alert/alert.service";
+import {LoaderService} from "../../services/ui/loader/loader.service";
 
 @Component({
   templateUrl: 'user-list.component.html',
@@ -24,6 +26,8 @@ export class UserListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<User>([]);
 
   constructor(private userService: UserService,
+              private alertService: AlertService,
+              private loaderService: LoaderService,
               private dialog: MatDialog) {
   }
 
@@ -63,6 +67,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
       data: user
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.alertService.success('Korisnik je izmenjen.');
       Object.assign(user, result);
     });
   }
@@ -76,6 +81,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         this.userService.deleteUser(user).subscribe(
           data => {
             console.log(data);
+            this.alertService.success('Korisnik je obrisan.');
             var index = this.dataSource.data.indexOf(user, 0);
             if (index > -1) {
               this.dataSource.data.splice(index, 1);
