@@ -71,13 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
     );
     this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
     if (this.currentUser) {
-      this.authService.auth().subscribe(
-        data => {
-        },
-        error => {
-          this.logout();
-        }
-      )
+      this.auth();
     }
   }
 
@@ -91,6 +85,7 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.alertService.success('Logged out!', this.currentUrl !== '/');
+    this.setMapType('countries');
     this.router.navigate(['/']);
   }
 
@@ -98,6 +93,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.auth().subscribe(
       data => {
         console.log(data);
+      },
+      error => {
+        this.logout();
       }
     );
   }

@@ -143,6 +143,7 @@ public class MapasvetaInit {
         user.setEmail("svetski_putnik@test.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("Serbia"));
+        user.setAvatarUrl("https://business.americanexpress.com/uk/~/media/Images/GCP/uk2/business-news-and-insights/The-New-Business-Traveller/Amex_New_Breed_Business_Traveler.jpg");
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
@@ -165,6 +166,7 @@ public class MapasvetaInit {
         user.setEmail("vodic@test.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("Serbia"));
+        user.setAvatarUrl("http://www.ablebooker.com/wp-content/uploads/2014/08/tourguide-672x372.jpg");
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
@@ -299,6 +301,7 @@ public class MapasvetaInit {
         user.setEmail("turista@test.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("Serbia"));
+        user.setAvatarUrl("http://laoblogger.com/images/clipart-female-world-traveler-royalty-free-9.jpg");
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
@@ -343,6 +346,7 @@ public class MapasvetaInit {
         user.setEmail("novica@test.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("Serbia"));
+        user.setAvatarUrl("https://i.pinimg.com/736x/9a/c6/af/9ac6af947b0851ddb1a21a732569efe5--dora-the-explorer-ideas-para.jpg");
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
@@ -355,26 +359,6 @@ public class MapasvetaInit {
         user.setEmail("indij@nac.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("India"));
-        user.setType(UserType.traveller);
-        user = userService.createUser(user);
-        LOG.info("Saved: " + user);
-
-        user = new User();
-        user.setFirstName("Hrvoje");
-        user.setLastName("Bok");
-        user.setEmail("hrvoje@bok.com");
-        user.setPassword(passwordEncoder.encode("passw0rd"));
-        user.setCountry(countryService.findCountryByCommonName("Croatia"));
-        user.setType(UserType.traveller);
-        user = userService.createUser(user);
-        LOG.info("Saved: " + user);
-
-        user = new User();
-        user.setFirstName("Zmago");
-        user.setLastName("Slovenac");
-        user.setEmail("zmago@slovenia.com");
-        user.setPassword(passwordEncoder.encode("passw0rd"));
-        user.setCountry(countryService.findCountryByCommonName("Slovenia"));
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
@@ -400,11 +384,31 @@ public class MapasvetaInit {
         LOG.info("Saved: " + user);
 
         user = new User();
-        user.setFirstName("Tvrda");
-        user.setLastName("Glava");
+        user.setFirstName("Mujo");
+        user.setLastName("Haso");
         user.setEmail("bos@nac.com");
         user.setPassword(passwordEncoder.encode("passw0rd"));
         user.setCountry(countryService.findCountryByCommonName("Bosnia and Herzegovina"));
+        user.setType(UserType.traveller);
+        user = userService.createUser(user);
+        LOG.info("Saved: " + user);
+
+        user = new User();
+        user.setFirstName("Hrvoje");
+        user.setLastName("Bok");
+        user.setEmail("hrvoje@bok.com");
+        user.setPassword(passwordEncoder.encode("passw0rd"));
+        user.setCountry(countryService.findCountryByCommonName("Croatia"));
+        user.setType(UserType.traveller);
+        user = userService.createUser(user);
+        LOG.info("Saved: " + user);
+
+        user = new User();
+        user.setFirstName("Zmago");
+        user.setLastName("Slovenac");
+        user.setEmail("zmago@slovenia.com");
+        user.setPassword(passwordEncoder.encode("passw0rd"));
+        user.setCountry(countryService.findCountryByCommonName("Slovenia"));
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
