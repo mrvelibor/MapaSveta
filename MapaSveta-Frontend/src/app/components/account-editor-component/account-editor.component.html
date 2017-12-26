@@ -1,49 +1,51 @@
-﻿<mat-card class="card-container">
-  <form class="editor-form" name="form" (ngSubmit)="f.form.valid && updateAccount()" #f="ngForm">
-    <mat-form-field>
-      <input matInput placeholder="Ime" name="firstName" [(ngModel)]="model.firstName" required>
-      <mat-hint>Vaše ime.</mat-hint>
-      <mat-error *ngIf="f.form.controls['firstName'] && f.form.controls['firstName'].hasError('required')">
-        Ime je obavezno.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Prezime" name="lastName" [(ngModel)]="model.lastName" required>
-      <mat-hint>Vaše prezime.</mat-hint>
-      <mat-error *ngIf="f.form.controls['lastName'] && f.form.controls['lastName'].hasError('required')">
-        Prezime je obavezno.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-select placeholder="Pol" name="gender" [(ngModel)]="model.gender">
-        <mat-option>
-          - nije izabran -
-        </mat-option>
-        <mat-option value="male">
-          Muški
-        </mat-option>
-        <mat-option value="female">
-          Ženski
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [matDatepicker]="pickerBirthday" placeholder="Rođendan" name="birthday" [(ngModel)]="model.birthday">
-      <mat-datepicker-toggle matSuffix [for]="pickerBirthday"></mat-datepicker-toggle>
-      <mat-datepicker #pickerBirthday></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text" placeholder="Država" name="country" aria-label="country" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.country" validateIsObject>
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
-          <img src="{{apiUrl}}{{option.flagUrl}}" height="24px" width="38px"> {{ option.serbianName }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <img *ngIf="model.avatarUrl" src="{{model.avatarUrl}}" style="width: 50%; max-height: 200px; margin: 8px auto" />
-    <mat-form-field>
-      <input matInput placeholder="Avatar" name="avatarUrl" [(ngModel)]="model.avatarUrl">
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Sačuvaj</button>
-  </form>
-</mat-card>
+﻿<div class="div-container">
+  <mat-card class="card-container">
+    <form class="editor-form" name="form" (ngSubmit)="f.form.valid && updateAccount()" #f="ngForm">
+      <mat-form-field>
+        <input matInput placeholder="Ime" name="firstName" [(ngModel)]="model.firstName" required>
+        <mat-hint>Vaše ime.</mat-hint>
+        <mat-error *ngIf="f.form.controls['firstName'] && f.form.controls['firstName'].hasError('required')">
+          Ime je obavezno.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Prezime" name="lastName" [(ngModel)]="model.lastName" required>
+        <mat-hint>Vaše prezime.</mat-hint>
+        <mat-error *ngIf="f.form.controls['lastName'] && f.form.controls['lastName'].hasError('required')">
+          Prezime je obavezno.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Pol" name="gender" [(ngModel)]="model.gender">
+          <mat-option>
+            - nije izabran -
+          </mat-option>
+          <mat-option value="male">
+            Muški
+          </mat-option>
+          <mat-option value="female">
+            Ženski
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerBirthday" placeholder="Rođendan" name="birthday" [(ngModel)]="model.birthday">
+        <mat-datepicker-toggle matSuffix [for]="pickerBirthday"></mat-datepicker-toggle>
+        <mat-datepicker #pickerBirthday></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" placeholder="Država" name="country" aria-label="country" matInput [formControl]="countryInput" [matAutocomplete]="auto" [(ngModel)]="model.country" validateIsObject>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+            <img src="{{apiUrl}}{{option.flagUrl}}" height="24px" width="38px"> {{ option.serbianName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <img *ngIf="model.avatarUrl" src="{{model.avatarUrl}}" style="width: 50%; max-height: 200px; margin: 8px auto" />
+      <mat-form-field>
+        <input matInput placeholder="Avatar" name="avatarUrl" [(ngModel)]="model.avatarUrl">
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Sačuvaj</button>
+    </form>
+  </mat-card>
+</div>

@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByGoogleId(String googleId) {
-        return findByGoogleId(googleId);
+        return userDao.findByGoogleId(googleId);
     }
 
     @Override

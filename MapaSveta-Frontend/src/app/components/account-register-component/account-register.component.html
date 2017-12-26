@@ -1,57 +1,59 @@
-﻿<mat-card class="card-container">
-  <form class="editor-form" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm">
-    <mat-form-field>
-      <input matInput placeholder="Ime" name="firstName" [(ngModel)]="model.firstName" required>
-      <mat-hint>Vaše ime.</mat-hint>
-      <mat-error *ngIf="f.form.controls['firstName'] && f.form.controls['firstName'].hasError('required')">
-        Ime je obavezno.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Prezime" name="lastName" [(ngModel)]="model.lastName" required>
-      <mat-hint>Vaše prezime.</mat-hint>
-      <mat-error *ngIf="f.form.controls['lastName'] && f.form.controls['lastName'].hasError('required')">
-        Prezime je obavezno.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Imejl adresa" name="email" [(ngModel)]="model.email" required email>
-      <mat-hint>Vaša imejl adresa.</mat-hint>
-      <mat-error *ngIf="f.form.controls['email'] && f.form.controls['email'].hasError('required')">
-        Imejl adresa je obavezna.
-      </mat-error>
-      <mat-error *ngIf="f.form.controls['email'] && !f.form.controls['email'].hasError('required') && f.form.controls['email'].hasError('email')">
-        Unesite validnu imejl adresu.
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Loznika" name="password" [(ngModel)]="model.password" type="password" required minlength="8">
-      <mat-hint>Lozinka koju ćete koristiti za logovanje.</mat-hint>
-      <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('required')">
-        Lozinka je obavezna.
-      </mat-error>
-      <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('minlength')">
-        Lozinka mora imati najmanje 8 karaktera.
-      </mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Registruj se</button>
-    <button mat-button [disabled]="loading" [routerLink]="['/login']">Već imate nalog?</button>
-  </form>
-</mat-card>
-<mat-card class="card-container">
-  <mat-card-content>
-    Ili se povežite putem jedne od društvenih mreža
-  </mat-card-content>
-  <mat-card-actions class="editor-form">
-    <div id="googleBtn" class="g-signin2" style="margin: 8px auto"
-         data-onsuccess="onSignIn"> Google </div>
-    <div class="fb-login-button" style="margin: 8px auto"
-         data-scope="public_profile, email, user_birthday, user_hometown, user_location"
-         data-max-rows="1"
-         data-size="large"
-         data-button-type="continue_with"
-         data-show-faces="false"
-         data-auto-logout-link="false"
-         data-use-continue-as="false"> Facebook </div>
-  </mat-card-actions>
-</mat-card>
+﻿<div class="div-container">
+  <mat-card class="card-container">
+    <form class="editor-form" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm">
+      <mat-form-field>
+        <input matInput placeholder="Ime" name="firstName" [(ngModel)]="model.firstName" required>
+        <mat-hint>Vaše ime.</mat-hint>
+        <mat-error *ngIf="f.form.controls['firstName'] && f.form.controls['firstName'].hasError('required')">
+          Ime je obavezno.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Prezime" name="lastName" [(ngModel)]="model.lastName" required>
+        <mat-hint>Vaše prezime.</mat-hint>
+        <mat-error *ngIf="f.form.controls['lastName'] && f.form.controls['lastName'].hasError('required')">
+          Prezime je obavezno.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Imejl adresa" name="email" [(ngModel)]="model.email" required email>
+        <mat-hint>Vaša imejl adresa.</mat-hint>
+        <mat-error *ngIf="f.form.controls['email'] && f.form.controls['email'].hasError('required')">
+          Imejl adresa je obavezna.
+        </mat-error>
+        <mat-error *ngIf="f.form.controls['email'] && !f.form.controls['email'].hasError('required') && f.form.controls['email'].hasError('email')">
+          Unesite validnu imejl adresu.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Loznika" name="password" [(ngModel)]="model.password" type="password" required minlength="8">
+        <mat-hint>Lozinka koju ćete koristiti za logovanje.</mat-hint>
+        <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('required')">
+          Lozinka je obavezna.
+        </mat-error>
+        <mat-error *ngIf="f.form.controls['password'] && f.form.controls['password'].hasError('minlength')">
+          Lozinka mora imati najmanje 8 karaktera.
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="submit-button" [disabled]="loading">Registruj se</button>
+      <button mat-button [disabled]="loading" [routerLink]="['/login']">Već imate nalog?</button>
+    </form>
+  </mat-card>
+  <mat-card class="card-container">
+    <mat-card-content>
+      Ili se povežite putem jedne od društvenih mreža
+    </mat-card-content>
+    <mat-card-actions class="editor-form">
+      <div id="googleBtn" class="g-signin2" style="margin: 8px auto"
+           data-onsuccess="onSignIn"> Google </div>
+      <div class="fb-login-button" style="margin: 8px auto"
+           data-scope="public_profile, email, user_birthday, user_hometown, user_location"
+           data-max-rows="1"
+           data-size="large"
+           data-button-type="continue_with"
+           data-show-faces="false"
+           data-auto-logout-link="false"
+           data-use-continue-as="false"> Facebook </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
