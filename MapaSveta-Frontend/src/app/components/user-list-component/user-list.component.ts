@@ -1,34 +1,37 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
-import {UserService} from "../../services/rest/user.service";
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {User} from "../../models/user/user";
-import {environment} from "../../../environments/environment";
-import {Country} from "../../models/countries/country";
-import {CountryViewerDialog} from "../country-viewer-component/country-viewer.component";
-import {UserEditorDialog} from "../user-editor-component/user-editor.component";
-import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
-import {UserViewerDialog} from "../user-viewer-component/user-viewer.component";
-import {AlertService} from "../../services/ui/alert/alert.service";
-import {LoaderService} from "../../services/ui/loader/loader.service";
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/rest/user.service';
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {User} from '../../models/user/user';
+import {environment} from '../../../environments/environment';
+import {Country} from '../../models/countries/country';
+import {CountryViewerDialog} from '../country-viewer-component/country-viewer.component';
+import {UserEditorDialog} from '../user-editor-component/user-editor.component';
+import {ConfirmationDialog, DialogData} from '../confirmation-dialog/confirmation.dialog';
+import {UserViewerDialog} from '../user-viewer-component/user-viewer.component';
+import {AlertService} from '../../services/ui/alert/alert.service';
+import {LoaderService} from '../../services/ui/loader/loader.service';
+import {ListComponent} from '../list-component/list.component';
 
 @Component({
   templateUrl: 'user-list.component.html',
-  styleUrls: ['user-list.component.scss']
+  styleUrls: ['user-list.component.scss', '../list-component/list.component.scss']
 })
-export class UserListComponent implements OnInit, AfterViewInit {
-
+export class UserListComponent extends ListComponent implements OnInit {
   apiUrl = environment.apiUrl;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   displayedColumns = ['id', 'firstName', 'lastName', 'email', 'gender', 'birthday', 'country', '_options'];
+
   dataSource = new MatTableDataSource<User>([]);
+
+  get tableDataSource(): MatTableDataSource<any> {
+    return this.dataSource;
+  }
 
   constructor(private userService: UserService,
               private alertService: AlertService,
               private loaderService: LoaderService,
               private dialog: MatDialog) {
+    super();
   }
 
   ngOnInit() {
@@ -38,16 +41,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       }
-    )
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    );
   }
 
   viewUser(user: User) {

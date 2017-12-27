@@ -1,29 +1,32 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {CountryService} from "../../services/rest/country.service";
-import {environment} from "../../../environments/environment";
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Country} from "../../models/countries/country";
-import {CountryViewerDialog} from "../country-viewer-component/country-viewer.component";
-import {Subscription} from "rxjs/Subscription";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {CountryService} from '../../services/rest/country.service';
+import {environment} from '../../../environments/environment';
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {Country} from '../../models/countries/country';
+import {CountryViewerDialog} from '../country-viewer-component/country-viewer.component';
+import {Subscription} from 'rxjs/Subscription';
+import {ListComponent} from '../list-component/list.component';
 
 @Component({
   templateUrl: 'country-list.component.html',
-  styleUrls: ['country-list.component.scss']
+  styleUrls: ['country-list.component.scss', '../list-component/list.component.scss']
 })
-export class CountryListComponent implements OnInit, AfterViewInit, OnDestroy {
-
+export class CountryListComponent extends ListComponent implements OnInit, OnDestroy {
   apiUrl = environment.apiUrl;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   countriesSubscription: Subscription;
 
   displayedColumns = ['flag', 'serbianName', 'officialName', 'capital', 'diallingCode', 'domain', 'languages'];
+
   dataSource = new MatTableDataSource<Country>([]);
+
+  get tableDataSource(): MatTableDataSource<any> {
+    return this.dataSource;
+  }
 
   constructor(private countryService: CountryService,
               private dialog: MatDialog) {
+    super();
   }
 
   ngOnInit() {
@@ -33,20 +36,11 @@ export class CountryListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       }
-    )
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    );
   }
 
   ngOnDestroy() {
     this.countriesSubscription.unsubscribe();
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase(); // MatTableDataSource defaults to lowercase matches
   }
 
   viewCountry(country: Country) {

@@ -14,13 +14,13 @@ import {UserViewerDialog} from "../user-viewer-component/user-viewer.component";
 import {RecommendationViewerDialog} from "../recommendation-viewer-component/recommendation-viewer.component";
 import {LoaderService} from "../../services/ui/loader/loader.service";
 import {AlertService} from "../../services/ui/alert/alert.service";
+import {ListComponent} from '../list-component/list.component';
 
 @Component({
   templateUrl: 'recommendation-list.component.html',
-  styleUrls: ['recommendation-list.component.scss']
+  styleUrls: ['recommendation-list.component.scss', '../list-component/list.component.scss']
 })
-export class RecommendationListComponent implements OnInit, AfterViewInit, OnDestroy {
-
+export class RecommendationListComponent extends ListComponent implements OnInit, OnDestroy {
   apiUrl = environment.apiUrl;
 
   subscription: Subscription;
@@ -28,15 +28,18 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
 
   displayedColumns = ['name', 'country', 'city', 'createdBy', 'description', '_options'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<Recommendation>([]);
+
+  get tableDataSource(): MatTableDataSource<any> {
+    return this.dataSource;
+  }
 
   constructor(private authService: AuthenticationService,
               private recommendationService: RecommendationService,
               private alertService: AlertService,
               private loaderService: LoaderService,
               private dialog: MatDialog) {
+    super();
   }
 
   ngOnInit() {
@@ -57,20 +60,11 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       }
-    )
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    );
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase(); // MatTableDataSource defaults to lowercase matches
   }
 
   viewRecommendation(recommendation: Recommendation) {

@@ -1,33 +1,35 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {TripService} from "../../services/rest/trip.service";
-import {environment} from "../../../environments/environment";
-import {MatSort} from "@angular/material/sort";
-import {MatDialog, MatPaginator, MatTableDataSource} from "@angular/material";
-import {Trip} from "../../models/trips/trip";
-import {Country} from "../../models/countries/country";
-import {ConfirmationDialog, DialogData} from "../confirmation-dialog/confirmation.dialog";
-import {TripEditorDialog} from "../trip-editor-component/trip-editor.component";
-import {AlertService} from "../../services/ui/alert/alert.service";
-import {LoaderService} from "../../services/ui/loader/loader.service";
+import {Component, OnInit} from '@angular/core';
+import {TripService} from '../../services/rest/trip.service';
+import {environment} from '../../../environments/environment';
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {Trip} from '../../models/trips/trip';
+import {Country} from '../../models/countries/country';
+import {ConfirmationDialog, DialogData} from '../confirmation-dialog/confirmation.dialog';
+import {TripEditorDialog} from '../trip-editor-component/trip-editor.component';
+import {AlertService} from '../../services/ui/alert/alert.service';
+import {LoaderService} from '../../services/ui/loader/loader.service';
+import {ListComponent} from '../list-component/list.component';
 
 @Component({
   templateUrl: 'trip-list.component.html',
-  styleUrls: ['trip-list.component.scss']
+  styleUrls: ['trip-list.component.scss', '../list-component/list.component.scss']
 })
-export class TripListComponent implements AfterViewInit {
-
+export class TripListComponent extends ListComponent implements OnInit {
   apiUrl = environment.apiUrl;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   displayedColumns = ['country', 'city', 'dateFrom', 'dateTo', 'details', '_options'];
+
   dataSource = new MatTableDataSource<Trip>([]);
+
+  get tableDataSource(): MatTableDataSource<any> {
+    return this.dataSource;
+  }
 
   constructor(private tripService: TripService,
               private alertService: AlertService,
               private loaderService: LoaderService,
               private dialog: MatDialog) {
+    super();
   }
 
   ngOnInit() {
@@ -37,16 +39,7 @@ export class TripListComponent implements AfterViewInit {
         this.dataSource.data = data;
         this.dataSource._updateChangeSubscription();
       }
-    )
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    );
   }
 
   viewTrip(trip: Trip) {
