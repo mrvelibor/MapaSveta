@@ -10,6 +10,16 @@
   flex-direction: column;
 }
 
+.table-flag {
+  width: 54px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.table-link-button {
+  min-width: 0;
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -36,4 +46,28 @@
 
 .table-button {
   min-width: 0;
+}
+
+.column-flag {
+  flex: 0 0 64px;
+}
+
+.column-options {
+  flex: 0 0 96px;
+}
+
+.column-very-small {
+  flex: 0 1 64px;
+}
+
+.column-small {
+  flex: 0 1 96px;
+}
+
+.column-normal {
+  flex: 1 1 96px;
+}
+
+.column-large {
+  flex: 2 1 96px;
 }

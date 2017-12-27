@@ -7,46 +7,46 @@
 
   <mat-table #table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Naziv </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewRecommendation(element)">
-        {{element.name}}
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Naziv </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal" (click)="viewRecommendation(element)">
+        <button mat-button class="table-button-cell">{{element.name}}</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-flag"> Država </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-flag" (click)="viewCountry(element.address.country)">
+        <img *ngIf="element.address && element.address.country" class="table-flag" matTooltip="{{element.address.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.address.country.flagUrl}}">
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="city">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Grad </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Grad </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal">
         <div *ngIf="element.address && element.address.city"> {{element.address.city.name}} </div>
         <div *ngIf="element.address && !element.address.city"> {{element.address.cityName}} </div>
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewCountry(element.address.country)">
-        <img *ngIf="element.address && element.address.country" matTooltip="{{element.address.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.address.country.flagUrl}}" height="32px" width="54px">
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="createdBy">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Preporučio </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element.createdBy)">
-        <div *ngIf="element.createdBy"> {{element.createdBy.firstName}} {{element.createdBy.lastName}} </div>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Preporučio </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal" (click)="viewUser(element.createdBy)">
+        <button *ngIf="element.createdBy" mat-button class="table-button-cell"> {{element.createdBy.firstName}} {{element.createdBy.lastName}} </button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Opis </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewRecommendation(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-large"> Opis </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-large" (click)="viewRecommendation(element)">
         {{element.description && element.description.length > 40 ? element.description.substring(0, 40) + '...' : element.description}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="_options">
-      <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="table-button-cell">
-        <button *ngIf="currentUser.type === 'admin' || currentUser.id === element.createdBy.id" mat-button class="table-button" (click)="editRecommendation(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
-        <button *ngIf="currentUser.type === 'admin' || currentUser.id === element.createdBy.id" mat-button class="table-button" (click)="deleteRecommendation(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
+      <mat-header-cell *matHeaderCellDef class="column-options"> Opcije </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="table-button-cell column-options">
+        <button *ngIf="currentUser.type === 'admin' || currentUser.id === element.createdBy.id" mat-icon-button class="table-button" (click)="editRecommendation(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button *ngIf="currentUser.type === 'admin' || currentUser.id === element.createdBy.id" mat-icon-button class="table-button" (click)="deleteRecommendation(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
       </mat-cell>
     </ng-container>
 

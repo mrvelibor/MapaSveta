@@ -7,46 +7,46 @@
 
   <mat-table #table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
-        <img *ngIf="element.country" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="54px">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-flag"> Država </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-flag" (click)="viewCountry(element.country)">
+        <img *ngIf="element.country" class="table-flag" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}">
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="city">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Grad </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Grad </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal" (click)="viewTrip(element)">
         <div *ngIf="element.city"> {{element.city.name}} </div>
         <div *ngIf="!element.city"> {{element.cityName}} </div>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dateFrom">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Početak </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Početak </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small" (click)="viewUser(element)">
         {{element.dateFrom}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="dateTo">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Kraj </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Kraj </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small" (click)="viewTrip(element)">
         {{element.dateTo}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="details">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Detalji </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewTrip(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-large"> Detalji </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-large" (click)="viewTrip(element)">
         {{element.details}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="_options">
-      <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="table-button-cell">
-        <button mat-button class="table-button" (click)="editTrip(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
-        <button mat-button class="table-button" (click)="deleteTrip(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
+      <mat-header-cell *matHeaderCellDef class="column-options"> Opcije </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="table-button-cell column-options">
+        <button mat-icon-button class="table-button" (click)="editTrip(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button mat-icon-button class="table-button" (click)="deleteTrip(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
       </mat-cell>
     </ng-container>
 

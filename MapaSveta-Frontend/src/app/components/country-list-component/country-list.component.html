@@ -7,50 +7,50 @@
 
   <mat-table #table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="flag">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Zastava </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <img src="{{apiUrl}}{{element.flagUrl}}" height="32px" width="54px">
+      <mat-header-cell *matHeaderCellDef class="column-flag"> Zastava </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-flag">
+        <img class="table-flag" src="{{apiUrl}}{{element.flagUrl}}">
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="serbianName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Ime </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{element.serbianName}}
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Ime </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal">
+        <button mat-button class="table-button-cell">{{element.serbianName}}</button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="officialName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Oficijalno ime </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-large"r> Oficijalno ime </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-large">
         {{element.officialName}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="capital">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Glavni grad </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Glavni grad </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal">
         <div *ngIf="element.capital"> {{element.capital.name}} </div>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="diallingCode">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Pozivni broj </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Pozivni broj </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small">
         {{element.diallingCode}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="domain">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Domen </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-very-small"> Domen </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-very-small">
         {{element.domain}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="languages">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Jezici </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef class="column-normal"> Jezici </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal">
         <div *ngIf="element.languages"> <div *ngFor="let language of element.languages" class="table-list"> {{language.name}}; </div> </div>
       </mat-cell>
     </ng-container>

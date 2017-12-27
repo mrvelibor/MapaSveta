@@ -26,7 +26,7 @@ export class RecommendationListComponent implements OnInit, AfterViewInit, OnDes
   subscription: Subscription;
   currentUser: User;
 
-  displayedColumns = ['name', 'city', 'country', 'createdBy', 'description', '_options'];
+  displayedColumns = ['name', 'country', 'city', 'createdBy', 'description', '_options'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

@@ -7,59 +7,59 @@
 
   <mat-table #table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-very-small"> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-very-small" (click)="viewUser(element)">
         {{element.id}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="firstName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Ime </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
-        {{element.firstName}}
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Ime </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal" (click)="viewUser(element)">
+        <button mat-button class="table-button-cell">{{element.firstName}}</button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Prezime </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
-        {{element.lastName}}
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Prezime </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal" (click)="viewUser(element)">
+        <button mat-button class="table-button-cell">{{element.lastName}}</button>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Imejl </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewUser(element)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-normal"> Imejl </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-normal" (click)="viewUser(element)">
         {{element.email}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="gender">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Pol </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Pol </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small">
         {{element.gender}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="birthday">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Rođendan </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Rođendan </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small">
         {{element.birthday}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Država </mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewCountry(element.country)">
-        <img *ngIf="element.country" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}" height="32px" width="54px">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-flag"> Država </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-flag" (click)="viewCountry(element.country)">
+        <img *ngIf="element.country" class="table-flag" matTooltip="{{element.country.serbianName}}" matTooltipPosition="right" src="{{apiUrl}}{{element.country.flagUrl}}">
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="_options">
-      <mat-header-cell *matHeaderCellDef> Opcije </mat-header-cell>
-      <mat-cell *matCellDef="let element" class="table-button-cell">
-        <button mat-button *ngIf="element.type !== 'admin'" class="table-button" (click)="editUser(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
-        <button mat-button *ngIf="element.type !== 'admin'" class="table-button" (click)="deleteUser(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
+      <mat-header-cell *matHeaderCellDef class="column-options"> Opcije </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="table-button-cell column-options">
+        <button mat-icon-button *ngIf="element.type !== 'admin'" class="table-button" (click)="editUser(element)" matTooltip="Izmeni" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>edit</mat-icon> </button>
+        <button mat-icon-button *ngIf="element.type !== 'admin'" class="table-button" (click)="deleteUser(element)" matTooltip="Obriši" matTooltipPosition="left" matTooltipShowDelay="500"> <mat-icon>delete</mat-icon> </button>
       </mat-cell>
     </ng-container>
 
