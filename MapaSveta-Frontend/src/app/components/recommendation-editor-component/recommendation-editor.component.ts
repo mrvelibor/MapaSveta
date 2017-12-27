@@ -108,6 +108,9 @@ export class RecommendationEditorComponent implements OnInit, OnDestroy {
 export class RecommendationEditorDialog {
   constructor(public dialogRef: MatDialogRef<RecommendationEditorDialog>,
               @Inject(MAT_DIALOG_DATA) public recommendation: Recommendation) {
+    if (!recommendation) {
+      this.recommendation = new Recommendation();
+    }
   }
 
   onRecommendationSaved(recommendation: Recommendation) {

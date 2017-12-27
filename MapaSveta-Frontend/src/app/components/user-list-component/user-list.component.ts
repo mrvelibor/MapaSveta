@@ -61,8 +61,10 @@ export class UserListComponent extends ListComponent implements OnInit {
       data: user
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.alertService.success('Korisnik je izmenjen.');
-      Object.assign(user, result);
+      if (result) {
+        this.alertService.success('Korisnik je izmenjen.');
+        Object.assign(user, result);
+      }
     });
   }
 

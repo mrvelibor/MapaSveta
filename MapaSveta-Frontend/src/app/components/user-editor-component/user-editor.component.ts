@@ -105,6 +105,9 @@ export class UserEditorComponent implements OnInit, OnDestroy {
 export class UserEditorDialog {
   constructor(public dialogRef: MatDialogRef<UserEditorDialog>,
               @Inject(MAT_DIALOG_DATA) public user: User) {
+    if (!user) {
+      this.user = new User();
+    }
   }
 
   onUserSaved(user: User) {

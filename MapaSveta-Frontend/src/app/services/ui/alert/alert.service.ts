@@ -21,17 +21,17 @@ export class AlertService {
     });
   }
 
-  success(message: string, keepAfterNavigationChange = false) {
+  success(message: string, keepAfterNavigationChange = false, dismissable = true) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'success', text: message});
+    this.subject.next({color: 'accent', text: message, dismissable: dismissable});
   }
 
-  fail(message: string, keepAfterNavigationChange = false) {
+  info(message: string, keepAfterNavigationChange = false, dismissable = true) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'error', text: message});
+    this.subject.next({text: message, dismissable: dismissable});
   }
 
-  error(error: any, keepAfterNavigationChange = false) {
+  error(error: any, keepAfterNavigationChange = false, dismissable = true) {
     let message = error.status;
     try {
       let body = JSON.parse(error._body);
@@ -41,12 +41,11 @@ export class AlertService {
       if (body.message) {
         message += ': ' + body.message;
       }
-    }
-    catch (Error) {
+    } catch (Error) {
       message += ': Unknown error.';
     }
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'error', text: message});
+    this.subject.next({color: 'warn', text: message, dismissable: dismissable});
   }
 
   clearMessage() {

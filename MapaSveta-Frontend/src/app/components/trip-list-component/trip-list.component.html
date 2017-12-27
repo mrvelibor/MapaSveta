@@ -1,11 +1,14 @@
 <div class="table-container mat-elevation-z8">
   <div class="table-header">
-    <mat-form-field>
+    <button mat-raised-button class="table-header-element" color="primary" (click)="addTrip()"> <mat-icon>add</mat-icon> Novo putovanje </button>
+    <mat-form-field *ngIf="dataSource.data.length > 0" class="table-header-element">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pretraži">
     </mat-form-field>
+    <h3 *ngIf="dataSource.data.length === 0"> Nemate nijedno dodato putovanje </h3>
   </div>
 
   <mat-table #table [dataSource]="dataSource" matSort>
+
     <ng-container matColumnDef="country">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="column-flag"> Država </mat-header-cell>
       <mat-cell *matCellDef="let element" class="column-flag" (click)="viewCountry(element.country)">

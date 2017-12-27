@@ -61,8 +61,10 @@ export class CountryViewerComponent implements OnInit, OnDestroy {
       data: trip
     });
     dialogRef.afterClosed().subscribe(result => {
-      Object.assign(trip, result);
-      this.eventEmitter.next({country: trip.country, trip: trip});
+      if (result) {
+        Object.assign(trip, result);
+        this.eventEmitter.next({country: trip.country, trip: trip});
+      }
     });
   }
 

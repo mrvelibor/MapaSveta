@@ -110,6 +110,9 @@ export class TripEditorComponent implements OnInit, OnDestroy {
 export class TripEditorDialog {
   constructor(public dialogRef: MatDialogRef<TripEditorDialog>,
               @Inject(MAT_DIALOG_DATA) public trip: Trip) {
+    if (!trip) {
+      this.trip = new Trip();
+    }
   }
 
   onTripSaved(trip: Trip) {

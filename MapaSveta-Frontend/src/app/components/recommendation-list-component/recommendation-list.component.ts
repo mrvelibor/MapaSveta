@@ -90,8 +90,10 @@ export class RecommendationListComponent extends ListComponent implements OnInit
       data: recommendation
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.alertService.success('Zanimljivost je izmenjena.');
-      Object.assign(recommendation, result);
+      if (result) {
+        this.alertService.success('Zanimljivost je izmenjena.');
+        Object.assign(recommendation, result);
+      }
     });
   }
 

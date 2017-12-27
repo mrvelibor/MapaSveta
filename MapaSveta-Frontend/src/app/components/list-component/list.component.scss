@@ -26,8 +26,17 @@
 }
 
 .table-header {
+  display: flex;
+  flex-direction: row;
   min-height: 64px;
   padding: 8px 24px 0;
+  margin-top: 8px;
+}
+
+.table-header-element {
+  height: 40px;
+  margin: auto 16px auto 0;
+  min-width: unset;
 }
 
 .mat-table {

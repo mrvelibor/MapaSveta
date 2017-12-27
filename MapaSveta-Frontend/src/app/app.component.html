@@ -5,7 +5,9 @@
   </div>
 </app-overlay>
 
-<app-loader></app-loader>
+<div class="loader">
+  <app-loader></app-loader>
+</div>
 
 <div class="app-container">
   <mat-toolbar color="primary">
@@ -34,9 +36,7 @@
       </mat-menu>
     </mat-toolbar-row>
   </mat-toolbar>
-  <button type="button" mat-button (click)="alertService.clearMessage()">
-    <app-alert></app-alert>
-  </button>
+  <app-alert></app-alert>
 
   <div class="app-content">
     <mat-progress-spinner *ngIf="!countries || countries.length === 0"></mat-progress-spinner>

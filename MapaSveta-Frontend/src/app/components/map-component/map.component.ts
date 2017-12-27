@@ -13,6 +13,7 @@ import {RecommendationEditorDialog} from "../recommendation-editor-component/rec
 import {LatLng} from "../../models/common/lat-lng";
 import {Address} from "../../models/common/address";
 import {AlertService} from "../../services/ui/alert/alert.service";
+import {LoaderService} from '../../services/ui/loader/loader.service';
 
 @Component({
   templateUrl: 'map.component.html',
@@ -51,11 +52,13 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
               private cityService: CityService,
               private recommendationService: RecommendationService,
               private alertService: AlertService,
+              private loaderService: LoaderService,
               private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.mapLoaded = false;
+    this.loaderService.showIndeterminate();
     this.userSubscription = this.authService.user$.subscribe(
       user => {
         this.currentUser = user;
@@ -63,8 +66,18 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     this.mapTypeSubscription = this.mapService.mapType$.subscribe(
       mapType => {
+        if (mapType && mapType.shouldAdd) {
+          if (this.mapLoaded) {
+            this.alertService.info('Kliknite na mapu da dodate zanimljivost.', false, false);
+          } else {
+            mapType.shouldAdd = false;
+          }
+        }
+        let changed = !this.mapType || this.mapType.type !== mapType.type;
         this.mapType = mapType;
-        this.setupMap();
+        if (changed) {
+          this.setupMap();
+        }
       }
     );
     this.countriesSubscription = this.countryService.countries$.subscribe(
@@ -353,7 +366,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     ]);
     let props = {
-      center: new google.maps.LatLng(51.508742, -0.120850),
+      center: new google.maps.LatLng(44.87272011318116, 20.649683475494385),
       zoom: 5,
       disableDefaultUI: true,
       mapTypeControlOptions: {
@@ -367,7 +380,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.map.data.addListener('click', (event) => {
       if (event.feature.f.cca2) {
-        let country = this.countries.find(country => country.countryCode2.toUpperCase() === event.feature.f.cca2.toUpperCase());
+        let country = this.countries.find(c => c.countryCode2.toUpperCase() === event.feature.f.cca2.toUpperCase());
         if (country) {
           this._ngZone.run(() => {
             this.countryClicked(country, event.latLng);
@@ -378,13 +391,10 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loadMaps('size_3');
   }
 
-  lastMapType: string;
-
   setupMap() {
-    if (!this.mapLoaded || this.mapType.type === this.lastMapType) {
+    if (!this.mapLoaded) {
       return;
     }
-    this.lastMapType = this.mapType.type;
 
     if (this.recommendationsSubscription) {
       this.recommendationsSubscription.unsubscribe();
@@ -476,6 +486,7 @@ export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
         this.mapLoaded = true;
         this.setupMap();
         google.maps.event.trigger(this.map, "resize");
+        this.loaderService.hideProgress();
       }
     );
   }

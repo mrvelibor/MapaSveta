@@ -106,6 +106,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   enableAdding() {
     this.mapService.setMapType(new MapType('recommendations', null, true));
-    this.alertService.success('Kliknite na mapu da dodate zanimljivost.');
   }
 }

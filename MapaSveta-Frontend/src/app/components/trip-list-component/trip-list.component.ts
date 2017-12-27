@@ -50,13 +50,26 @@ export class TripListComponent extends ListComponent implements OnInit {
     console.log(country);
   }
 
+  addTrip() {
+    let dialogRef = this.dialog.open(TripEditorDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.alertService.success('Putovanje je dodato.');
+        this.dataSource.data.push(result);
+        this.dataSource._updateChangeSubscription();
+      }
+    });
+  }
+
   editTrip(trip: Trip) {
     let dialogRef = this.dialog.open(TripEditorDialog, {
       data: trip
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.alertService.success('Putovanje je izmenjeno.');
-      Object.assign(trip, result);
+      if (result) {
+        this.alertService.success('Putovanje je izmenjeno.');
+        Object.assign(trip, result);
+      }
     });
   }
 
