@@ -51,7 +51,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<Country> findCountriesByName(String name) {
-        return countryDao.findAllByCommonNameContainingOrOfficialNameContaining(name, name);
+        return countryDao.findDistinctByCommonNameContainingOrOfficialNameContaining(name, name);
     }
 
     @Override

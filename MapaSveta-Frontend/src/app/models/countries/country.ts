@@ -10,6 +10,7 @@ export class Country {
   serbianName: string;
   countryCode2: string;
   countryCode3: string;
+  countryCode3n: string;
   visaCode: string;
   diallingCode: string;
   domain: string;

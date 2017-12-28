@@ -10,4 +10,5 @@ import java.util.List;
 public interface RecommendationDao extends JpaRepository<Recommendation, Long> {
     List<Recommendation> findAllByCreatedBy_Id(Long userId);
     List<Recommendation> findAllByAddress_Country_Id(Long countryId);
+    long countByAddress_Country_Id(Long countryId);
 }

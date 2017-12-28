@@ -1,12 +1,13 @@
 package com.mrvelibor.mapasveta.controller.rest;
 
 import com.mrvelibor.mapasveta.model.common.enums.CountryMapSize;
-import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.countries.Country;
 import com.mrvelibor.mapasveta.model.countries.CountryMap;
 import com.mrvelibor.mapasveta.model.countries.VisaRequirement;
+import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
 import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.CountryService;
+import com.mrvelibor.mapasveta.service.RecommendationService;
 import com.mrvelibor.mapasveta.service.TripService;
 import com.mrvelibor.mapasveta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class CountryRestController {
     private CountryService countryService;
 
     @Autowired
+    private RecommendationService recommendationService;
+
+    @Autowired
     private TripService tripService;
 
     @Autowired
@@ -34,6 +38,35 @@ public class CountryRestController {
     public ResponseEntity<List<Country>> getAllCountries() {
         List<Country> countries = countryService.getAllCountries();
         return ResponseEntity.ok(countries);
+    }
+
+    @GetMapping(value = "{countryId}")
+    public ResponseEntity<Country> getCountry(@PathVariable Long countryId) {
+        Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(country);
+    }
+
+    @GetMapping(value = "{countryId}/trip_count")
+    public ResponseEntity<Long> getCountryTripCount(@PathVariable Long countryId) {
+        Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Long travels = tripService.getTripCountForCountry(country);
+        return ResponseEntity.ok(travels);
+    }
+
+    @GetMapping(value = "{countryId}/recommendation_count")
+    public ResponseEntity<Long> getCountryRecommendation(@PathVariable Long countryId) {
+        Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Long travels = recommendationService.getRecommendationsCountByCountry(country);
+        return ResponseEntity.ok(travels);
     }
 
     @GetMapping(value = "visited")

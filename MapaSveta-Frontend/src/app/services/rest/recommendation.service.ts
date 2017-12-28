@@ -7,6 +7,7 @@ import {Recommendation} from "../../models/recommendations/recommendation";
 import {Country} from "../../models/countries/country";
 import {User} from "../../models/user/user";
 import {RecommendationRating} from "../../models/recommendations/recommendation-rating";
+import {RecommendationRatingCount} from "../../models/recommendations/recommendation-rating-count";
 
 @Injectable()
 export class RecommendationService extends RestService {
@@ -86,6 +87,17 @@ export class RecommendationService extends RestService {
     let options = RestService.options();
     return this.http.get(
       `${RecommendationService.HOST}/${recommendation.id}/ratings`,
+      options
+    ).map(res => res.json());
+  }
+
+  getRecommendationRatingCount(recommendation: Recommendation): Observable<RecommendationRatingCount> {
+    if (!recommendation) {
+      return;
+    }
+    let options = RestService.options();
+    return this.http.get(
+      `${RecommendationService.HOST}/${recommendation.id}/rating_count`,
       options
     ).map(res => res.json());
   }

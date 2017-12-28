@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +51,11 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<Trip> getAllTripsForCountry(Country country) {
         return tripDao.findAllByCountry_Id(country.getId());
+    }
+
+    @Override
+    public long getTripCountForCountry(Country country) {
+        return tripDao.countByCountry_Id(country.getId());
     }
 
     @Override

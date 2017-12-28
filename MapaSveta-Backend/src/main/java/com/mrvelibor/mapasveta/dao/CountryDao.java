@@ -12,5 +12,5 @@ public interface CountryDao extends JpaRepository<Country, Long> {
     Country findByCountryCode3(String countryCode3);
     Country findByVisaCode(String visaCode);
     Country findByCommonName(String name);
-    List<Country> findAllByCommonNameContainingOrOfficialNameContaining(String commonName, String officialName);
+    List<Country> findDistinctByCommonNameContainingOrOfficialNameContaining(String commonName, String officialName);
 }

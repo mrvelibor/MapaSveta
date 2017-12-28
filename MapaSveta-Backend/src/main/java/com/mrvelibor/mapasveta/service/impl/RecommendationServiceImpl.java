@@ -5,6 +5,7 @@ import com.mrvelibor.mapasveta.dao.RecommendationRatingDao;
 import com.mrvelibor.mapasveta.model.countries.Country;
 import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
 import com.mrvelibor.mapasveta.model.recommendations.RecommendationRating;
+import com.mrvelibor.mapasveta.model.recommendations.RecommendationRatingCount;
 import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public Recommendation createRecommendation(Recommendation recommendation) {
-        return recommendationDao.save(recommendation);
+        recommendation = recommendationDao.save(recommendation);
+        rateRecommendation(recommendation, recommendation.getCreatedBy(), 1);
+        return recommendation;
     }
 
     @Override
@@ -52,6 +55,11 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
+    public long getRecommendationsCountByCountry(Country country) {
+        return recommendationDao.countByAddress_Country_Id(country.getId());
+    }
+
+    @Override
     public RecommendationRating rateRecommendation(Recommendation recommendation, User user, int rating) {
         recommendation = recommendationDao.findOne(recommendation.getId());
         RecommendationRating recommendationRating = new RecommendationRating();
@@ -64,6 +72,13 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Override
     public List<RecommendationRating> getAllRatingsForRecommendation(Recommendation recommendation) {
         return recommendationRatingDao.findAllByRecommendation_Id(recommendation.getId());
+    }
+
+    @Override
+    public RecommendationRatingCount getRecommendationRatingCount(Recommendation recommendation) {
+        long upvotes = recommendationRatingDao.countByRecommendation_IdAndRating(recommendation.getId(), 1);
+        long downvotes = recommendationRatingDao.countByRecommendation_IdAndRating(recommendation.getId(), -1);
+        return new RecommendationRatingCount(recommendation, upvotes, downvotes);
     }
 
     @Override

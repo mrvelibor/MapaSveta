@@ -4,6 +4,7 @@ import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.countries.Country;
 import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
 import com.mrvelibor.mapasveta.model.recommendations.RecommendationRating;
+import com.mrvelibor.mapasveta.model.recommendations.RecommendationRatingCount;
 import com.mrvelibor.mapasveta.model.user.User;
 import com.mrvelibor.mapasveta.service.CountryService;
 import com.mrvelibor.mapasveta.service.RecommendationService;
@@ -46,6 +47,9 @@ public class RecommendationRestController {
     @PostMapping(value = "")
     public ResponseEntity<Recommendation> createRecommendation(@RequestBody Recommendation recommendation, Principal principal) {
         User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         recommendation.setCreatedBy(currentUser);
         recommendation = recommendationService.createRecommendation(recommendation);
         return ResponseEntity.ok(recommendation);
@@ -68,6 +72,9 @@ public class RecommendationRestController {
     @GetMapping(value = "by_user/{userId}")
     public ResponseEntity<List<Recommendation>> getAllRecommendationsByUser(@PathVariable Long userId) {
         User user = userService.getUser(userId);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<Recommendation> recommendations = recommendationService.getAllRecommendationsByUser(user);
         return ResponseEntity.ok(recommendations);
     }
@@ -75,6 +82,9 @@ public class RecommendationRestController {
     @GetMapping(value = "by_country/{countryId}")
     public ResponseEntity<List<Recommendation>> getAllRecommendationsByCountry(@PathVariable Long countryId) {
         Country country = countryService.getCountry(countryId);
+        if (country == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<Recommendation> recommendations =  recommendationService.getAllRecommendationsByCountry(country);
         return ResponseEntity.ok(recommendations);
     }
@@ -82,8 +92,21 @@ public class RecommendationRestController {
     @GetMapping(value = "{recommendationId}/ratings")
     public ResponseEntity<List<RecommendationRating>> getAllRecommendationRatings(@PathVariable Long recommendationId) {
         Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
+        if (recommendation == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<RecommendationRating> ratings =  recommendationService.getAllRatingsForRecommendation(recommendation);
         return ResponseEntity.ok(ratings);
+    }
+
+    @GetMapping(value = "{recommendationId}/rating_count")
+    public ResponseEntity<RecommendationRatingCount> getRecommendationRatingCount(@PathVariable Long recommendationId) {
+        Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
+        if (recommendation == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        RecommendationRatingCount ratingCount = recommendationService.getRecommendationRatingCount(recommendation);
+        return ResponseEntity.ok(ratingCount);
     }
 
     @GetMapping(value = "{recommendationId}/rating")
@@ -111,8 +134,14 @@ public class RecommendationRestController {
     }
 
     private ResponseEntity<RecommendationRating> rateRecommendation(Long recommendationId, Principal principal, int rating) {
-        Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
         User currentUser = userService.loadUserByUsername(principal.getName());
+        if (currentUser == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        Recommendation recommendation = recommendationService.getRecommendation(recommendationId);
+        if (recommendation == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         RecommendationRating recommendationRating = recommendationService.rateRecommendation(recommendation, currentUser, rating);
         return ResponseEntity.ok(recommendationRating);
     }

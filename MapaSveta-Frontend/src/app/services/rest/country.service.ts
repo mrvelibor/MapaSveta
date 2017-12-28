@@ -33,6 +33,30 @@ export class CountryService extends RestService {
     ).map(res => res.json());
   }
 
+  getCountry(countryId: number): Observable<Country> {
+    let options = RestService.options();
+    return this.http.get(
+      `${CountryService.HOST}/${countryId}`,
+      options
+    ).map(res => res.json());
+  }
+
+  getCountryTripCount(countryId: number): Observable<number> {
+    let options = RestService.options();
+    return this.http.get(
+      `${CountryService.HOST}/${countryId}/trip_count`,
+      options
+    ).map(res => res.json());
+  }
+
+  getCountryRecommendationCount(countryId: number): Observable<number> {
+    let options = RestService.options();
+    return this.http.get(
+      `${CountryService.HOST}/${countryId}/recommendation_count`,
+      options
+    ).map(res => res.json());
+  }
+
   getVisitedCountries(): Observable<Country[]> {
     let options = RestService.options();
     return this.http.get(

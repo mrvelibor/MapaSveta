@@ -30,6 +30,9 @@ public class Country {
     private String countryCode3;
 
     @Column(unique = true)
+    private String countryCode3n;
+
+    @Column(unique = true)
     private String visaCode;
 
     private String diallingCode;
@@ -105,6 +108,14 @@ public class Country {
 
     public void setCountryCode3(String countryCode3) {
         this.countryCode3 = countryCode3;
+    }
+
+    public String getCountryCode3n() {
+        return countryCode3n;
+    }
+
+    public void setCountryCode3n(String countryCode3n) {
+        this.countryCode3n = countryCode3n;
     }
 
     public String getVisaCode() {

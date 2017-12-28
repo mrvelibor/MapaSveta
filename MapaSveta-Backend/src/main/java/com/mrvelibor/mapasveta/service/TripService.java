@@ -14,6 +14,7 @@ public interface TripService {
     boolean deleteTrip(Trip trip);
     List<Trip> getAllTripsForUser(User user);
     List<Trip> getAllTripsForCountry(Country country);
+    long getTripCountForCountry(Country country);
     Set<Country> getVisitedCountries(User user);
     Set<Country> getWishlistCountries(User user);
     boolean isCountryInWishlist(Country country, User user);
