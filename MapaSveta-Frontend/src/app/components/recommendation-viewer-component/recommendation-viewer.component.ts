@@ -6,6 +6,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {Subscription} from "rxjs/Subscription";
 import {User} from "../../models/user/user";
 import {AuthenticationService} from "../../services/rest/authentication.service";
+import {RecommendationRatingCount} from "../../models/recommendations/recommendation-rating-count";
 
 @Component({
   selector: 'app-recommendation-viewer',
@@ -24,13 +25,13 @@ export class RecommendationViewerComponent implements OnInit, OnDestroy {
   set recommendation(value: Recommendation) {
     this._recommendation = value;
     this.rating = 0;
-    if (this.currentUser) {
-      this.recommendationService.getRating(this.recommendation).subscribe(result => {
-        if (result) {
-          this.rating = result.rating;
-        };
-      });
-    }
+    this.ratingCount = new RecommendationRatingCount();
+    this.recommendationService.getRecommendationRatingCount(this.recommendation).subscribe(result => {
+      if (result) {
+        this.ratingCount = result;
+      };
+    });
+    this.loadRecommendationRating();
   }
 
   get recommendation() {
@@ -38,22 +39,38 @@ export class RecommendationViewerComponent implements OnInit, OnDestroy {
   }
 
   rating: number;
+  ratingCount: RecommendationRatingCount;
 
   constructor(private authService: AuthenticationService,
               private recommendationService: RecommendationService) {
   }
 
   ngOnInit() {
-    this.userSubscription = this.authService.user$.subscribe(user => this.currentUser = user);
+    this.userSubscription = this.authService.user$.subscribe(user => {
+      this.currentUser = user;
+      this.loadRecommendationRating();
+    });
   }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
 
+  loadRecommendationRating() {
+    if (this.currentUser) {
+      this.recommendationService.getRating(this.recommendation).subscribe(result => {
+        console.log(result);
+        if (result) {
+          this.rating = result.rating;
+        };
+      });
+    }
+  }
+
   upvoteRecommendation() {
     this.recommendationService.upvoteRecommendation(this.recommendation).subscribe(result => {
       if (result) {
+        this.ratingCount.upvotes += result.rating - this.rating;
         this.rating = result.rating;
       };
     });
@@ -62,6 +79,7 @@ export class RecommendationViewerComponent implements OnInit, OnDestroy {
   downvoteRecommendation() {
     this.recommendationService.downvoteRecommendation(this.recommendation).subscribe(result => {
       if (result) {
+        this.ratingCount.downvotes += -result.rating - this.rating;
         this.rating = result.rating;
       };
     });
