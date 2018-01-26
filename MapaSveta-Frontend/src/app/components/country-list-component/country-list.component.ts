@@ -16,7 +16,7 @@ export class CountryListComponent extends ListComponent implements OnInit, OnDes
 
   countriesSubscription: Subscription;
 
-  displayedColumns = ['flag', 'serbianName', 'officialName', 'capital', 'diallingCode', 'domain', 'languages'];
+  displayedColumns = ['flag', 'serbianName', 'officialName', 'capital', 'diallingCode', 'domain', 'languages', 'visitorCount', 'wishListCount', 'recommendationCount'];
 
   dataSource = new MatTableDataSource<Country>([]);
 

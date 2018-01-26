@@ -1,6 +1,7 @@
 package com.mrvelibor.mapasveta;
 
 import com.mrvelibor.mapasveta.dao.CityDao;
+import com.mrvelibor.mapasveta.dao.CountryDao;
 import com.mrvelibor.mapasveta.model.common.Address;
 import com.mrvelibor.mapasveta.model.common.LatLng;
 import com.mrvelibor.mapasveta.model.common.enums.UserType;
@@ -54,6 +55,9 @@ public class MapasvetaInit {
 
     @Autowired
     private RecommendationService recommendationService;
+
+    @Autowired
+    private CountryDao countryDao;
 
     @Autowired
     private CityDao cityDao;
@@ -435,10 +439,11 @@ public class MapasvetaInit {
     }
 
     private void updateCountries() {
-        for (Country country : countryService.getAllCountries()) {
+        for (Country country : countryDao.findAll()) {
             country.setVisitorCount(tripService.getTripCountForCountry(country));
             country.setWishListCount(tripService.getWishlistCountForCountry(country));
             country.setRecommendationCount(recommendationService.getRecommendationsCountByCountry(country));
+            countryDao.save(country);
         }
     }
 }

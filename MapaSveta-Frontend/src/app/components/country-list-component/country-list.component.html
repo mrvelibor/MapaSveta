@@ -55,6 +55,27 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="visitorCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Posetioca </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small">
+        {{element.visitorCount}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="wishListCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Želja </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small">
+        {{element.wishListCount}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="recommendationCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-small"> Zanimljivosti </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-small">
+        {{element.recommendationCount}}
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewCountry(row)"></mat-row>
   </mat-table>
