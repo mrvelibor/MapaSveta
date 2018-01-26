@@ -44,6 +44,12 @@ public class Country {
 
     private String wikipediaUrl;
 
+    private long visitorCount;
+
+    private long wishListCount;
+
+    private long recommendationCount;
+
     @ManyToMany
     private List<Currency> currencies;
 
@@ -156,6 +162,30 @@ public class Country {
 
     public void setWikipediaUrl(String wikipediaUrl) {
         this.wikipediaUrl = wikipediaUrl;
+    }
+
+    public long getVisitorCount() {
+        return visitorCount;
+    }
+
+    public void setVisitorCount(long visitorCount) {
+        this.visitorCount = visitorCount;
+    }
+
+    public long getWishListCount() {
+        return wishListCount;
+    }
+
+    public void setWishListCount(long wishListCount) {
+        this.wishListCount = wishListCount;
+    }
+
+    public long getRecommendationCount() {
+        return recommendationCount;
+    }
+
+    public void setRecommendationCount(long recommendationCount) {
+        this.recommendationCount = recommendationCount;
     }
 
     public List<Currency> getCurrencies() {

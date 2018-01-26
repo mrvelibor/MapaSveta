@@ -10,5 +10,6 @@ import java.util.List;
 public interface CountryWishDao extends JpaRepository<CountryWish, Long> {
     List<CountryWish> findAllByUser_Id(Long userId);
     List<CountryWish> findAllByCountry_Id(Long countryId);
+    long countByCountry_Id(Long countryId);
     CountryWish findByUser_IdAndCountry_Id(Long userId, Long countryId);
 }

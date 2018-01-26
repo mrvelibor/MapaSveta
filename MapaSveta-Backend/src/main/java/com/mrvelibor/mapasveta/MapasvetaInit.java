@@ -62,14 +62,14 @@ public class MapasvetaInit {
     public void init() throws Exception {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (!"create".equals(ddlAuto) && !"create-drop".equals(ddlAuto)) {
-            return;
+        if ("create".equals(ddlAuto) || "create-drop".equals(ddlAuto)) {
+            mongoTemplate.getDb().dropDatabase();
+            countryLoaderService.loadCountries();
+            createCities();
+            createTestUsers();
+        } else if ("update".equals(ddlAuto)) {
+            updateCountries();
         }
-
-        mongoTemplate.getDb().dropDatabase();
-        countryLoaderService.loadCountries();
-        createCities();
-        createTestUsers();
     }
 
     private void createCities() {
@@ -432,5 +432,13 @@ public class MapasvetaInit {
         user.setType(UserType.traveller);
         user = userService.createUser(user);
         LOG.info("Saved: " + user);
+    }
+
+    private void updateCountries() {
+        for (Country country : countryService.getAllCountries()) {
+            country.setVisitorCount(tripService.getTripCountForCountry(country));
+            country.setWishListCount(tripService.getWishlistCountForCountry(country));
+            country.setRecommendationCount(recommendationService.getRecommendationsCountByCountry(country));
+        }
     }
 }

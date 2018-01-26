@@ -1,5 +1,6 @@
 package com.mrvelibor.mapasveta.service.impl;
 
+import com.mrvelibor.mapasveta.dao.CountryDao;
 import com.mrvelibor.mapasveta.dao.RecommendationDao;
 import com.mrvelibor.mapasveta.dao.RecommendationRatingDao;
 import com.mrvelibor.mapasveta.model.countries.Country;
@@ -21,9 +22,15 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Autowired
     private RecommendationRatingDao recommendationRatingDao;
 
+    @Autowired
+    private CountryDao countryDao;
+
     @Override
     public Recommendation createRecommendation(Recommendation recommendation) {
         recommendation = recommendationDao.save(recommendation);
+        Country country = countryDao.findOne(recommendation.getAddress().getCountry().getId());
+        country.setRecommendationCount(country.getRecommendationCount() + 1);
+        countryDao.save(country);
         rateRecommendation(recommendation, recommendation.getCreatedBy(), 1);
         return recommendation;
     }
@@ -35,6 +42,9 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public boolean deleteRecommendation(Recommendation recommendation) {
+        Country country = countryDao.findOne(recommendation.getAddress().getCountry().getId());
+        country.setRecommendationCount(country.getRecommendationCount() + 1);
+        countryDao.save(country);
         recommendationDao.delete(recommendation.getId());
         return true;
     }

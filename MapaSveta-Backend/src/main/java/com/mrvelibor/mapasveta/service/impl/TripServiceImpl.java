@@ -1,5 +1,6 @@
 package com.mrvelibor.mapasveta.service.impl;
 
+import com.mrvelibor.mapasveta.dao.CountryDao;
 import com.mrvelibor.mapasveta.dao.CountryWishDao;
 import com.mrvelibor.mapasveta.dao.TripDao;
 import com.mrvelibor.mapasveta.model.countries.Country;
@@ -22,9 +23,16 @@ public class TripServiceImpl implements TripService {
     @Autowired
     private CountryWishDao countryWishDao;
 
+    @Autowired
+    private CountryDao countryDao;
+
     @Override
     public Trip createTrip(Trip trip) {
-        return tripDao.save(trip);
+        trip = tripDao.save(trip);
+        Country country = countryDao.findOne(trip.getCountry().getId());
+        country.setVisitorCount(country.getVisitorCount() + 1);
+        countryDao.save(country);
+        return trip;
     }
 
     @Override
@@ -39,6 +47,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public boolean deleteTrip(Trip trip) {
+        Country country = countryDao.findOne(trip.getCountry().getId());
+        country.setVisitorCount(country.getVisitorCount() + 1);
+        countryDao.save(country);
         tripDao.delete(trip.getId());
         return true;
     }
@@ -56,6 +67,11 @@ public class TripServiceImpl implements TripService {
     @Override
     public long getTripCountForCountry(Country country) {
         return tripDao.countByCountry_Id(country.getId());
+    }
+
+    @Override
+    public long getWishlistCountForCountry(Country country) {
+        return countryWishDao.countByCountry_Id(country.getId());
     }
 
     @Override
@@ -82,6 +98,8 @@ public class TripServiceImpl implements TripService {
             countryWish.setCountry(country);
             countryWish.setUser(user);
             countryWishDao.save(countryWish);
+            country.setWishListCount(country.getWishListCount() + 1);
+            countryDao.save(country);
             return true;
         } catch (Exception ex) {
             return false;
@@ -94,6 +112,8 @@ public class TripServiceImpl implements TripService {
             CountryWish countryWish = countryWishDao.findByUser_IdAndCountry_Id(user.getId(), country.getId());
             if (countryWish != null) {
                 countryWishDao.delete(countryWish);
+                country.setWishListCount(country.getWishListCount() - 1);
+                countryDao.save(country);
             }
             return true;
         } catch (Exception ex) {

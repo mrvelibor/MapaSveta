@@ -16,6 +16,9 @@ export class Country {
   domain: string;
   capital: City;
   wikipediaUrl: string;
+  visitorCount: number;
+  wishListCount: number;
+  recommendationCount: number;
   currencies: Currency[];
   languages: Language[];
   flagUrl: string;
