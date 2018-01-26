@@ -445,5 +445,10 @@ public class MapasvetaInit {
             country.setRecommendationCount(recommendationService.getRecommendationsCountByCountry(country));
             countryDao.save(country);
         }
+        Country srbija = countryDao.findByCommonName("Kosovo");
+        for (Trip trip : tripService.getAllTripsForCountry(srbija)) {
+            tripService.deleteTrip(trip);
+        }
+        countryDao.delete(srbija);
     }
 }
