@@ -18,6 +18,7 @@ public class CountryWish {
 
     @ManyToOne
     private User user;
+
     public Long getId() {
         return id;
     }

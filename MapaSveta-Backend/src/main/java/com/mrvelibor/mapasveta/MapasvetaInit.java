@@ -439,16 +439,18 @@ public class MapasvetaInit {
     }
 
     private void updateCountries() {
+        Country srbija = countryDao.findByCommonName("Kosovo");
+        if (srbija != null) {
+            for (Trip trip : tripService.getAllTripsForCountry(srbija)) {
+                tripService.deleteTrip(trip);
+            }
+            countryDao.delete(srbija);
+        }
         for (Country country : countryDao.findAll()) {
             country.setVisitorCount(tripService.getTripCountForCountry(country));
             country.setWishListCount(tripService.getWishlistCountForCountry(country));
             country.setRecommendationCount(recommendationService.getRecommendationsCountByCountry(country));
             countryDao.save(country);
         }
-        Country srbija = countryDao.findByCommonName("Kosovo");
-        for (Trip trip : tripService.getAllTripsForCountry(srbija)) {
-            tripService.deleteTrip(trip);
-        }
-        countryDao.delete(srbija);
     }
 }

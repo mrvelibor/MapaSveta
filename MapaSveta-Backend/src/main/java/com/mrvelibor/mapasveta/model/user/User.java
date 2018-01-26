@@ -6,6 +6,10 @@ import com.mrvelibor.mapasveta.model.common.Language;
 import com.mrvelibor.mapasveta.model.common.enums.Gender;
 import com.mrvelibor.mapasveta.model.common.enums.UserType;
 import com.mrvelibor.mapasveta.model.countries.Country;
+import com.mrvelibor.mapasveta.model.recommendations.Recommendation;
+import com.mrvelibor.mapasveta.model.recommendations.RecommendationRating;
+import com.mrvelibor.mapasveta.model.trips.CountryWish;
+import com.mrvelibor.mapasveta.model.trips.Trip;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +19,7 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User implements UserDetails {
@@ -64,6 +69,18 @@ public class User implements UserDetails {
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Trip> trips;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<CountryWish> wishList;
+
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Recommendation> recommendations;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<RecommendationRating> recommendationRatings;
 
     public Long getId() {
         return id;

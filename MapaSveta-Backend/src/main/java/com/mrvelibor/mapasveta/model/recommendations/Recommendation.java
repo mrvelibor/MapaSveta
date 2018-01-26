@@ -5,6 +5,7 @@ import com.mrvelibor.mapasveta.model.common.LatLng;
 import com.mrvelibor.mapasveta.model.user.User;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recommendation {
@@ -28,6 +29,9 @@ public class Recommendation {
 
     @ManyToOne
     private User createdBy;
+
+    @OneToMany(mappedBy = "recommendation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<RecommendationRating> recommendationRatings;
 
     public Long getId() {
         return id;
