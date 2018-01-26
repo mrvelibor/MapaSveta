@@ -48,6 +48,26 @@
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
+          <mat-panel-title> <mat-icon mat-list-icon>account_box</mat-icon> </mat-panel-title>
+          <mat-panel-description> Korisnici </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>
+            <h4 mat-line> {{country.visitorCount}} </h4>
+            <p mat-line> Broj poseta </p>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line> {{country.wishListCount}} </h4>
+            <p mat-line> U listi želja </p>
+          </mat-list-item>
+          <mat-list-item>
+            <h4 mat-line> {{country.recommendationCount}} </h4>
+            <p mat-line> Broj zanimljivosti </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
           <mat-panel-title> <mat-icon mat-list-icon>info</mat-icon> </mat-panel-title>
           <mat-panel-description> Ostali podaci </mat-panel-description>
         </mat-expansion-panel-header>
